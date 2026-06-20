@@ -1,0 +1,11 @@
+{
+	// base tsconfig for browser targets
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": "./tsconfig.base.json",
+	"compilerOptions": {
+		"lib": ["esnext", "dom", "dom.iterable", "dom.asynciterable"],
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"types": []
+	}
+}

@@ -1,0 +1,42 @@
+name: Get app properties
+description: Read application properties at path
+
+inputs:
+  app_path:
+    description: Path to app folder
+    required: true
+
+outputs:
+  product_name:
+    description: Product name
+    value: ${{ steps.read.outputs.product_name }}
+  version:
+    description: Version
+    value: ${{ steps.read.outputs.version }}
+
+runs:
+  using: composite
+  # https://gist.github.com/DarrenN/8c6a5b969481725a4413?permalink_comment_id=4167453#gistcomment-4167453
+  steps:
+    - name: Read app properties
+      id: read
+      shell: bash
+      run: |
+        product_name=$(awk -F'"' '/productName: ".+"/{ print $2; exit; }' ${{ inputs.app_path }}/electron-builder.config.ts)
+        version=$(awk -F'"' '/"version": ".+"/{ print $4; exit; }' ${{ inputs.app_path }}/package.json)
+
+        {
+          echo "product_name=$product_name"
+          echo "version=$version"
+        } >> $GITHUB_OUTPUT
+
+    - name: Print summary
+      shell: bash
+      run: |
+        {
+          echo "### App properties: ${{ inputs.app_path }}"
+          echo "| Prop | Value |"
+          echo "| ---- | ----- |"
+          echo "| product_name | ${{ steps.read.outputs.product_name }} |"
+          echo "| version | ${{ steps.read.outputs.version }} |"
+        } >> $GITHUB_STEP_SUMMARY

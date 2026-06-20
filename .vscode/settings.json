@@ -1,0 +1,35 @@
+{
+	"editor.formatOnSave": true,
+	"editor.rulers": [80],
+	"editor.codeActionsOnSave": { "source.fixAll.oxc": "always" },
+	"editor.quickSuggestions": { "strings": true },
+
+	"files.watcherExclude": {
+		"**/node_modules": true,
+		"**/dist/": true,
+		"**/out/": true,
+		"**/reports/": true
+	},
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/dist/": true,
+		"**/out/": true,
+		"**/reports/": true
+	},
+
+	"js/ts.experimental.useTsgo": true,
+
+	"oxc.enable": true,
+
+	"files.associations": { "*.css": "tailwindcss" },
+	"tailwindCSS.validate": true,
+	"tailwindCSS.classFunctions": ["twJoin", "twMerge", "tv"],
+	"tailwindCSS.experimental.configFile": {
+		"packages/design-system/index.css": "packages/design-system/components/**",
+		"apps/app-ui/src/index.css": "apps/app-ui/src/**",
+		"apps/app-electron/src/renderer/index.css": "apps/app-electron/src/renderer/**"
+	},
+
+	"editor.defaultFormatter": "oxc.oxc-vscode",
+	"[css]": { "tailwindCSS.validate": true }
+}

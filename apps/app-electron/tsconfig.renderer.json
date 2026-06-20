@@ -1,0 +1,21 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"include": [
+		"./src/common",
+		"./src/renderer",
+		"./src/vitest.renderer.setup.ts"
+	],
+	"extends": "code-config/tsconfig.browser.json",
+	"compilerOptions": {
+		"composite": true,
+		"emitDeclarationOnly": true,
+		"jsx": "react-jsx",
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"paths": {
+			"~/common/*": ["./src/common/*"],
+			"~/renderer/*": ["./src/renderer/*"]
+		},
+		"types": ["vite/client"]
+	}
+}

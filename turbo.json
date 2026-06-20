@@ -1,0 +1,9 @@
+{
+	"$schema": "./node_modules/turbo/schema.json",
+	"tasks": {
+		"lint": {},
+		"dev": { "persistent": true }
+	},
+	"globalDependencies": [".env", ".env.*"],
+	"globalPassThroughEnv": []
+}

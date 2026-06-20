@@ -1,0 +1,10 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"include": [],
+	"references": [
+		{ "path": "./tsconfig.node.json" },
+		{ "path": "./tsconfig.common.json" },
+		{ "path": "./tsconfig.node-lib.json" },
+		{ "path": "./tsconfig.browser.json" }
+	]
+}

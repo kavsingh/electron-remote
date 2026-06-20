@@ -1,0 +1,44 @@
+{
+	"name": "electron-remote",
+	"version": "0.0.0",
+	"private": true,
+	"description": "electron remote monorepo setup",
+	"keywords": [],
+	"license": "MIT",
+	"author": "<author>",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:kavsingh/electron-remote"
+	},
+	"type": "module",
+	"scripts": {
+		"dev": "conc 'docker compose up --watch app-ui' 'wait-on tcp:5321 && pnpm turbo run dev --filter app-electron'",
+		"lint": "turbo run lint",
+		"clean:turbo": "rimraf ./**/.turbo --glob",
+		"clean:modules": "rimraf ./**/node_modules --glob"
+	},
+	"devDependencies": {
+		"@eslint/core": "1.2.1",
+		"@tsconfig/node24": "24.0.4",
+		"@tsconfig/strictest": "2.0.8",
+		"@types/node": "24.13.2",
+		"@types/wait-on": "5.3.4",
+		"@typescript/native-preview": "7.0.0-dev.20260617.2",
+		"code-config": "workspace:*",
+		"concurrently": "10.0.3",
+		"cross-env": "10.1.0",
+		"dotenv": "17.4.2",
+		"lefthook": "2.1.9",
+		"oxfmt": "catalog:",
+		"oxlint": "catalog:",
+		"oxlint-tsgolint": "catalog:",
+		"rimraf": "6.1.3",
+		"turbo": "2.9.18",
+		"typescript": "npm:@typescript/typescript6@^6.0.1",
+		"wait-on": "9.0.10"
+	},
+	"engines": {
+		"node": ">=24"
+	},
+	"packageManager": "pnpm@11.7.0+sha512.19cc852c120c7125760f2443ee6be0ca5b40f9f50598de1a09a1f177503e010e57c23c77646e01e761de59bf874fb22a3398c33ab9691fc13eb946b6f0f4d620"
+}

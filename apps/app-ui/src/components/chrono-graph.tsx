@@ -1,0 +1,145 @@
+// @TODO: refactor
+// oxlint-disable react-hooks-js/set-state-in-effect
+// oxlint-disable react-hooks-js/immutability
+// oxlint-disable react-hooks-js/refs
+
+import { tryOr } from "app-shared/common/error.ts";
+import { normalizeBigint } from "app-shared/common/number.ts";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
+
+import { useResizeObserver } from "~/hooks/dom";
+
+interface Sample {
+	value: bigint;
+}
+
+function normalizeValues(
+	samples: Sample[],
+	min: bigint,
+	max: bigint,
+): number[] {
+	return samples.map(({ value }) => {
+		return tryOr(() => normalizeBigint(value, min, max), 0.5);
+	});
+}
+
+function drawGraph(canvas: HTMLCanvasElement, normalized: number[]) {
+	const ctx = canvas.getContext("2d");
+
+	if (!ctx) return;
+
+	const width = canvas.clientWidth;
+	const height = canvas.clientHeight;
+	const scale = devicePixelRatio;
+	const canvasStyles = getComputedStyle(canvas);
+	const step = width / Math.max(normalized.length - 1, 1);
+	const getY = (val: number) => (1 - val) * height;
+	const gutter = 2;
+
+	canvas.width = width * scale;
+	canvas.height = height * scale;
+
+	ctx.scale(scale, scale);
+	ctx.clearRect(0, 0, width, height);
+
+	ctx.strokeStyle = canvasStyles.color;
+	ctx.fillStyle = canvasStyles.borderColor;
+
+	ctx.beginPath();
+	ctx.moveTo(-gutter, height + gutter);
+	ctx.lineTo(-gutter, getY(normalized[0] ?? 1));
+
+	for (let i = 0; i < normalized.length; i++) {
+		ctx.lineTo(i * step, getY(normalized[i] ?? 0.5));
+	}
+
+	ctx.lineTo(width + gutter, getY(normalized.at(-1) ?? 0.5));
+	ctx.lineTo(width + gutter, height + gutter);
+	ctx.lineTo(width + gutter, height + gutter);
+	ctx.moveTo(-gutter, height + gutter);
+	ctx.closePath();
+
+	ctx.stroke();
+	ctx.fill();
+}
+
+function ChronoGraph(props: {
+	sampleSource: Sample | undefined;
+	minValue?: bigint | undefined;
+	maxValue?: bigint | undefined;
+	maxSamples?: number | undefined;
+	className?: string | undefined;
+}) {
+	const schemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+	const observeResize = useResizeObserver();
+	let unobserveResize: ReturnType<typeof observeResize> | undefined;
+	const canvasRef = useRef<HTMLCanvasElement | null>(null);
+	const rollingMin = useRef(0n);
+	const rollingMax = useRef(0n);
+
+	const [samples, setSamples] = useState<Sample[]>([]);
+	const normalizedValues = normalizeValues(
+		samples,
+		props.minValue ?? rollingMin.current,
+		props.maxValue ?? rollingMax.current,
+	);
+
+	useEffect(() => {
+		const sample = props.sampleSource;
+
+		if (!sample) return;
+
+		if (sample.value < rollingMin.current) {
+			rollingMin.current = sample.value;
+		} else if (sample.value > rollingMax.current) {
+			rollingMax.current = sample.value;
+		}
+
+		const maxSamples = props.maxSamples ?? 20;
+
+		setSamples((current) => {
+			return current
+				.slice(Math.max(current.length - (maxSamples - 1), 0))
+				.concat(sample);
+		});
+	}, [props.maxSamples, props.sampleSource]);
+
+	const redraw = useCallback(() => {
+		if (canvasRef.current) drawGraph(canvasRef.current, normalizedValues);
+	}, [normalizedValues]);
+
+	useEffect(() => {
+		redraw();
+	}, [redraw]);
+
+	useEffect(() => {
+		schemeQuery.addEventListener("change", redraw);
+
+		return function cleanup() {
+			schemeQuery.removeEventListener("change", redraw);
+			unobserveResize?.();
+		};
+	}, [redraw, schemeQuery, unobserveResize]);
+
+	return (
+		<canvas
+			className={twMerge(
+				"border-muted/60 bg-muted/30 text-accent-foreground block-full inline-full",
+				props.className,
+			)}
+			// oxlint-disable-next-line react-hooks-js/immutability
+			ref={(el) => {
+				if (!el) return;
+
+				canvasRef.current = el;
+
+				unobserveResize?.();
+				unobserveResize = observeResize(canvasRef.current, redraw);
+			}}
+		/>
+	);
+}
+
+export { ChronoGraph };
+export type { Sample };

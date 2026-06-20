@@ -1,0 +1,14 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"include": [
+		"./src/common",
+		"../../packages/app-shared/common/system.ts",
+		"../../packages/app-shared/common/theme.ts"
+	],
+	"extends": "code-config/tsconfig.iso.json",
+	"compilerOptions": {
+		"composite": true,
+		"emitDeclarationOnly": true,
+		"paths": { "~/common/*": ["./src/common/*"] }
+	}
+}

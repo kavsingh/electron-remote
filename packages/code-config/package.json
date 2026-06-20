@@ -1,0 +1,12 @@
+{
+	"name": "code-config",
+	"version": "0.0.0",
+	"description": "shared code configs",
+	"license": "MIT",
+	"type": "module",
+	"peerDependencies": {
+		"eslint-plugin-better-tailwindcss": "catalog:",
+		"eslint-plugin-react-hooks": "catalog:",
+		"oxlint": "catalog:"
+	}
+}

@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@import "./theme.css";
+
+@custom-variant dark (&:is(.dark *));
+
+body {
+	@apply bg-background;
+}
+
+#app-root {
+	@apply h-screen w-screen;
+}

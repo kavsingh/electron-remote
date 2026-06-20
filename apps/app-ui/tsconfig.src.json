@@ -1,0 +1,12 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"include": ["src"],
+	"extends": "code-config/tsconfig.browser.json",
+	"compilerOptions": {
+		"composite": true,
+		"emitDeclarationOnly": true,
+		"jsx": "react-jsx",
+		"paths": { "~/*": ["./src/*"] },
+		"types": ["vite/client"]
+	}
+}

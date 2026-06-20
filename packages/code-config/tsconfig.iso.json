@@ -1,0 +1,10 @@
+{
+	// base tsconfig for isomorphic targets
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": "./tsconfig.base.json",
+	"compilerOptions": {
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
+		"types": []
+	}
+}

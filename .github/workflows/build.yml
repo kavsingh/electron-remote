@@ -1,0 +1,47 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-lint:
+    name: Test and lint
+    uses: ./.github/workflows/test-lint.yml
+    secrets: inherit
+
+  build:
+    name: Build
+    needs: test-lint
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: ./.github/actions/setup
+
+      - uses: ./.github/actions/get-app-properties
+        id: get-app-properties
+        with:
+          app_path: apps/app
+
+      - name: Build
+        run: pnpm build:${{ matrix.os == 'windows-latest' && 'win' || 'mac' }}
+
+      - name: Upload artifact
+        if: ${{ success() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.get-app-properties.outputs.product_name }}_${{ steps.get-app-properties.outputs.version }}_${{ matrix.os == 'windows-latest' && 'windows' || 'macos' }}
+          path: |
+            apps/app/dist
+            !apps/app/dist/mac-universal
+            !apps/app/dist/win-unpacked
+          if-no-files-found: error
+          overwrite: true

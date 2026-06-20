@@ -1,0 +1,40 @@
+services:
+  app-ui:
+    build:
+      dockerfile: ./apps/app-ui/Dockerfile
+      context: .
+      target: ui-dev
+    command: pnpm turbo dev --filter app-ui
+    ports:
+      - "5321:5321"
+    develop:
+      watch:
+        - action: sync
+          path: ./apps/app-ui/src
+          target: /monorepo/apps/app-ui/src
+        - action: sync
+          path: ./apps/app-ui/public
+          target: /monorepo/apps/app-ui/public
+        - action: rebuild
+          path: ./apps/app-ui/package.json
+          target: /monorepo/apps/app-ui/package.json
+
+        - action: sync
+          path: ./packages/app-shared
+          target: /monorepo/packages/app-shared
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./packages/app-shared/package.json
+          target: /monorepo/packages/app-shared/package.json
+    profiles:
+      - dev
+
+  app-ui-prod:
+    build:
+      context: .
+      target: ui-prod
+    ports:
+      - "5321:80"
+    profiles:
+      - prod

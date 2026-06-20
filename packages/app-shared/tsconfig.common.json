@@ -1,0 +1,6 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"include": ["common"],
+	"extends": "code-config/tsconfig.iso.json",
+	"compilerOptions": { "composite": true, "emitDeclarationOnly": true }
+}

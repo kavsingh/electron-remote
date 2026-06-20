@@ -1,33 +1,35 @@
 // oxlint-disable typescript/no-unsafe-type-assertion
 
-import { eventMap, invokeMap } from "#common/ipc-schema.ts";
-import { keysof } from "#common/object.ts";
+import { eventMap, invokeMap } from "./ipc-schema.ts";
+import { prefixChannel } from "./ipc.ts";
+import { keysof } from "./object.ts";
 
-import type {
-	EventSubscriber,
-	EventSubscriptionMap,
-	IpcBridge,
-} from "#common/ipc.ts";
 import type { InvokeMap } from "./ipc-schema.ts";
+import type { EventSubscriber, EventSubscriptionMap, IpcApi } from "./ipc.ts";
 import type { IpcRenderer } from "electron";
 
-function createIpcBridge(ipcRenderer: IpcRenderer): IpcBridge {
+function createIpcBridge(ipcRenderer: IpcRenderer): IpcApi {
 	const invoke = {} as InvokeMap;
 	const events = {} as EventSubscriptionMap;
 
 	for (const channel of keysof(invokeMap)) {
-		invoke[channel] = ipcRenderer.invoke.bind(ipcRenderer, channel);
+		invoke[channel] = ipcRenderer.invoke.bind(
+			ipcRenderer,
+			prefixChannel(channel),
+		);
 	}
 
 	for (const channel of keysof(eventMap)) {
+		const prefixedChannel = prefixChannel(channel);
+
 		events[channel] = {
 			// oxlint-disable-next-line typescript/no-explicit-any
 			subscribe: (subscriber: EventSubscriber<any>) => {
-				ipcRenderer.addListener(channel, subscriber);
+				ipcRenderer.addListener(prefixedChannel, subscriber);
 
 				return {
 					unsubscribe: () => {
-						ipcRenderer.removeListener(channel, subscriber);
+						ipcRenderer.removeListener(prefixedChannel, subscriber);
 					},
 				};
 			},

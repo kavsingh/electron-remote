@@ -1,3 +1,5 @@
+import { prefixChannel } from "#common/ipc.ts";
+
 import type { InvokeMap, EventMap } from "#common/ipc-schema.ts";
 import type { BrowserWindow, IpcMain } from "electron";
 
@@ -23,18 +25,20 @@ function typeIpcMain(ipcMain: IpcMain): TypedIpcMain {
 	return {
 		registerHandlers: (handlers) => {
 			for (const [channel, handler] of Object.entries(handlers)) {
-				ipcMain.handle(channel, handler);
+				ipcMain.handle(prefixChannel(channel), handler);
 			}
 
 			return function cleanup() {
 				for (const channel of Object.keys(handlers)) {
-					ipcMain.removeHandler(channel);
+					ipcMain.removeHandler(prefixChannel(channel));
 				}
 			};
 		},
 
 		send: (win, channel, ...payload) => {
-			if (!win.isDestroyed()) win.webContents.send(channel, ...payload);
+			if (win.isDestroyed()) return;
+
+			win.webContents.send(prefixChannel(channel), ...payload);
 		},
 	};
 }

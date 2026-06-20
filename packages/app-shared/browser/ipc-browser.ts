@@ -1,16 +1,16 @@
 import { IPC_NAMESPACE } from "#common/ipc.ts";
 
-import type { IpcBridge } from "#common/ipc.ts";
+import type { IpcApi } from "#common/ipc.ts";
 
-function getIpcBridge(): IpcBridge {
-	// @ts-expect-error - avoid polluting the global namespace with the IPC bridge
+function getIpc(): IpcApi {
+	// @ts-expect-error - avoid polluting the global namespace with the IPC API
 	// oxlint-disable-next-line typescript/no-unsafe-type-assertion
-	const ipcBridge = globalThis[IPC_NAMESPACE] as IpcBridge | undefined;
+	const ipcApi = globalThis[IPC_NAMESPACE] as IpcApi | undefined;
 
-	if (!ipcBridge) throw new Error("IPC bridge is not available");
+	if (!ipcApi) throw new Error("IPC API is not available");
 
-	return ipcBridge;
+	return ipcApi;
 }
 
-export { getIpcBridge };
+export { getIpc };
 export type * from "#common/ipc.ts";

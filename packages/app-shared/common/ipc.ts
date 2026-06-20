@@ -19,16 +19,23 @@ type EventSubscriptionMap = {
 	[TChannel in keyof EventMap]: EventSubscribable<TChannel>;
 };
 
-const IPC_NAMESPACE = "__APP_IPC_NAMESPACE__";
-
-interface IpcBridge {
+interface IpcApi {
 	invoke: InvokeMap;
 	events: EventSubscriptionMap;
 }
 
-export { IPC_NAMESPACE };
+const IPC_NAMESPACE = "__APP_IPC_API__";
+const IPC_PREFIX = "__APP_IPC__";
+
+function prefixChannel<const TChannel extends string>(
+	channel: TChannel,
+): `${typeof IPC_PREFIX}/${TChannel}` {
+	return `${IPC_PREFIX}/${channel}`;
+}
+
+export { IPC_NAMESPACE, prefixChannel };
 export type {
-	IpcBridge,
+	IpcApi,
 	EventSubscriber,
 	EventSubscription,
 	EventSubscribable,

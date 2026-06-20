@@ -1,7 +1,7 @@
 import { mutationOptions, queryOptions } from "@tanstack/react-query";
-import { getIpcBridge } from "app-shared/browser/ipc-browser.ts";
+import { getIpc } from "app-shared/browser/ipc-browser.ts";
 
-const { invoke, events } = getIpcBridge();
+const { invoke, events } = getIpc();
 
 function themeSourceQuery() {
 	return queryOptions({

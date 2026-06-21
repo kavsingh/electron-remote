@@ -40,22 +40,20 @@ function RootLayout() {
 				</div>
 				<div className="overflow-x-hidden overflow-y-auto bg-background block-full">
 					<Outlet />
-					{import.meta.env.DEV ? (
-						<TanStackDevtools
-							plugins={[
-								{
-									name: "TanStack Query",
-									render: <ReactQueryDevtoolsPanel />,
-									defaultOpen: true,
-								},
-								{
-									name: "TanStack Router",
-									render: <TanStackRouterDevtoolsPanel />,
-									defaultOpen: false,
-								},
-							]}
-						/>
-					) : null}
+					<TanStackDevtools
+						plugins={[
+							{
+								name: "TanStack Query",
+								render: <ReactQueryDevtoolsPanel />,
+								defaultOpen: true,
+							},
+							{
+								name: "TanStack Router",
+								render: <TanStackRouterDevtoolsPanel />,
+								defaultOpen: false,
+							},
+						]}
+					/>
 				</div>
 			</div>
 			<div className="fixed inset-x-0 inset-bs-0 z-10 [-webkit-app-region:drag] block-8" />

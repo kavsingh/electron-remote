@@ -1,14 +1,11 @@
 // @TODO: refactor
-// oxlint-disable react-hooks-js/set-state-in-effect
-// oxlint-disable react-hooks-js/immutability
-// oxlint-disable react-hooks-js/refs
+// oxlint-disable react-hooks-js/set-state-in-effect react-hooks-js/immutability react-hooks-js/refs
 
 import { tryOr } from "app-shared/common/error.ts";
 import { normalizeBigint } from "app-shared/common/number.ts";
+import { useResizeObserver } from "design-system/hooks";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
-
-import { useResizeObserver } from "~/hooks/dom";
 
 interface Sample {
 	value: bigint;

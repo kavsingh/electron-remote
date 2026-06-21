@@ -1,10 +1,11 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import "./index.css";
 import { routeTree } from "./route-tree.gen";
+import { createQueryClient } from "./services/ipc";
 
 function createTanstackRouter() {
 	return createRouter({ routeTree });
@@ -20,9 +21,9 @@ const appRoot = document.getElementById("app-root");
 
 if (!appRoot) throw new Error("#app-root not found");
 
-const client = new QueryClient();
-const router = createTanstackRouter();
 const root = createRoot(appRoot);
+const client = createQueryClient();
+const router = createTanstackRouter();
 
 root.render(
 	<StrictMode>

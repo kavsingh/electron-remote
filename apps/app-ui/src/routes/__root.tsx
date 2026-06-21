@@ -2,9 +2,8 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { usePrefersDark } from "design-system/hooks";
 import { useEffect } from "react";
-
-import { usePrefersDark } from "~/hooks/theme";
 
 import type { ComponentProps } from "react";
 

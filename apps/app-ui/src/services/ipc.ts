@@ -1,4 +1,8 @@
-import { mutationOptions, queryOptions } from "@tanstack/react-query";
+import {
+	mutationOptions,
+	QueryClient,
+	queryOptions,
+} from "@tanstack/react-query";
 import { getIpc } from "app-shared/browser/ipc-browser.ts";
 
 const { invoke, events } = getIpc();
@@ -11,9 +15,7 @@ function themeSourceQuery() {
 }
 
 function setThemeSourceMutation() {
-	return mutationOptions({
-		mutationFn: invoke.setThemeSource,
-	});
+	return mutationOptions({ mutationFn: invoke.setThemeSource });
 }
 
 function systemInfoQuery() {
@@ -34,8 +36,24 @@ function openDialogMutation() {
 	return mutationOptions({ mutationFn: invoke.openDialog });
 }
 
+function createQueryClient() {
+	const client = new QueryClient();
+	const statsKey = systemStatsQuery().queryKey;
+
+	events.systemStats.subscribe((_, payload) => {
+		const current = client.getQueryData(statsKey);
+		const shouldUpdate = current
+			? BigInt(payload.sampledAt) >= BigInt(current.sampledAt)
+			: true;
+
+		if (shouldUpdate) client.setQueryData(statsKey, payload);
+	});
+
+	return client;
+}
+
 export {
-	events,
+	createQueryClient,
 	themeSourceQuery,
 	setThemeSourceMutation,
 	systemInfoQuery,

@@ -6,7 +6,6 @@
 	"license": "MIT",
 	"author": "<author>",
 	"type": "module",
-	"main": "./out/main/index.cjs",
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
@@ -56,9 +55,5 @@
 		"tailwindcss": "catalog:",
 		"vite": "catalog:",
 		"vitest": "catalog:"
-	},
-	"engines": {
-		"node": ">=24"
-	},
-	"productName": "App"
+	}
 }

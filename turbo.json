@@ -5,7 +5,8 @@
 		"dev": { "persistent": true },
 		"build": { "dependsOn": ["^build"] },
 		"start": { "persistent": true },
-		"test:e2e": {}
+		"app-e2e#test:e2e": {},
+		"app-electron#build:mac": { "dependsOn": ["^build"] }
 	},
 	"globalDependencies": [".env", ".env.*"],
 	"globalPassThroughEnv": []

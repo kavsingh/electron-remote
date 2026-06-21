@@ -1,11 +1,9 @@
 import type { Configuration } from "electron-builder";
 
 const config: Configuration = {
-	appId: "com.app.dev",
+	appId: "com.app-remote.dev",
 	afterPack: "build/after-pack.ts",
-	directories: {
-		buildResources: "build",
-	},
+	directories: { buildResources: "build" },
 	files: ["out/**"],
 	nsis: {
 		artifactName: "${productName}-${version}-setup.${ext}",

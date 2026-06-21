@@ -32,6 +32,7 @@ services:
 
   app-ui-prod:
     build:
+      dockerfile: ./apps/app-ui/Dockerfile
       context: .
       target: ui-prod
     ports:

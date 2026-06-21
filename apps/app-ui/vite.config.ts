@@ -8,6 +8,7 @@ import { defineConfig } from "vite";
 export default defineConfig(({ mode }) => {
 	return {
 		server: { port: 5321, host: "0.0.0.0" },
+		preview: { port: 5321, host: "0.0.0.0" },
 		resolve: { conditions: ["browser", mode], tsconfigPaths: true },
 		build: { cssMinify: mode === "production" },
 		plugins: [

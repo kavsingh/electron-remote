@@ -1,0 +1,22 @@
+{
+	"name": "app-e2e",
+	"version": "1.0.0-dev.0",
+	"description": "e2e for electron app",
+	"keywords": [],
+	"license": "MIT",
+	"author": "<author>",
+	"type": "module",
+	"scripts": {
+		"lint": "oxlint && oxfmt --check",
+		"test:e2e": "playwright test"
+	},
+	"devDependencies": {
+		"@playwright/test": "catalog:",
+		"app-shared": "workspace:*",
+		"electron": "catalog:",
+		"eslint-plugin-playwright": "catalog:"
+	},
+	"engines": {
+		"node": ">=24"
+	}
+}

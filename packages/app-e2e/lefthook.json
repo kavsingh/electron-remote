@@ -1,0 +1,12 @@
+{
+	"$schema": "../../node_modules/lefthook/schema.json",
+	"pre-commit": {
+		"jobs": [
+			{
+				"root": "packages/app-e2e",
+				"glob": "*.{ts,js}",
+				"run": "pnpm oxlint --no-error-on-unmatched-pattern {staged_files}"
+			}
+		]
+	}
+}

@@ -3,7 +3,7 @@ import path from "node:path";
 import { app, BrowserWindow } from "electron";
 import log from "electron-log";
 
-import { APP_RENDERER_URL } from "~/main/lib/app-protocol.ts";
+// import { APP_RENDERER_URL } from "~/main/lib/app-protocol.ts";
 
 export function createMainWindow(isE2E: boolean) {
 	const mainWindow = new BrowserWindow({
@@ -23,7 +23,8 @@ export function createMainWindow(isE2E: boolean) {
 	// HMR for renderer based on electron-vite cli.
 	// Load the remote URL for development or the local html file for production.
 	if (app.isPackaged || isE2E) {
-		void loadRenderer(APP_RENDERER_URL);
+		// void loadRenderer(APP_RENDERER_URL);
+		void loadRenderer(import.meta.env.MAIN_VITE_REMOTE_PROD_URL);
 	} else if (process.env["ELECTRON_RENDERER_URL"]) {
 		// void loadRenderer(process.env["ELECTRON_RENDERER_URL"]);
 		void loadRenderer(import.meta.env.MAIN_VITE_REMOTE_DEV_URL);

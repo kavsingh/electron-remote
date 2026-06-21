@@ -12,8 +12,11 @@
 	},
 	"type": "module",
 	"scripts": {
-		"dev": "conc 'docker compose up --watch app-ui' 'wait-on tcp:5321 && pnpm turbo run dev --filter app-electron'",
+		"dev": "conc 'pnpm dev:ui' 'pnpm dev:electron'",
+		"dev:ui": "docker compose up --watch app-ui",
+		"dev:electron": "wait-on tcp:5321 && pnpm turbo run dev --filter app-electron",
 		"lint": "turbo run lint",
+		"test:e2e": "turbo run test:e2e --filter app-e2e",
 		"clean:turbo": "rimraf ./**/.turbo --glob",
 		"clean:modules": "rimraf ./**/node_modules --glob"
 	},

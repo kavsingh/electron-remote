@@ -2,6 +2,8 @@ import path from "node:path";
 
 import { _electron, test as baseTest } from "@playwright/test";
 
+import { appElectronPath } from "../lib.ts";
+
 import type { ElectronApplication } from "@playwright/test";
 
 interface Fixtures {
@@ -14,7 +16,7 @@ interface Options {
 		| undefined;
 }
 
-const appPath = path.resolve(import.meta.dirname, "../out/main/index.cjs");
+const appPath = path.join(appElectronPath, "out/main/index.cjs");
 
 export const test = baseTest.extend<Fixtures & Options>({
 	appLaunchOptions: [{}, { option: true }],

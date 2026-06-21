@@ -2,7 +2,10 @@
 	"$schema": "./node_modules/turbo/schema.json",
 	"tasks": {
 		"lint": {},
-		"dev": { "persistent": true }
+		"dev": { "persistent": true },
+		"build": { "dependsOn": ["^build"] },
+		"start": { "persistent": true },
+		"test:e2e": {}
 	},
 	"globalDependencies": [".env", ".env.*"],
 	"globalPassThroughEnv": []

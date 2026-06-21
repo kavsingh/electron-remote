@@ -3,7 +3,7 @@ import { defineConfig } from "oxlint";
 
 export default defineConfig({
 	extends: [baseConfig],
-	env: { node: false, browser: true },
+	env: { node: true, browser: false },
 	ignorePatterns: [
 		"dist/**",
 		"reports/**",
@@ -11,8 +11,20 @@ export default defineConfig({
 		"!**/__generated__/__mocks__/**",
 	],
 	rules: {
-		"eslint/no-console": "error",
 		"import/no-nodejs-modules": "error",
 		"import/no-relative-parent-imports": "off",
 	},
+	overrides: [
+		{
+			files: ["common/**", "node/**", "browser/**"],
+			rules: { "eslint/no-console": "error" },
+		},
+		{
+			files: ["node/**"],
+			env: { node: true, browser: false },
+			rules: { "import/no-nodejs-modules": "off" },
+		},
+		{ files: ["common/**"], env: { node: false, browser: false } },
+		{ files: ["browser/**"], env: { node: false, browser: true } },
+	],
 });

@@ -15,12 +15,6 @@
 		"test": "vitest run",
 		"test:ci": "vitest run --silent --coverage --reporter=dot"
 	},
-	"dependencies": {
-		"app-shared": "workspace:*",
-		"electron-log": "catalog:",
-		"superjson": "catalog:",
-		"zod": "catalog:"
-	},
 	"devDependencies": {
 		"@rolldown/plugin-babel": "catalog:",
 		"@tailwindcss/vite": "catalog:",
@@ -41,17 +35,21 @@
 		"@types/react-dom": "catalog:",
 		"@vitejs/plugin-react": "catalog:",
 		"@vitest/coverage-v8": "catalog:",
+		"app-shared": "workspace:*",
 		"babel-plugin-react-compiler": "catalog:",
 		"design-system": "workspace:*",
+		"electron-log": "catalog:",
 		"eslint-plugin-jest-dom": "catalog:",
 		"eslint-plugin-testing-library": "catalog:",
 		"jsdom": "catalog:",
 		"react": "catalog:",
 		"react-dom": "catalog:",
+		"superjson": "catalog:",
 		"tailwind-merge": "catalog:",
 		"tailwind-variants": "catalog:",
 		"tailwindcss": "catalog:",
 		"vite": "catalog:",
-		"vitest": "catalog:"
+		"vitest": "catalog:",
+		"zod": "catalog:"
 	}
 }

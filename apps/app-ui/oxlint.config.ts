@@ -4,7 +4,6 @@ import {
 	tailwindcssConfig,
 } from "code-config/oxlint-configs.ts";
 import jestDom from "eslint-plugin-jest-dom";
-import playwright from "eslint-plugin-playwright";
 import testingLibrary from "eslint-plugin-testing-library";
 import { defineConfig } from "oxlint";
 
@@ -77,12 +76,6 @@ const config: OxlintConfig = defineConfig({
 				...jestDom.configs["flat/recommended"].rules,
 				...testingLibrary.configs["flat/react"].rules,
 			},
-		},
-
-		{
-			files: ["./e2e/**/*.test.ts"],
-			jsPlugins: ["eslint-plugin-playwright"],
-			rules: { ...playwright.configs["flat/recommended"].rules },
 		},
 	],
 });

@@ -26,7 +26,7 @@
 		"@eslint/core": "1.2.1",
 		"@tsconfig/node24": "24.0.4",
 		"@tsconfig/strictest": "2.0.8",
-		"@types/node": "26.0.0",
+		"@types/node": "24.13.2",
 		"@types/wait-on": "5.3.4",
 		"@typescript/native-preview": "7.0.0-dev.20260619.1",
 		"code-config": "workspace:*",

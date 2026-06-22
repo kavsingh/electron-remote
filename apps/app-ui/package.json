@@ -22,7 +22,6 @@
 		"zod": "catalog:"
 	},
 	"devDependencies": {
-		"@playwright/test": "catalog:",
 		"@rolldown/plugin-babel": "catalog:",
 		"@tailwindcss/vite": "catalog:",
 		"@tanstack/devtools-vite": "catalog:",
@@ -45,7 +44,6 @@
 		"babel-plugin-react-compiler": "catalog:",
 		"design-system": "workspace:*",
 		"eslint-plugin-jest-dom": "catalog:",
-		"eslint-plugin-playwright": "catalog:",
 		"eslint-plugin-testing-library": "catalog:",
 		"jsdom": "catalog:",
 		"react": "catalog:",

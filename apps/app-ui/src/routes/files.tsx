@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Button, Card } from "design-system/components";
+import { Page } from "design-system/layouts";
 import { useCallback, useEffect, useState } from "react";
 import { tv } from "tailwind-variants";
 
 import { useFileDrop } from "~/hooks/files";
-import { Page } from "~/layouts/page";
 import { openDialogMutation } from "~/services/ipc";
 
 function DialogFileSelect({

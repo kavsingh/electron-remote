@@ -12,6 +12,7 @@
 	"exports": {
 		"./theme.css": "./theme.css",
 		"./components": "./components/index.ts",
+		"./layouts": "./layouts/index.ts",
 		"./hooks": "./hooks/index.ts"
 	},
 	"scripts": {

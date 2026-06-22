@@ -5,7 +5,7 @@ const invoker = <TReturn = void, TInput = void, _TProx = TInput>() => {
 	) => Promise<TReturn>;
 };
 
-const eventPayload = <TPayload extends any[]>() => ({}) as TPayload;
+const eventPayload = <TPayload extends any[] = []>() => ({}) as TPayload;
 // oxlint-enable typescript/no-unnecessary-type-parameters typescript/no-explicit-any typescript/no-unsafe-type-assertion typescript/no-invalid-void-type
 
 export { invoker, eventPayload };

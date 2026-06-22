@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 
-export function PageHeader(props: PropsWithChildren) {
+function PageHeader(props: PropsWithChildren) {
 	return (
 		<header className="sticky inset-bs-0 bg-background/50 p-4 pbs-8 backdrop-blur-md">
 			<h2 className="text-3xl leading-none font-semibold">{props.children}</h2>
@@ -8,11 +8,10 @@ export function PageHeader(props: PropsWithChildren) {
 	);
 }
 
-export function PageContent(props: PropsWithChildren) {
+function PageContent(props: PropsWithChildren) {
 	return <main className="p-4">{props.children}</main>;
 }
 
-export const Page = {
-	Header: PageHeader,
-	Content: PageContent,
-};
+const Page = { Header: PageHeader, Content: PageContent };
+
+export { Page, PageHeader, PageContent };

@@ -1,43 +1,44 @@
 import { typeIpcMain } from "app-shared/node/ipc-electron.ts";
-import { BrowserWindow, ipcMain, nativeTheme, dialog } from "electron";
+import { BrowserWindow, ipcMain, nativeTheme } from "electron";
 
-import { AppEvent, AppEventBus } from "./services/app-event-bus.ts";
-import { getSystemInfo } from "./services/system-info.ts";
-import { getSystemStats } from "./services/system-stats.ts";
+import { openDialog } from "./services/dialog.ts";
+import { getSystemInfo } from "./services/system.ts";
+
+import type { AppStore } from "./stores/app.ts";
+import type { SystemStatsStore } from "./stores/system-stats.ts";
 
 const { registerHandlers, send } = typeIpcMain(ipcMain);
 
-export function registerIpcHandlers() {
-	registerHandlers({
+export function registerIpcHandlers(ctx: {
+	appStore: AppStore;
+	systemStatsStore: SystemStatsStore;
+}) {
+	const removeHandlers = registerHandlers({
 		getSystemInfo,
-		getSystemStats,
+		getSystemStats: () => ctx.systemStatsStore.getState().stats,
 		getThemeSource: () => nativeTheme.themeSource,
-		setThemeSource: (_, input) => {
-			nativeTheme.themeSource = input;
-
-			return nativeTheme.themeSource;
-		},
-		openDialog: (_, input) => {
-			// TODO: determine requesting window somehow?
-			const focusedWindow = BrowserWindow.getAllWindows().find((win) =>
-				win.isFocused(),
-			);
-
-			if (!focusedWindow) throw new Error("No focused window");
-
-			return dialog.showOpenDialog(focusedWindow, input);
+		setThemeSource: (_, input) => void (nativeTheme.themeSource = input),
+		openDialog: (_, input) => openDialog(input),
+		getAppContext: () => ctx.appStore.getState().appContext,
+		setAppContext: (_, input) => {
+			ctx.appStore.update((state) => void (state.appContext = input));
 		},
 	});
+
+	return removeHandlers;
 }
 
-export function initPubSub(win: BrowserWindow, eventBus: AppEventBus) {
-	function handleSystemStats(event: AppEvent<"systemStats">) {
-		send(win, "systemStats", event);
+export function initPubSub(
+	win: BrowserWindow,
+	ctx: { systemStatsStore: SystemStatsStore },
+) {
+	function handleStatsUpdate() {
+		send(win, "systemStats", ctx.systemStatsStore.getState().stats);
 	}
 
-	eventBus.addListener("systemStats", handleSystemStats);
+	ctx.systemStatsStore.addListener("update", handleStatsUpdate);
 
 	return () => {
-		eventBus.removeListener("systemStats", handleSystemStats);
+		ctx.systemStatsStore.removeListener("update", handleStatsUpdate);
 	};
 }

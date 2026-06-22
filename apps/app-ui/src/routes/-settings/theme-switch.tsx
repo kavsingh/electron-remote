@@ -28,14 +28,11 @@ const handleSubmit: SubmitEventHandler<HTMLFormElement> = (event) => {
 };
 
 export function ThemeSwitch() {
-	const { data: themeSource, refetch } = useQuery(themeSourceQuery());
-	const { mutate: saveThemeSource } = useMutation({
-		...setThemeSourceMutation(),
-		onSuccess: () => void refetch(),
-	});
+	const { data: themeSource } = useQuery(themeSourceQuery());
+	const { mutate: setThemeSource } = useMutation(setThemeSourceMutation());
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-		saveThemeSource(themeSourceSchema.parse(event.currentTarget.value));
+		setThemeSource(themeSourceSchema.parse(event.currentTarget.value));
 	};
 
 	return (

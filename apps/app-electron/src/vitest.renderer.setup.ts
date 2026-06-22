@@ -37,8 +37,6 @@ vi.mock("electron-log/renderer", () => {
 	return { ...logger, scope: () => logger };
 });
 
-vi.mock("./renderer/trpc");
-
 afterEach(() => {
 	cleanup();
 });

@@ -3,7 +3,8 @@
 	"include": [
 		"./src/common",
 		"./src/renderer",
-		"./src/vitest.renderer.setup.ts"
+		"./src/vitest.renderer.setup.ts",
+		"../../packages/design-system/layouts/page.tsx"
 	],
 	"extends": "code-config/tsconfig.browser.json",
 	"compilerOptions": {
@@ -13,8 +14,8 @@
 		"module": "esnext",
 		"moduleResolution": "bundler",
 		"paths": {
-			"~/common/*": ["./src/common/*"],
-			"~/renderer/*": ["./src/renderer/*"]
+			"~/*": ["./src/renderer/*"],
+			"~common/*": ["./src/common/*"]
 		},
 		"types": ["vite/client"]
 	}

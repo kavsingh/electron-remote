@@ -1,9 +1,13 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
+import { useMutation } from "@tanstack/react-query";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { Button } from "design-system/components";
 import { usePrefersDark } from "design-system/hooks";
 import { useEffect } from "react";
+
+import { setAppContextMutation } from "~/services/ipc";
 
 import type { ComponentProps } from "react";
 
@@ -23,6 +27,7 @@ function NavLink({
 
 function RootLayout() {
 	const prefersDark = usePrefersDark();
+	const { mutate: setAppContext } = useMutation(setAppContextMutation());
 
 	useEffect(() => {
 		document.documentElement.classList.toggle("dark", prefersDark);
@@ -37,6 +42,13 @@ function RootLayout() {
 						<NavLink href="/files">Files</NavLink>
 						<NavLink href="/settings">Settings</NavLink>
 					</nav>
+					<Button
+						size="sm"
+						className="mbs-4"
+						onClick={() => setAppContext("loading")}
+					>
+						Unload
+					</Button>
 				</div>
 				<div className="overflow-x-hidden overflow-y-auto bg-background block-full">
 					<Outlet />

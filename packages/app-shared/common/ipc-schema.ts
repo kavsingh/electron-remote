@@ -1,3 +1,4 @@
+import { AppContext } from "./app.ts";
 import { eventPayload, invoker } from "./ipc-schema-lib.ts";
 import { ThemeSource } from "./theme.ts";
 
@@ -6,10 +7,12 @@ import type { OpenDialogOptions, OpenDialogReturnValue } from "electron";
 
 const invokeMap = {
 	getThemeSource: invoker<ThemeSource>(),
-	setThemeSource: invoker<ThemeSource, ThemeSource>(),
+	setThemeSource: invoker<undefined, ThemeSource>(),
 	getSystemInfo: invoker<SystemInfo>(),
 	getSystemStats: invoker<SystemStats>(),
 	openDialog: invoker<OpenDialogReturnValue, OpenDialogOptions>(),
+	getAppContext: invoker<AppContext>(),
+	setAppContext: invoker<undefined, AppContext>(),
 };
 
 const eventMap = {
@@ -21,9 +24,3 @@ type EventMap = typeof eventMap;
 
 export { invokeMap, eventMap };
 export type { InvokeMap, EventMap };
-export type {
-	SystemInfo,
-	SystemStats,
-	OpenDialogOptions,
-	OpenDialogReturnValue,
-};

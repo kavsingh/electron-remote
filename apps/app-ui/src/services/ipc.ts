@@ -15,7 +15,14 @@ function themeSourceQuery() {
 }
 
 function setThemeSourceMutation() {
-	return mutationOptions({ mutationFn: invoke.setThemeSource });
+	const queryKey = themeSourceQuery().queryKey;
+
+	return mutationOptions({
+		mutationFn: invoke.setThemeSource,
+		onSuccess: (_, __, ___, ctx) => {
+			void ctx.client.invalidateQueries({ queryKey });
+		},
+	});
 }
 
 function systemInfoQuery() {
@@ -34,6 +41,24 @@ function systemStatsQuery() {
 
 function openDialogMutation() {
 	return mutationOptions({ mutationFn: invoke.openDialog });
+}
+
+function appContextQuery() {
+	return queryOptions({
+		queryKey: ["appContext"],
+		queryFn: invoke.getAppContext,
+	});
+}
+
+function setAppContextMutation() {
+	const queryKey = appContextQuery().queryKey;
+
+	return mutationOptions({
+		mutationFn: invoke.setAppContext,
+		onSuccess: (_, __, ___, ctx) => {
+			void ctx.client.invalidateQueries({ queryKey });
+		},
+	});
 }
 
 function createQueryClient() {
@@ -59,4 +84,6 @@ export {
 	systemInfoQuery,
 	systemStatsQuery,
 	openDialogMutation,
+	appContextQuery,
+	setAppContextMutation,
 };

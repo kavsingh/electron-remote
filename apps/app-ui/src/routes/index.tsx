@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-
-import { Page } from "~/layouts/page";
+import { Page } from "design-system/layouts";
 
 import { SystemInfoCard } from "./-index/system-info-card";
 import { SystemStatsCard } from "./-index/system-stats-card";

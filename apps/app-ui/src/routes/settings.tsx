@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-
-import { Page } from "~/layouts/page";
+import { Page } from "design-system/layouts";
 
 import { ThemeSwitch } from "./-settings/theme-switch";
 

@@ -6,8 +6,8 @@ import { initPubSub, registerIpcHandlers } from "./ipc.ts";
 import { appProtocolHandler, appProtocol } from "./lib/app-protocol.ts";
 import { initLogging } from "./lib/init-logging.ts";
 import { restrictNavigation } from "./lib/restrict-navigation.ts";
-import { createAppEventBus } from "./services/app-event-bus.ts";
-import { startSystemStatsUpdates } from "./services/system-stats.ts";
+import { createAppStore } from "./stores/app.ts";
+import { createSystemStatsStore } from "./stores/system-stats.ts";
 
 const isE2E = process.argv.slice(2).includes("--e2e");
 
@@ -15,19 +15,17 @@ app.enableSandbox();
 protocol.registerSchemesAsPrivileged([appProtocol]);
 initLogging();
 
-const appEventBus = createAppEventBus();
-let stopSystemStatsUpdates:
-	| ReturnType<typeof startSystemStatsUpdates>
-	| undefined = undefined;
+const appStore = createAppStore();
+const systemStatsStore = createSystemStatsStore();
 let cleanupPubSub: ReturnType<typeof initPubSub> | undefined = undefined;
 
 function showMainWindow() {
 	log.info("Showing main window");
 
-	const mainWindow = createMainWindow(isE2E);
+	const mainWindow = createMainWindow({ isE2E, appStore });
 
 	mainWindow.on("ready-to-show", () => {
-		cleanupPubSub = initPubSub(mainWindow, appEventBus);
+		cleanupPubSub = initPubSub(mainWindow, { systemStatsStore });
 		mainWindow.show();
 	});
 }
@@ -53,15 +51,14 @@ app.on("window-all-closed", () => {
 
 app.on("quit", () => {
 	log.info("App quitting");
-
+	systemStatsStore.stopSampling();
 	cleanupPubSub?.();
-	stopSystemStatsUpdates?.();
 });
 
 void app.whenReady().then(() => {
 	log.info("App ready");
 	protocol.handle(appProtocol.scheme, appProtocolHandler);
-	registerIpcHandlers();
-	stopSystemStatsUpdates = startSystemStatsUpdates(appEventBus);
+	registerIpcHandlers({ appStore, systemStatsStore });
+	systemStatsStore.startSampling();
 	showMainWindow();
 });

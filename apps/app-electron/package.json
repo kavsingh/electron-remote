@@ -61,6 +61,7 @@
 		"eslint-plugin-playwright": "catalog:",
 		"eslint-plugin-react-hooks": "catalog:",
 		"eslint-plugin-testing-library": "catalog:",
+		"immer": "catalog:",
 		"jsdom": "catalog:",
 		"memfs": "catalog:",
 		"react": "catalog:",

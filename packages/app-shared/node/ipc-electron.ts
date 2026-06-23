@@ -1,23 +1,27 @@
 import { prefixChannel } from "#common/ipc.ts";
 
-import type { InvokeMap, EventMap } from "#common/ipc-schema.ts";
+import type {
+	InvokeChannel,
+	InvokeArgs,
+	InvokeReturn,
+	EventChannel,
+	EventPayload,
+} from "#common/ipc-schema.ts";
 import type { BrowserWindow, IpcMain } from "electron";
 
 type MainHandlers = {
-	[K in keyof InvokeMap]: (
+	[TChannel in InvokeChannel]: (
 		event: Electron.IpcMainInvokeEvent,
-		...args: Parameters<InvokeMap[K]>
-	) =>
-		| Awaited<ReturnType<InvokeMap[K]>>
-		| Promise<Awaited<ReturnType<InvokeMap[K]>>>;
+		...args: InvokeArgs<TChannel>
+	) => InvokeReturn<TChannel> | Promise<InvokeReturn<TChannel>>;
 };
 
 interface TypedIpcMain {
 	registerHandlers: (handlers: MainHandlers) => () => void;
-	send: <TChannel extends keyof EventMap>(
+	send: <TChannel extends EventChannel>(
 		win: BrowserWindow,
 		channel: TChannel,
-		...payload: EventMap[TChannel]
+		...payload: EventPayload<TChannel>
 	) => void;
 }
 

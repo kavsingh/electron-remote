@@ -22,5 +22,24 @@ const eventMap = {
 type InvokeMap = typeof invokeMap;
 type EventMap = typeof eventMap;
 
+// type helpers
+
+type InvokeChannel = keyof InvokeMap;
+type InvokeArgs<TKey extends InvokeChannel> = Parameters<InvokeMap[TKey]>;
+type InvokeReturn<TKey extends InvokeChannel> = Awaited<
+	ReturnType<InvokeMap[TKey]>
+>;
+
+type EventChannel = keyof EventMap;
+type EventPayload<TKey extends EventChannel> = EventMap[TKey];
+
 export { invokeMap, eventMap };
-export type { InvokeMap, EventMap };
+export type {
+	InvokeMap,
+	EventMap,
+	InvokeChannel,
+	InvokeArgs,
+	InvokeReturn,
+	EventChannel,
+	EventPayload,
+};

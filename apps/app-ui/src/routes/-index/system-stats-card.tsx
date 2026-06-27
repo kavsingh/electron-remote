@@ -1,11 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import { tryOr } from "app-shared/common/error.ts";
-import { formatMem } from "app-shared/common/format.ts";
-import { SystemStats } from "app-shared/common/system.ts";
+import { tryOr } from "app-shared/common/error";
+import { formatMem } from "app-shared/common/format";
+import { SystemStats } from "app-shared/common/system";
 import { Card, InfoList } from "design-system/components";
 
 import { ChronoGraph } from "~/components/chrono-graph";
-import { systemStatsQuery } from "~/services/ipc";
+import { ipcApi } from "~/rtk/services/ipc";
 
 function MemoryGraph(props: { systemStats: SystemStats | undefined }) {
 	const memUsed = props.systemStats?.memUsed;
@@ -28,7 +27,7 @@ function MemoryGraph(props: { systemStats: SystemStats | undefined }) {
 }
 
 export function SystemStatsCard() {
-	const { data: stats } = useQuery(systemStatsQuery());
+	const { data: stats } = ipcApi.useSystemStatsQuery();
 
 	return (
 		<Card.Root>

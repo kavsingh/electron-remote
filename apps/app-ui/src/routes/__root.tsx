@@ -1,13 +1,11 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
-import { useMutation } from "@tanstack/react-query";
-import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { Button } from "design-system/components";
 import { usePrefersDark } from "design-system/hooks";
 import { useEffect } from "react";
 
-import { setAppContextMutation } from "~/services/ipc";
+import { ipcApi } from "~/rtk/services/ipc";
 
 import type { ComponentProps } from "react";
 
@@ -27,7 +25,7 @@ function NavLink({
 
 function RootLayout() {
 	const prefersDark = usePrefersDark();
-	const { mutate: setAppContext } = useMutation(setAppContextMutation());
+	const [setAppContext] = ipcApi.useSetAppContextMutation();
 
 	useEffect(() => {
 		document.documentElement.classList.toggle("dark", prefersDark);
@@ -45,7 +43,7 @@ function RootLayout() {
 					<Button
 						size="sm"
 						className="mbs-4"
-						onClick={() => setAppContext("loading")}
+						onClick={() => void setAppContext("loading")}
 					>
 						Unload
 					</Button>
@@ -54,11 +52,6 @@ function RootLayout() {
 					<Outlet />
 					<TanStackDevtools
 						plugins={[
-							{
-								name: "TanStack Query",
-								render: <ReactQueryDevtoolsPanel />,
-								defaultOpen: true,
-							},
 							{
 								name: "TanStack Router",
 								render: <TanStackRouterDevtoolsPanel />,

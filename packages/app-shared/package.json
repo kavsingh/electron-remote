@@ -8,9 +8,9 @@
 		"#common/*": "./common/*"
 	},
 	"exports": {
-		"./common/*": "./common/*",
-		"./browser/*": "./browser/*",
-		"./node/*": "./node/*"
+		"./common/*": "./common/*.ts",
+		"./browser/*": "./browser/*.ts",
+		"./node/*": "./node/*.ts"
 	},
 	"scripts": {
 		"lint": "oxlint && oxfmt --check",

@@ -1,10 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
 import { Card, InfoList } from "design-system/components";
 
-import { systemInfoQuery } from "~/services/ipc";
+import { ipcApi } from "~/rtk/services/ipc";
 
 export function SystemInfoCard() {
-	const { data: info } = useQuery(systemInfoQuery());
+	const { data: info } = ipcApi.useSystemInfoQuery();
 
 	return (
 		<Card.Root>

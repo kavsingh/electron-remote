@@ -1,10 +1,9 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { THEME_SOURCES, themeSourceSchema } from "app-shared/common/theme.ts";
+import { THEME_SOURCES, themeSourceSchema } from "app-shared/common/theme";
 import { Card } from "design-system/components";
 
-import { setThemeSourceMutation, themeSourceQuery } from "~/services/ipc";
+import { ipcApi } from "~/rtk/services/ipc";
 
-import type { ThemeSource } from "app-shared/common/theme.ts";
+import type { ThemeSource } from "app-shared/common/theme";
 import type { ChangeEventHandler, SubmitEventHandler } from "react";
 
 function LabelText(props: { themeSource: ThemeSource }) {
@@ -28,11 +27,11 @@ const handleSubmit: SubmitEventHandler<HTMLFormElement> = (event) => {
 };
 
 export function ThemeSwitch() {
-	const { data: themeSource } = useQuery(themeSourceQuery());
-	const { mutate: setThemeSource } = useMutation(setThemeSourceMutation());
+	const { data: themeSource } = ipcApi.useThemeSourceQuery();
+	const [setThemeSource] = ipcApi.useSetThemeSourceMutation();
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-		setThemeSource(themeSourceSchema.parse(event.currentTarget.value));
+		void setThemeSource(themeSourceSchema.parse(event.currentTarget.value));
 	};
 
 	return (

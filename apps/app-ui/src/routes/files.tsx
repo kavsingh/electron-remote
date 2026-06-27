@@ -1,4 +1,3 @@
-import { useMutation } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Button, Card } from "design-system/components";
 import { Page } from "design-system/layouts";
@@ -6,23 +5,25 @@ import { useCallback, useEffect, useState } from "react";
 import { tv } from "tailwind-variants";
 
 import { useFileDrop } from "~/hooks/files";
-import { openDialogMutation } from "~/services/ipc";
+import { ipcApi } from "~/rtk/services/ipc";
+
+const emptyFileList: string[] = [];
 
 function DialogFileSelect({
 	onSelect,
 }: {
 	onSelect: (selected: string[]) => void;
 }) {
-	const { mutate } = useMutation({
-		...openDialogMutation(),
-		onSuccess(result) {
-			onSelect(result.filePaths);
-		},
-	});
+	const [mutate, { data }] = ipcApi.useOpenDialogMutation();
+	const filePaths = data?.filePaths ?? emptyFileList;
+
+	useEffect(() => onSelect(filePaths), [filePaths, onSelect]);
 
 	return (
 		<Button
-			onClick={() => mutate({ properties: ["openFile", "multiSelections"] })}
+			onClick={() => {
+				void mutate({ properties: ["openFile", "multiSelections"] });
+			}}
 		>
 			Select files
 		</Button>
@@ -35,8 +36,6 @@ const dragFileSelectVariants = tv({
 		isActive: { true: "border-foreground bg-accent/20 text-foreground" },
 	},
 });
-
-const emptyFileList: string[] = [];
 
 function DragFileSelect({
 	onSelect,

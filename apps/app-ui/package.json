@@ -16,13 +16,12 @@
 		"test:ci": "vitest run --silent --coverage --reporter=dot"
 	},
 	"devDependencies": {
+		"@reduxjs/toolkit": "2.12.0",
 		"@rolldown/plugin-babel": "catalog:",
 		"@tailwindcss/vite": "catalog:",
 		"@tanstack/devtools-vite": "catalog:",
 		"@tanstack/eslint-plugin-router": "catalog:",
 		"@tanstack/react-devtools": "catalog:",
-		"@tanstack/react-query": "catalog:",
-		"@tanstack/react-query-devtools": "catalog:",
 		"@tanstack/react-router": "catalog:",
 		"@tanstack/react-router-devtools": "catalog:",
 		"@tanstack/router-cli": "catalog:",
@@ -44,6 +43,7 @@
 		"jsdom": "catalog:",
 		"react": "catalog:",
 		"react-dom": "catalog:",
+		"react-redux": "9.3.0",
 		"superjson": "catalog:",
 		"tailwind-merge": "catalog:",
 		"tailwind-variants": "catalog:",

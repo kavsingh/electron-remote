@@ -11,14 +11,14 @@ packages:
 savePrefix: ''
 
 catalog:
-  '@playwright/test': 1.61.0
+  '@playwright/test': 1.61.1
   '@rolldown/plugin-babel': 0.2.3
   '@tailwindcss/vite': 4.3.1
-  '@tanstack/devtools-vite': 0.8.0
+  '@tanstack/devtools-vite': 0.8.1
   '@tanstack/eslint-plugin-router': 1.162.0
-  '@tanstack/react-devtools': 0.10.7
-  '@tanstack/react-query': 5.101.0
-  '@tanstack/react-query-devtools': 5.101.0
+  '@tanstack/react-devtools': 0.10.8
+  '@tanstack/react-query': 5.101.1
+  '@tanstack/react-query-devtools': 5.101.1
   '@tanstack/react-router': 1.170.16
   '@tanstack/react-router-devtools': 1.167.0
   '@tanstack/router-cli': 1.167.17
@@ -30,10 +30,10 @@ catalog:
   '@types/babel__core': 7.20.5
   '@types/react': 19.2.17
   '@types/react-dom': 19.2.3
-  '@vitejs/plugin-react': 6.0.2
+  '@vitejs/plugin-react': 6.0.3
   '@vitest/coverage-v8': 4.1.9
   babel-plugin-react-compiler: 1.0.0
-  electron: 42.4.1
+  electron: 42.5.0
   electron-log: 5.4.4
   eslint-plugin-better-tailwindcss: 4.6.0
   eslint-plugin-jest-dom: 5.5.0
@@ -42,9 +42,9 @@ catalog:
   eslint-plugin-testing-library: 7.16.2
   immer: 11.1.8
   jsdom: 29.1.1
-  memfs: 4.57.7
-  oxfmt: 0.55.0
-  oxlint: 1.70.0
+  memfs: 4.57.8
+  oxfmt: 0.56.0
+  oxlint: 1.71.0
   oxlint-tsgolint: 0.23.0
   react: 19.2.7
   react-dom: 19.2.7
@@ -53,7 +53,7 @@ catalog:
   tailwind-variants: 3.2.2
   tailwindcss: 4.3.1
   terser: 5.48.0
-  vite: 8.0.16
+  vite: 8.1.0
   vitest: 4.1.9
   zod: 4.4.3
 

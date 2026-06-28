@@ -1,7 +1,4 @@
-import {
-	IPC_NAMESPACE,
-	createIpcBridge,
-} from "app-shared/common/ipc-preload.ts";
+import { IPC_NAMESPACE, createIpcBridge } from "app-shared/common/ipc-preload";
 import { contextBridge, ipcRenderer } from "electron";
 
 process.once("loaded", () => {

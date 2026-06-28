@@ -2,15 +2,11 @@ import path from "node:path";
 
 import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
-import { devtools } from "@tanstack/devtools-vite";
-import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import dotenv from "dotenv";
 import { defineConfig } from "electron-vite";
 import bundleObfuscator from "vite-plugin-bundle-obfuscator";
 import { ConfigEnv, Plugin } from "vitest/config";
-
-import tsrConfig from "./tsr.config.json" with { type: "json" };
 
 const dirname = import.meta.dirname;
 
@@ -41,14 +37,6 @@ function obfuscator(
 				: {}),
 		},
 	});
-}
-
-function getRouterConfig(): Parameters<typeof tanstackRouter>[0] {
-	return {
-		...tsrConfig,
-		routesDirectory: path.resolve(dirname, tsrConfig.routesDirectory),
-		generatedRouteTree: path.resolve(dirname, tsrConfig.generatedRouteTree),
-	};
 }
 
 // see:
@@ -110,14 +98,7 @@ export default defineConfig(({ mode }) => {
 		renderer: {
 			resolve: { conditions: ["browser", mode], tsconfigPaths: true },
 			build: { cssMinify: mode === "production" },
-			plugins: [
-				devtools(),
-				tanstackRouter(getRouterConfig()),
-				react(),
-				babelPlugin,
-				tailwindcss(),
-				obfuscator(mode),
-			],
+			plugins: [react(), babelPlugin, tailwindcss(), obfuscator(mode)],
 		},
 	};
 });

@@ -16,7 +16,7 @@
 		"test:ci": "vitest run --silent --coverage --reporter=dot"
 	},
 	"devDependencies": {
-		"@reduxjs/toolkit": "2.12.0",
+		"@reduxjs/toolkit": "catalog:",
 		"@rolldown/plugin-babel": "catalog:",
 		"@tailwindcss/vite": "catalog:",
 		"@tanstack/devtools-vite": "catalog:",
@@ -43,7 +43,7 @@
 		"jsdom": "catalog:",
 		"react": "catalog:",
 		"react-dom": "catalog:",
-		"react-redux": "9.3.0",
+		"react-redux": "catalog:",
 		"superjson": "catalog:",
 		"tailwind-merge": "catalog:",
 		"tailwind-variants": "catalog:",

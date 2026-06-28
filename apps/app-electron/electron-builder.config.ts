@@ -1,7 +1,7 @@
 import type { Configuration } from "electron-builder";
 
 const config: Configuration = {
-	appId: "com.app-remote.dev",
+	appId: "com.electron-remote.dev",
 	afterPack: "build/after-pack.ts",
 	directories: { buildResources: "build" },
 	files: ["out/**"],

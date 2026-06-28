@@ -1,6 +1,6 @@
 import path from "node:path";
 
-import { AppContext } from "app-shared/common/app.ts";
+import { AppContext } from "app-shared/common/app";
 import { app, BrowserWindow } from "electron";
 
 import { APP_RENDERER_URL } from "~/lib/app-protocol.ts";

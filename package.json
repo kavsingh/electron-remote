@@ -19,8 +19,7 @@
 		"test:e2e": "turbo run test:e2e --filter app-e2e",
 		"build:mac": "turbo run build:mac --filter app-electron",
 		"serve:ui-prod": "docker compose up app-ui-prod",
-		"clean:turbo": "rimraf ./**/.turbo --glob",
-		"clean:modules": "rimraf ./**/node_modules --glob"
+		"clean:turbo": "rimraf ./**/.turbo --glob"
 	},
 	"devDependencies": {
 		"@eslint/core": "1.2.1",

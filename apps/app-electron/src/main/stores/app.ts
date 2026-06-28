@@ -1,6 +1,6 @@
 import { Store } from "~/lib/store.ts";
 
-import type { AppContext } from "app-shared/common/app.ts";
+import type { AppContext } from "app-shared/common/app";
 
 interface AppState {
 	appContext: AppContext;

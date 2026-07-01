@@ -1,6 +1,6 @@
-import { IPC_NAMESPACE } from "#common/ipc.ts";
+import { IPC_NAMESPACE } from "./lib.ts";
 
-import type { IpcApi } from "#common/ipc.ts";
+import type { IpcApi } from "./lib.ts";
 
 function getIpc(): IpcApi {
 	// @ts-expect-error - avoid polluting the global namespace with the IPC API
@@ -13,4 +13,4 @@ function getIpc(): IpcApi {
 }
 
 export { getIpc };
-export type * from "#common/ipc.ts";
+export type * from "./lib.ts";

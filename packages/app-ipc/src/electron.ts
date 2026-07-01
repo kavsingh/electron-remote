@@ -1,4 +1,4 @@
-import { prefixChannel } from "#common/ipc.ts";
+import { prefixChannel } from "./lib.ts";
 
 import type {
 	InvokeChannel,
@@ -6,7 +6,7 @@ import type {
 	InvokeReturn,
 	EventChannel,
 	EventPayload,
-} from "#common/ipc-schema.ts";
+} from "./schema.ts";
 import type { BrowserWindow, IpcMain } from "electron";
 
 type MainHandlers = {

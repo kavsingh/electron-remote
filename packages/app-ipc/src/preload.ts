@@ -1,11 +1,12 @@
 // oxlint-disable typescript/no-unsafe-type-assertion
 
-import { eventMap, invokeMap } from "./ipc-schema.ts";
-import { prefixChannel } from "./ipc.ts";
-import { keysof } from "./object.ts";
+import { keysof } from "@app/shared/common/object";
 
-import type { InvokeMap } from "./ipc-schema.ts";
-import type { EventSubscriber, EventSubscriptionMap, IpcApi } from "./ipc.ts";
+import { prefixChannel } from "./lib.ts";
+import { eventMap, invokeMap } from "./schema.ts";
+
+import type { EventSubscriber, EventSubscriptionMap, IpcApi } from "./lib.ts";
+import type { InvokeMap } from "./schema.ts";
 import type { IpcRenderer } from "electron";
 
 function createIpcBridge(ipcRenderer: IpcRenderer): IpcApi {
@@ -39,5 +40,6 @@ function createIpcBridge(ipcRenderer: IpcRenderer): IpcApi {
 	return { invoke, events };
 }
 
-export { IPC_NAMESPACE } from "./ipc.ts";
+export { IPC_NAMESPACE } from "./lib.ts";
 export { createIpcBridge };
+export type * from "./lib.ts";

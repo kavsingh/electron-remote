@@ -1,20 +1,27 @@
 {
-	"name": "app-shared",
+	"name": "@app/shared",
 	"version": "1.0.0-dev.0",
 	"description": "shared js",
 	"license": "MIT",
+	"files": [
+		"dist/**"
+	],
 	"type": "module",
 	"imports": {
 		"#common/*": "./common/*"
 	},
 	"exports": {
-		"./common/*": "./common/*.ts",
-		"./browser/*": "./browser/*.ts",
-		"./node/*": "./node/*.ts"
+		"./common/*": {
+			"import": "./dist/common/*.mjs",
+			"types": "./dist/common/*.d.ts"
+		}
 	},
 	"scripts": {
 		"lint": "oxlint && oxfmt --check",
-		"build": "echo 'none'"
+		"build": "tsdown"
+	},
+	"devDependencies": {
+		"tsdown": "catalog:"
 	},
 	"peerDependencies": {
 		"electron": "catalog:",

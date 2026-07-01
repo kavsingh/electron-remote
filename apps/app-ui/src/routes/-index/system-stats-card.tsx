@@ -1,6 +1,6 @@
-import { tryOr } from "app-shared/common/error";
-import { formatMem } from "app-shared/common/format";
-import { SystemStats } from "app-shared/common/system";
+import { tryOr } from "@app/shared/common/error";
+import { formatMem } from "@app/shared/common/format";
+import { SystemStats } from "@app/shared/common/system";
 import { Card, InfoList } from "design-system/components";
 
 import { ChronoGraph } from "~/components/chrono-graph";

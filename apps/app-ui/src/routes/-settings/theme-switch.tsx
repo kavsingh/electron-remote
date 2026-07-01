@@ -1,9 +1,9 @@
-import { THEME_SOURCES, themeSourceSchema } from "app-shared/common/theme";
+import { THEME_SOURCES, themeSourceSchema } from "@app/shared/common/theme";
 import { Card } from "design-system/components";
 
 import { ipcApi } from "~/rtk/services/ipc";
 
-import type { ThemeSource } from "app-shared/common/theme";
+import type { ThemeSource } from "@app/shared/common/theme";
 import type { ChangeEventHandler, SubmitEventHandler } from "react";
 
 function LabelText(props: { themeSource: ThemeSource }) {

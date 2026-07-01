@@ -1,4 +1,4 @@
-import { SystemStats } from "app-shared/common/system";
+import { SystemStats } from "@app/shared/common/system";
 import { scope } from "electron-log";
 
 import { Store } from "~/lib/store.ts";

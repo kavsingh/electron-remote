@@ -1,4 +1,4 @@
-import { SystemInfo, SystemStats } from "app-shared/common/system";
+import { SystemInfo, SystemStats } from "@app/shared/common/system";
 import { mem, osInfo } from "systeminformation";
 
 async function getSystemInfo(): Promise<SystemInfo> {

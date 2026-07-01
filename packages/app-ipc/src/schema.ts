@@ -1,8 +1,9 @@
-import { AppContext } from "./app.ts";
-import { eventPayload, invoker } from "./ipc-schema-lib.ts";
-import { ThemeSource } from "./theme.ts";
+import { AppContext } from "@app/shared/common/app";
+import { ThemeSource } from "@app/shared/common/theme";
 
-import type { SystemInfo, SystemStats } from "./system.ts";
+import { eventPayload, invoker } from "./lib.ts";
+
+import type { SystemInfo, SystemStats } from "@app/shared/common/system";
 import type { OpenDialogOptions, OpenDialogReturnValue } from "electron";
 
 const invokeMap = {

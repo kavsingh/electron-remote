@@ -1,0 +1,40 @@
+{
+	"name": "@app/ipc",
+	"version": "1.0.0-dev.0",
+	"description": "ipc",
+	"license": "MIT",
+	"files": [
+		"dist/**"
+	],
+	"type": "module",
+	"exports": {
+		"./schema": {
+			"import": "./dist/schema.mjs",
+			"types": "./dist/schema.d.ts"
+		},
+		"./electron": {
+			"import": "./dist/electron.mjs",
+			"types": "./dist/electron.d.ts"
+		},
+		"./preload": {
+			"import": "./dist/preload.mjs",
+			"types": "./dist/preload.d.ts"
+		},
+		"./browser": {
+			"import": "./dist/browser.mjs",
+			"types": "./dist/browser.d.ts"
+		}
+	},
+	"scripts": {
+		"lint": "oxlint && oxfmt --check",
+		"build": "tsdown"
+	},
+	"devDependencies": {
+		"@app/shared": "workspace:*",
+		"tsdown": "catalog:"
+	},
+	"peerDependencies": {
+		"electron": "catalog:",
+		"zod": "catalog:"
+	}
+}

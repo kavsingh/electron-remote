@@ -16,6 +16,8 @@
 		"test:ci": "vitest run --silent --coverage --reporter=dot"
 	},
 	"devDependencies": {
+		"@app/ipc": "workspace:*",
+		"@app/shared": "workspace:*",
 		"@reduxjs/toolkit": "catalog:",
 		"@rolldown/plugin-babel": "catalog:",
 		"@tailwindcss/vite": "catalog:",
@@ -34,7 +36,6 @@
 		"@types/react-dom": "catalog:",
 		"@vitejs/plugin-react": "catalog:",
 		"@vitest/coverage-v8": "catalog:",
-		"app-shared": "workspace:*",
 		"babel-plugin-react-compiler": "catalog:",
 		"design-system": "workspace:*",
 		"electron-log": "catalog:",

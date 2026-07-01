@@ -1,4 +1,4 @@
-import { getIpc } from "app-shared/browser/ipc-browser";
+import { getIpc } from "@app/ipc/browser";
 import { Button } from "design-system/components";
 import { usePrefersDark } from "design-system/hooks";
 import { Page } from "design-system/layouts";

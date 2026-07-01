@@ -1,6 +1,11 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
-	"include": ["common", "node"],
+	"include": [
+		"src/lib.ts",
+		"src/schema.ts",
+		"src/electron.ts",
+		"src/preload.ts"
+	],
 	"extends": "code-config/tsconfig.node.json",
 	"compilerOptions": { "composite": true, "emitDeclarationOnly": true }
 }

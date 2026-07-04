@@ -56,8 +56,7 @@ export default defineConfig(({ mode }) => {
 		main: {
 			resolve: { conditions: ["node", mode], tsconfigPaths: true },
 			build: {
-				externalizeDeps: { exclude: ["trpc-electron"] },
-				rollupOptions: {
+				rolldownOptions: {
 					output: {
 						format: "cjs",
 						entryFileNames: "[name].cjs",
@@ -80,8 +79,7 @@ export default defineConfig(({ mode }) => {
 			resolve: { conditions: [mode], tsconfigPaths: true },
 			build: {
 				minify: mode === "production" ? "terser" : false,
-				externalizeDeps: { exclude: ["trpc-electron"] },
-				rollupOptions: {
+				rolldownOptions: {
 					input: {
 						renderer: path.resolve(dirname, "src/preload/renderer.ts"),
 					},

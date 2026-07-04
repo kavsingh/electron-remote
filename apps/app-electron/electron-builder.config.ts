@@ -6,7 +6,7 @@ const config: Configuration = {
 	directories: { buildResources: "build" },
 	files: ["out/**"],
 	nsis: {
-		artifactName: "${productName}-${version}-setup.${ext}",
+		artifactName: "${productName} ${version} ${arch} Installer.${ext}",
 		shortcutName: "${productName}",
 		uninstallDisplayName: "${productName}",
 		createDesktopShortcut: "always",
@@ -18,7 +18,7 @@ const config: Configuration = {
 		entitlementsInherit: "build/entitlements.mac.plist",
 	},
 	dmg: {
-		artifactName: "${name}-${version}-${arch}.${ext}",
+		artifactName: "${productName} ${version} ${arch}.${ext}",
 	},
 	linux: {
 		target: ["AppImage", "snap", "deb"],
@@ -26,7 +26,7 @@ const config: Configuration = {
 		category: "Utility",
 	},
 	appImage: {
-		artifactName: "${name}-${version}.${ext}",
+		artifactName: "${productName} ${version} ${arch}.${ext}",
 	},
 	npmRebuild: false,
 	publish: {

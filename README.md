@@ -1,10 +1,6 @@
-- `apps/app`: Electron, SolidJS
+# electron-remote
 
 ```
 pnpm i
 pnpm dev
 ```
-
-# electron-remote
-
-# electron-remote

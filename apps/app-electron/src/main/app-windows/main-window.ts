@@ -1,37 +1,44 @@
 import path from "node:path";
 
-import { AppContext } from "@app/shared/common/app";
 import { app, BrowserWindow } from "electron";
+import { scope } from "electron-log";
 
 import { APP_RENDERER_URL } from "~/lib/app-protocol.ts";
-import { AppStore } from "~/stores/app.ts";
 
-function loadWithAgent(win: BrowserWindow, url: string) {
-	return win.loadURL(url, { userAgent: `App/${app.getVersion()}` });
+import type { LoadURLOptions } from "electron";
+
+const logger = scope("main-window");
+
+async function loadWithAgent(win: BrowserWindow, url: string) {
+	const options: LoadURLOptions = { userAgent: `App/${app.getVersion()}` };
+
+	logger.info("loading url", JSON.stringify({ url, options }));
+
+	return win.loadURL(url, options);
 }
 
-function getRendererURL(appContext: AppContext, isE2E: boolean) {
-	if (app.isPackaged || isE2E) {
-		return appContext === "main"
-			? import.meta.env.MAIN_VITE_REMOTE_PROD_URL
-			: APP_RENDERER_URL;
+async function getRendererURL(isE2E: boolean) {
+	const loadRemote = app.isPackaged || isE2E;
+
+	if (!loadRemote && import.meta.env.MAIN_VITE_REMOTE_DEV_URL) {
+		return import.meta.env.MAIN_VITE_REMOTE_DEV_URL;
 	}
 
-	if (
-		import.meta.env.MAIN_VITE_REMOTE_DEV_URL &&
-		process.env["ELECTRON_RENDERER_URL"]
-	) {
-		return appContext === "main"
-			? import.meta.env.MAIN_VITE_REMOTE_DEV_URL
-			: process.env["ELECTRON_RENDERER_URL"];
-	}
+	const url = import.meta.env.MAIN_VITE_REMOTE_PROD_URL;
 
-	throw new Error("No entry point available");
+	try {
+		await fetch(url, { method: "HEAD" });
+
+		return url;
+	} catch (cause) {
+		logger.warn("remote url unavailable", { cause });
+
+		return APP_RENDERER_URL;
+	}
 }
 
-export function createMainWindow(ctx: { isE2E: boolean; appStore: AppStore }) {
-	const { isE2E, appStore } = ctx;
-	let appContext = appStore.getState().appContext;
+export function createMainWindow(ctx: { isE2E: boolean }) {
+	const { isE2E } = ctx;
 	const mainWindow = new BrowserWindow({
 		titleBarStyle: "hiddenInset",
 		width: 800,
@@ -42,16 +49,7 @@ export function createMainWindow(ctx: { isE2E: boolean; appStore: AppStore }) {
 		show: false,
 	});
 
-	void loadWithAgent(mainWindow, getRendererURL(appContext, isE2E));
-
-	ctx.appStore.addListener("update", () => {
-		const nextContext = ctx.appStore.getState().appContext;
-
-		if (nextContext === appContext) return;
-
-		appContext = nextContext;
-		void loadWithAgent(mainWindow, getRendererURL(appContext, isE2E));
-	});
+	void getRendererURL(isE2E).then((url) => loadWithAgent(mainWindow, url));
 
 	if (import.meta.env.DEV && !isE2E) {
 		mainWindow.webContents.openDevTools({ mode: "detach" });

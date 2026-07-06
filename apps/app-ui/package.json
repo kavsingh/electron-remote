@@ -6,6 +6,9 @@
 	"license": "MIT",
 	"author": "<author>",
 	"type": "module",
+	"exports": {
+		"./build": "./build.ts"
+	},
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",

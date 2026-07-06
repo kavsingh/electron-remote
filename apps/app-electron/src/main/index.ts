@@ -1,5 +1,5 @@
 import { app, BrowserWindow, protocol } from "electron";
-import log from "electron-log";
+import logger from "electron-log";
 
 import { createMainWindow } from "./app-windows/main-window.ts";
 import { initPubSub, registerIpcHandlers } from "./ipc.ts";
@@ -20,9 +20,12 @@ const systemStatsStore = createSystemStatsStore();
 let cleanupPubSub: ReturnType<typeof initPubSub> | undefined = undefined;
 
 function showMainWindow() {
-	log.info("Showing main window");
+	logger.info("Showing main window", {
+		devUrl: import.meta.env.MAIN_VITE_REMOTE_DEV_URL,
+		prodUrl: import.meta.env.MAIN_VITE_REMOTE_PROD_URL,
+	});
 
-	const mainWindow = createMainWindow({ isE2E, appStore });
+	const mainWindow = createMainWindow({ isE2E });
 
 	mainWindow.on("ready-to-show", () => {
 		cleanupPubSub = initPubSub(mainWindow, { systemStatsStore });
@@ -31,10 +34,7 @@ function showMainWindow() {
 }
 
 app.on("activate", () => {
-	log.info("App activated", {
-		devUrl: import.meta.env.MAIN_VITE_REMOTE_DEV_URL,
-		prodUrl: import.meta.env.MAIN_VITE_REMOTE_PROD_URL,
-	});
+	logger.info("App activated");
 
 	if (BrowserWindow.getAllWindows().length === 0) showMainWindow();
 });
@@ -44,19 +44,19 @@ app.on("web-contents-created", (_, contents) => {
 });
 
 app.on("window-all-closed", () => {
-	log.info("All app windows closed");
+	logger.info("All app windows closed");
 
 	if (process.platform !== "darwin") app.quit();
 });
 
 app.on("quit", () => {
-	log.info("App quitting");
+	logger.info("App quitting");
 	systemStatsStore.stopSampling();
 	cleanupPubSub?.();
 });
 
 void app.whenReady().then(() => {
-	log.info("App ready");
+	logger.info("App ready");
 	protocol.handle(appProtocol.scheme, appProtocolHandler);
 	registerIpcHandlers({ appStore, systemStatsStore });
 	systemStatsStore.startSampling();

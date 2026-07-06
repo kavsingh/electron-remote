@@ -3,10 +3,14 @@
 	"tasks": {
 		"lint": {},
 		"dev": { "persistent": true },
-		"build": { "dependsOn": ["^build"] },
+		"build": { "dependsOn": ["^build"], "outputs": ["dist/**"] },
 		"start": { "persistent": true },
 		"app-e2e#test:e2e": {},
-		"app-electron#build:mac": { "dependsOn": ["^build"] }
+		"app-electron#build": { "dependsOn": ["^build"], "outputs": ["out/**"] },
+		"app-electron#build:mac": {
+			"dependsOn": ["^build"],
+			"outputs": ["dist/**", "out/**"]
+		}
 	},
 	"globalDependencies": [".env", ".env.*"],
 	"globalPassThroughEnv": []

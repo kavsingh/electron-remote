@@ -1,8 +1,10 @@
+import fs from "node:fs/promises";
 import path from "node:path";
 
 import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
+import { build as buildRemoteUi } from "app-ui/build";
 import dotenv from "dotenv";
 import { defineConfig } from "electron-vite";
 import bundleObfuscator from "vite-plugin-bundle-obfuscator";
@@ -14,6 +16,26 @@ dotenv.config({ path: path.resolve(dirname, "./.env") });
 
 function isDefinedNotNull<T>(value: T): value is NonNullable<T> {
 	return value !== null && typeof value !== "undefined";
+}
+
+function prepareRemoteUi(): Plugin {
+	return {
+		name: "prepare-remote-ui",
+		apply: "build",
+		enforce: "post",
+		async generateBundle() {
+			console.info("\nbuilding remote ui bundle...");
+
+			const remoteDir = await buildRemoteUi();
+			const dest = path.resolve(dirname, "out/renderer-remote");
+
+			console.info("\ngathering remote ui artifacts...");
+
+			await fs.cp(remoteDir, dest, { recursive: true });
+
+			console.info(`\nremote ui artifacts gathered to ${dest}`);
+		},
+	};
 }
 
 function obfuscator(
@@ -96,7 +118,13 @@ export default defineConfig(({ mode }) => {
 		renderer: {
 			resolve: { conditions: ["browser", mode], tsconfigPaths: true },
 			build: { cssMinify: mode === "production" },
-			plugins: [react(), babelPlugin, tailwindcss(), obfuscator(mode)],
+			plugins: [
+				react(),
+				babelPlugin,
+				tailwindcss(),
+				obfuscator(mode),
+				prepareRemoteUi(),
+			],
 		},
 	};
 });

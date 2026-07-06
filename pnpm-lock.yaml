@@ -209,6 +209,9 @@ importers:
       '@playwright/test':
         specifier: 'catalog:'
         version: 1.61.1
+      app-ui:
+        specifier: workspace:*
+        version: link:../app-ui
       electron:
         specifier: 'catalog:'
         version: 43.0.0
@@ -273,6 +276,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 4.1.9(vitest@4.1.9)
+      app-ui:
+        specifier: workspace:*
+        version: link:../app-ui
       babel-plugin-react-compiler:
         specifier: 'catalog:'
         version: 1.0.0

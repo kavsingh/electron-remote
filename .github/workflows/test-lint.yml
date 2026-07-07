@@ -16,4 +16,6 @@ jobs:
         with:
           install_flags: --ignore-scripts
 
-      - uses: ./.github/actions/test-lint
+      - run: pnpm lint
+
+      - run: pnpm test:ci

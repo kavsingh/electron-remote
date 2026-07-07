@@ -24,7 +24,7 @@
 	"dependencies": {
 		"electron-log": "catalog:",
 		"superjson": "catalog:",
-		"systeminformation": "5.31.11",
+		"systeminformation": "5.31.12",
 		"zod": "catalog:"
 	},
 	"devDependencies": {

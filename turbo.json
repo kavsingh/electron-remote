@@ -1,8 +1,8 @@
 {
 	"$schema": "./node_modules/turbo/schema.json",
 	"tasks": {
-		"lint": {},
-		"dev": { "persistent": true },
+		"lint": { "dependsOn": ["^build"] },
+		"dev": { "dependsOn": ["^build"], "persistent": true },
 		"build": { "dependsOn": ["^build"], "outputs": ["dist/**"] },
 		"start": { "persistent": true },
 		"app-e2e#test:e2e": {},

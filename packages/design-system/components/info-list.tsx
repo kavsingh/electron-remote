@@ -2,17 +2,11 @@ import { twMerge } from "tailwind-merge";
 
 import type { ComponentPropsWithRef } from "react";
 
-export function InfoListRoot({
-	className,
-	...props
-}: ComponentPropsWithRef<"ul">) {
+function InfoListRoot({ className, ...props }: ComponentPropsWithRef<"ul">) {
 	return <ul {...props} className={twMerge("m-0 list-none p-0", className)} />;
 }
 
-export function InfoListEntry({
-	className,
-	...props
-}: ComponentPropsWithRef<"li">) {
+function InfoListEntry({ className, ...props }: ComponentPropsWithRef<"li">) {
 	return (
 		<li
 			{...props}
@@ -24,22 +18,21 @@ export function InfoListEntry({
 	);
 }
 
-export function InfoListLabel({
-	className,
-	...props
-}: ComponentPropsWithRef<"span">) {
+function InfoListLabel({ className, ...props }: ComponentPropsWithRef<"span">) {
 	return (
 		<span {...props} className={twMerge("text-muted-foreground", className)} />
 	);
 }
 
-export function InfoListValue(props: ComponentPropsWithRef<"span">) {
+function InfoListValue(props: ComponentPropsWithRef<"span">) {
 	return <span {...props} />;
 }
 
-export const InfoList = {
+const InfoList = {
 	Root: InfoListRoot,
 	Entry: InfoListEntry,
 	Label: InfoListLabel,
 	Value: InfoListValue,
 };
+
+export { InfoList, InfoListRoot, InfoListEntry, InfoListLabel, InfoListValue };

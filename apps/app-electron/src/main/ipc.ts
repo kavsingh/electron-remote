@@ -9,7 +9,7 @@ import type { SystemStatsStore } from "./stores/system-stats.ts";
 
 const { registerHandlers, send } = typeIpcMain(ipcMain);
 
-export function registerIpcHandlers(ctx: {
+function registerIpcHandlers(ctx: {
 	appStore: AppStore;
 	systemStatsStore: SystemStatsStore;
 }) {
@@ -28,7 +28,7 @@ export function registerIpcHandlers(ctx: {
 	return removeHandlers;
 }
 
-export function initPubSub(
+function initPubSub(
 	win: BrowserWindow,
 	ctx: { systemStatsStore: SystemStatsStore },
 ) {
@@ -42,3 +42,5 @@ export function initPubSub(
 		ctx.systemStatsStore.removeListener("update", handleStatsUpdate);
 	};
 }
+
+export { registerIpcHandlers, initPubSub };

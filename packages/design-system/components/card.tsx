@@ -4,10 +4,7 @@ import { twMerge } from "tailwind-merge";
 
 import type { ComponentPropsWithRef } from "react";
 
-export function CardRoot({
-	className,
-	...props
-}: ComponentPropsWithRef<"div">) {
+function CardRoot({ className, ...props }: ComponentPropsWithRef<"div">) {
 	return (
 		<div
 			{...props}
@@ -21,10 +18,7 @@ export function CardRoot({
 
 //
 
-export function CardHeader({
-	className,
-	...props
-}: ComponentPropsWithRef<"div">) {
+function CardHeader({ className, ...props }: ComponentPropsWithRef<"div">) {
 	return (
 		<div
 			{...props}
@@ -35,10 +29,7 @@ export function CardHeader({
 
 //
 
-export function CardTitle({
-	className,
-	...props
-}: ComponentPropsWithRef<"h3">) {
+function CardTitle({ className, ...props }: ComponentPropsWithRef<"h3">) {
 	return (
 		// oxlint-disable-next-line jsx-a11y/heading-has-content
 		<h3
@@ -53,10 +44,7 @@ export function CardTitle({
 
 //
 
-export function CardDescription({
-	className,
-	...props
-}: ComponentPropsWithRef<"p">) {
+function CardDescription({ className, ...props }: ComponentPropsWithRef<"p">) {
 	return (
 		<p
 			{...props}
@@ -67,19 +55,13 @@ export function CardDescription({
 
 //
 
-export function CardContent({
-	className,
-	...props
-}: ComponentPropsWithRef<"div">) {
+function CardContent({ className, ...props }: ComponentPropsWithRef<"div">) {
 	return <div {...props} className={twMerge("p-6 pbs-0", className)} />;
 }
 
 //
 
-export function CardFooter({
-	className,
-	...props
-}: ComponentPropsWithRef<"div">) {
+function CardFooter({ className, ...props }: ComponentPropsWithRef<"div">) {
 	return (
 		<div
 			{...props}
@@ -90,11 +72,21 @@ export function CardFooter({
 
 //
 
-export const Card = {
+const Card = {
 	Root: CardRoot,
 	Header: CardHeader,
 	Title: CardTitle,
 	Description: CardDescription,
 	Content: CardContent,
 	Footer: CardFooter,
+};
+
+export {
+	Card,
+	CardRoot,
+	CardHeader,
+	CardTitle,
+	CardDescription,
+	CardContent,
+	CardFooter,
 };

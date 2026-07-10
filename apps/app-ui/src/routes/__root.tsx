@@ -33,7 +33,6 @@ function RootLayout() {
 				<div className="bg-linear-to-l from-background p-4 pe-8 pbs-10 text-sm min-block-full">
 					<nav className="flex flex-col gap-2">
 						<NavLink href="/">Home</NavLink>
-						<NavLink href="/files">Files</NavLink>
 						<NavLink href="/settings">Settings</NavLink>
 					</nav>
 				</div>

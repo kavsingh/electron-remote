@@ -41,15 +41,15 @@ async function serveFile(filepath: string, fileRoot: string) {
 	}
 }
 
-export const APP_PROTOCOL_SCHEME = "app";
-export const APP_RENDERER_HOST = "renderer";
-export const APP_RENDERER_URL = `${APP_PROTOCOL_SCHEME}://${APP_RENDERER_HOST}/`;
-export const appProtocol: CustomScheme = {
+const APP_PROTOCOL_SCHEME = "app";
+const APP_RENDERER_HOST = "renderer";
+const APP_RENDERER_URL = `${APP_PROTOCOL_SCHEME}://${APP_RENDERER_HOST}/`;
+const appProtocol: CustomScheme = {
 	scheme: APP_PROTOCOL_SCHEME,
 	privileges: { standard: true, corsEnabled: true },
 };
 
-export async function appProtocolHandler(request: Request): Promise<Response> {
+async function appProtocolHandler(request: Request): Promise<Response> {
 	const { host, pathname } = new URL(request.url);
 
 	log.debug("handling app protocol", { host, pathname });
@@ -74,3 +74,11 @@ export async function appProtocolHandler(request: Request): Promise<Response> {
 		}
 	}
 }
+
+export {
+	APP_PROTOCOL_SCHEME,
+	APP_RENDERER_HOST,
+	APP_RENDERER_URL,
+	appProtocol,
+	appProtocolHandler,
+};

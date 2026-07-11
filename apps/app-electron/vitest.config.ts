@@ -1,10 +1,8 @@
 import { defineConfig, defineProject, mergeConfig } from "vitest/config";
 
-import defineBaseConfig from "./electron.vite.config.ts";
+import { mainConfig } from "./vite.config.ts";
 
 export default defineConfig((configEnv) => {
-	const baseConfig = defineBaseConfig(configEnv);
-
 	return {
 		test: {
 			clearMocks: true,
@@ -22,8 +20,7 @@ export default defineConfig((configEnv) => {
 			},
 			projects: [
 				mergeConfig(
-					// oxlint-disable-next-line typescript/no-unsafe-type-assertion
-					baseConfig.main as Record<string, unknown>,
+					mainConfig(configEnv),
 					defineProject({
 						test: {
 							name: "main",
@@ -32,19 +29,6 @@ export default defineConfig((configEnv) => {
 								"src/{main,common,preload}/**/*.{test,spec}.?(m|c)[tj]s?(x)",
 							],
 							setupFiles: ["./src/vitest.node.setup.ts"],
-						},
-					}),
-				),
-				mergeConfig(
-					// oxlint-disable-next-line typescript/no-unsafe-type-assertion
-					baseConfig.renderer as Record<string, unknown>,
-					defineProject({
-						resolve: { conditions: ["development", "browser"] },
-						test: {
-							name: "renderer",
-							environment: "jsdom",
-							include: ["src/renderer/**/*.{test,spec}.?(m|c)[tj]s?(x)"],
-							setupFiles: ["./src/vitest.renderer.setup.ts"],
 						},
 					}),
 				),

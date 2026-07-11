@@ -16,7 +16,7 @@ interface Options {
 		| undefined;
 }
 
-const appPath = path.join(appElectronPath, "out/main/index.cjs");
+const appPath = path.join(appElectronPath, "bundle/electron/index.js");
 
 export const test = baseTest.extend<Fixtures & Options>({
 	appLaunchOptions: [{}, { option: true }],

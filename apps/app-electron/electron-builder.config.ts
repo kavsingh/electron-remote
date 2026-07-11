@@ -4,7 +4,7 @@ const config: Configuration = {
 	appId: "com.electron-remote.dev",
 	afterPack: "build/after-pack.ts",
 	directories: { buildResources: "build" },
-	files: ["out/**"],
+	files: ["bundle/**"],
 	nsis: {
 		artifactName: "${productName} ${version} ${arch} Installer.${ext}",
 		shortcutName: "${productName}",

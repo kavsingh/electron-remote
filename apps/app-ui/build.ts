@@ -13,13 +13,7 @@ const execFileAsync = promisify(execFile);
 async function build() {
 	console.info(styleText(["dim"], "building app ui..."));
 
-	await execFileAsync("pnpm", [
-		"turbo",
-		"build",
-		"--force",
-		"--filter",
-		"app-ui",
-	]);
+	await execFileAsync("pnpm", ["turbo", "build", "--filter", "app-ui"]);
 
 	const outdir = path.resolve(import.meta.dirname, "dist");
 

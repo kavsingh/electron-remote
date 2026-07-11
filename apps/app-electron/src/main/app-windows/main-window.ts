@@ -37,11 +37,10 @@ export function createMainWindow(ctx: { isE2E: boolean }) {
 		show: false,
 	});
 
-	const url = app.isPackaged
-		? import.meta.env.VITE_REMOTE_PROD_URL
-		: import.meta.env.VITE_REMOTE_DEV_URL;
-
-	void loadWithAgent(mainWindow, url);
+	void loadWithAgent(
+		mainWindow,
+		isE2E ? REMOTE_ENTRY_URL_E2E : REMOTE_ENTRY_URL,
+	);
 
 	if (import.meta.env.DEV && !isE2E) {
 		mainWindow.webContents.openDevTools({ mode: "detach" });

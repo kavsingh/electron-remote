@@ -6,10 +6,12 @@ import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { obfuscator } from "code-config/vite/plugins.ts";
 import { defineConfig } from "vite";
 
+import { devServerOptions, previewServerOptions } from "./build.ts";
+
 export default defineConfig(({ mode }) => {
 	return {
-		server: { port: 5321, host: "0.0.0.0" },
-		preview: { port: 5321, host: "0.0.0.0" },
+		server: devServerOptions,
+		preview: previewServerOptions,
 		resolve: { conditions: ["browser", mode], tsconfigPaths: true },
 		build: { cssMinify: mode === "production" },
 		plugins: [

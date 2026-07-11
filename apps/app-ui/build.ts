@@ -2,6 +2,11 @@ import { execFile, spawn } from "node:child_process";
 import path from "node:path";
 import { promisify, styleText } from "node:util";
 
+import type { ServerOptions } from "vite";
+
+const devServerOptions: ServerOptions = { port: 5321, host: "0.0.0.0" };
+const previewServerOptions: ServerOptions = { port: 5321, host: "0.0.0.0" };
+
 // oxlint-disable-next-line typescript/strict-void-return
 const execFileAsync = promisify(execFile);
 
@@ -63,4 +68,4 @@ async function serve() {
 	};
 }
 
-export { build, serve };
+export { build, serve, devServerOptions, previewServerOptions };

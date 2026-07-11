@@ -13,7 +13,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "conc 'pnpm dev:ui' 'pnpm dev:electron'",
-		"dev:ui": "docker compose up --watch app-ui",
+		"dev:ui": "pnpm turbo run dev --filter app-ui",
 		"dev:electron": "wait-on http://localhost:5321 && pnpm turbo run dev --filter app-electron",
 		"lint": "turbo run lint",
 		"test:e2e": "turbo run test:e2e --filter app-e2e",

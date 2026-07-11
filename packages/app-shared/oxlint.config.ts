@@ -1,4 +1,4 @@
-import { baseConfig } from "code-config/oxlint-configs.ts";
+import { baseConfig } from "code-config/oxlint.ts";
 import { defineConfig } from "oxlint";
 
 export default defineConfig({
@@ -11,7 +11,6 @@ export default defineConfig({
 		"!**/__generated__/__mocks__/**",
 	],
 	rules: {
-		"import/no-nodejs-modules": "error",
 		"import/no-relative-parent-imports": "off",
 	},
 	overrides: [
@@ -20,9 +19,8 @@ export default defineConfig({
 			rules: { "eslint/no-console": "error" },
 		},
 		{
-			files: ["node/**"],
-			env: { node: true, browser: false },
-			rules: { "import/no-nodejs-modules": "off" },
+			files: ["common/**", "browser/**"],
+			rules: { "import/no-nodejs-modules": "error" },
 		},
 		{ files: ["common/**"], env: { node: false, browser: false } },
 		{ files: ["browser/**"], env: { node: false, browser: true } },

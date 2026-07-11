@@ -44,7 +44,6 @@
 		"memfs": "catalog:",
 		"terser": "catalog:",
 		"vite": "catalog:",
-		"vite-plugin-bundle-obfuscator": "1.13.0",
 		"vite-plugin-electron": "1.1.0",
 		"vitest": "catalog:"
 	},

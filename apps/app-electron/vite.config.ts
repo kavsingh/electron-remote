@@ -1,9 +1,10 @@
 import path from "node:path";
 
+import { obfuscator } from "code-config/vite/plugins.ts";
 import { defineConfig } from "vite";
 import electron from "vite-plugin-electron";
 
-import { obfuscator, prepareRemoteUi } from "./vite.plugins.ts";
+import { prepareRemoteUi } from "./vite.plugins.ts";
 
 const mainConfig = defineConfig(({ mode }) => {
 	return {

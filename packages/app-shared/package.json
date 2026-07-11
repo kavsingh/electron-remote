@@ -7,9 +7,6 @@
 		"dist/**"
 	],
 	"type": "module",
-	"imports": {
-		"#common/*": "./common/*"
-	},
 	"exports": {
 		"./common/*": {
 			"import": "./dist/common/*.mjs",

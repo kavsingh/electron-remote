@@ -2,6 +2,8 @@
 	"$schema": "./node_modules/turbo/schema.json",
 	"tasks": {
 		"lint": { "dependsOn": ["^build"] },
+		"test": { "dependsOn": ["^build"] },
+		"test:ci": { "dependsOn": ["^build"] },
 		"dev": { "dependsOn": ["^build"], "persistent": true },
 		"build": { "dependsOn": ["^build"], "outputs": ["dist/**"] },
 		"start": { "persistent": true },

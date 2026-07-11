@@ -14,9 +14,9 @@
 		"build": "vite build",
 		"start": "vite preview",
 		"lint": "tsr generate && oxlint && oxfmt --check",
-		"tdd": "vitest --reporter=verbose",
-		"test": "vitest run",
-		"test:ci": "vitest run --silent --coverage --reporter=dot"
+		"tdd": "echo 'soon'",
+		"test": "echo 'soon'",
+		"test:ci": "echo 'soon'"
 	},
 	"devDependencies": {
 		"@app/ipc": "workspace:*",

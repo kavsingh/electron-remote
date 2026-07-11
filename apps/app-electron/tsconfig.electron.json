@@ -1,0 +1,11 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"include": ["./src/main", "./src/preload", "./src/vitest.node.setup.ts"],
+	"extends": "code-config/tsconfig.node.json",
+	"compilerOptions": {
+		"composite": true,
+		"emitDeclarationOnly": true,
+		"paths": { "~/*": ["./src/main/*"] },
+		"types": ["node", "vite/client"]
+	}
+}

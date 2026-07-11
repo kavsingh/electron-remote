@@ -14,4 +14,6 @@ jobs:
 
       - uses: ./.github/actions/setup
 
+      - run: pnpm test:ci
+
       - run: pnpm lint

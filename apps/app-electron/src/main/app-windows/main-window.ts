@@ -3,18 +3,13 @@ import path from "node:path";
 import { app, BrowserWindow } from "electron";
 import { scope } from "electron-log";
 
-import { APP_RENDERER_URL } from "~/lib/app-protocol.ts";
+import { APP_RENDERER_URL as FALLBACK_URL } from "~/lib/app-protocol.ts";
 
 import type { LoadURLOptions } from "electron";
 
-interface RendererURL {
-	primary: string;
-	fallback: string;
-}
-
 const logger = scope("main-window");
 
-async function loadWithAgent(win: BrowserWindow, url: RendererURL) {
+async function loadWithAgent(win: BrowserWindow, url: string) {
 	const options: LoadURLOptions = {
 		userAgent: `${win.webContents.userAgent} App/${app.getVersion()}`,
 	};
@@ -22,29 +17,12 @@ async function loadWithAgent(win: BrowserWindow, url: RendererURL) {
 	logger.info("loading url", JSON.stringify({ url, options }));
 
 	try {
-		await win.loadURL(url.primary, options);
+		await win.loadURL(url, options);
 	} catch (cause) {
-		logger.error("failed to load url", { cause, url: url });
-		logger.info("loading fallback url", url.fallback);
+		logger.error("failed to load url", { cause, url });
 
-		return win.loadURL(url.fallback, options);
+		return win.loadURL(FALLBACK_URL, options);
 	}
-}
-
-function getRendererURL(isE2E: boolean): RendererURL {
-	const loadRemote = app.isPackaged || isE2E;
-
-	if (!loadRemote) {
-		return {
-			primary: import.meta.env.MAIN_VITE_REMOTE_DEV_URL,
-			fallback: process.env.ELECTRON_RENDERER_URL ?? "",
-		};
-	}
-
-	return {
-		primary: import.meta.env.MAIN_VITE_REMOTE_PROD_URL,
-		fallback: APP_RENDERER_URL,
-	};
 }
 
 export function createMainWindow(ctx: { isE2E: boolean }) {
@@ -54,12 +32,15 @@ export function createMainWindow(ctx: { isE2E: boolean }) {
 		width: 800,
 		height: 600,
 		webPreferences: {
-			preload: path.resolve(import.meta.dirname, "../preload/renderer.cjs"),
+			preload: path.resolve(import.meta.dirname, "preload-renderer.cjs"),
 		},
 		show: false,
 	});
 
-	void loadWithAgent(mainWindow, getRendererURL(isE2E));
+	void loadWithAgent(
+		mainWindow,
+		isE2E ? REMOTE_ENTRY_URL_E2E : REMOTE_ENTRY_URL,
+	);
 
 	if (import.meta.env.DEV && !isE2E) {
 		mainWindow.webContents.openDevTools({ mode: "detach" });

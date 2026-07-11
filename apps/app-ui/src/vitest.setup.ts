@@ -19,7 +19,7 @@ vi.stubGlobal(
 );
 
 vi.mock("electron-log/renderer", () => {
-	const logger = {
+	const logFns = {
 		silly: vi.fn(),
 		debug: vi.fn(),
 		verbose: vi.fn(),
@@ -28,7 +28,9 @@ vi.mock("electron-log/renderer", () => {
 		error: vi.fn(),
 	};
 
-	return { ...logger, scope: () => logger };
+	const logger = { ...logFns, scope: () => logFns };
+
+	return { ...logger, default: logger };
 });
 
 afterEach(() => {

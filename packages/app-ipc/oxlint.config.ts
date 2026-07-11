@@ -1,4 +1,4 @@
-import { baseConfig } from "code-config/oxlint-configs.ts";
+import { baseConfig } from "code-config/oxlint.ts";
 import { defineConfig } from "oxlint";
 
 export default defineConfig({

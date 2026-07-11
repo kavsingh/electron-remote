@@ -1,53 +1,21 @@
-import {
-	baseConfig,
-	reactConfig,
-	tailwindcssConfig,
-} from "code-config/oxlint-configs.ts";
-import jestDom from "eslint-plugin-jest-dom";
-import testingLibrary from "eslint-plugin-testing-library";
+import { baseConfig } from "code-config/oxlint.ts";
 import { defineConfig } from "oxlint";
 
 import type { OxlintConfig } from "oxlint";
 
-const restrictImportsNode = {
-	paths: [{ name: "react" }, { name: "react-dom" }, { name: "react-router" }],
-	patterns: [
-		{
-			group: ["react-*", "tailwind-*", "electron-log/renderer"],
-			allowTypeImports: true,
-		},
-	],
-};
-
-const restrictImportsBrowser = {
-	paths: [
-		{ name: "electron", allowTypeImports: true },
-		{ name: "systeminformation", allowTypeImports: true },
-	],
-	patterns: [{ group: ["electron-log/main"], allowTypeImports: true }],
-};
-
-const tailwindcss = tailwindcssConfig({
-	cwd: import.meta.dirname,
-	entryPoint: "./src/renderer/index.css",
-	files: ["./src/renderer/**/*.{ts,tsx}"],
-});
-
 const config: OxlintConfig = defineConfig({
-	extends: [
-		baseConfig,
-		reactConfig({ files: ["./src/renderer/**/*.{ts,tsx}"] }),
-	],
+	extends: [baseConfig],
 	env: { node: true, browser: false },
 	ignorePatterns: [
 		"dist/**",
+		"dist-*/**",
 		"out/**",
 		"reports/**",
 		"**/*.gen.*",
 		"**/__generated__/**",
 		"!**/__generated__/__mocks__/**",
 	],
-	settings: { vitest: { typecheck: true }, ...tailwindcss.settings },
+	settings: { vitest: { typecheck: true } },
 	overrides: [
 		{
 			files: ["./build/**/*.{ts,js}"],
@@ -60,32 +28,13 @@ const config: OxlintConfig = defineConfig({
 		},
 
 		{
-			files: ["./src/common/**/*.{ts,tsx}"],
-			env: { node: false, browser: false },
-			rules: {
-				"eslint/no-console": "error",
-				"eslint/no-restricted-imports": [
-					"error",
-					{
-						paths: [
-							...restrictImportsBrowser.paths,
-							...restrictImportsNode.paths,
-						],
-						patterns: [
-							...restrictImportsBrowser.patterns,
-							...restrictImportsNode.patterns,
-						],
-					},
-				],
-				"import/no-nodejs-modules": "error",
-			},
-		},
-
-		{
 			files: ["./src/main/**/*.ts"],
 			env: { node: true, browser: false },
 			rules: {
-				"eslint/no-restricted-imports": ["error", restrictImportsNode],
+				"eslint/no-restricted-imports": [
+					"error",
+					{ patterns: [{ group: ["electron-log/renderer"] }] },
+				],
 			},
 		},
 
@@ -95,32 +44,10 @@ const config: OxlintConfig = defineConfig({
 			rules: {
 				"eslint/no-restricted-imports": [
 					"error",
-					{
-						paths: [
-							...restrictImportsBrowser.paths,
-							...restrictImportsNode.paths,
-						].filter(({ name }) => name !== "electron"),
-						patterns: [
-							...restrictImportsBrowser.patterns,
-							...restrictImportsNode.patterns,
-						],
-					},
+					{ patterns: [{ group: ["electron-log/*"] }] },
 				],
 			},
 		},
-
-		{
-			files: ["./src/renderer/**/*.{ts,tsx}"],
-			env: { node: false, browser: true },
-			rules: {
-				"eslint/no-restricted-imports": ["error", restrictImportsBrowser],
-
-				"import/no-nodejs-modules": "error",
-				"import/no-unassigned-import": ["error", { allow: ["**/*.css"] }],
-			},
-		},
-
-		...(tailwindcss.overrides ?? []),
 
 		{
 			files: [
@@ -144,18 +71,6 @@ const config: OxlintConfig = defineConfig({
 				"vitest/no-focused-tests": "error",
 				"vitest/no-import-node-test": "error",
 				"vitest/require-mock-type-parameters": "off",
-			},
-		},
-
-		{
-			files: [
-				"./src/renderer/**/*.test.{ts,tsx}",
-				"./src/renderer/**/*.test-d.{ts,tsx}",
-			],
-			jsPlugins: ["eslint-plugin-jest-dom", "eslint-plugin-testing-library"],
-			rules: {
-				...jestDom.configs["flat/recommended"].rules,
-				...testingLibrary.configs["flat/react"].rules,
 			},
 		},
 	],

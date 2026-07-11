@@ -2,19 +2,18 @@ import { execFile, spawn } from "node:child_process";
 import path from "node:path";
 import { promisify, styleText } from "node:util";
 
+import type { ServerOptions } from "vite";
+
+const devServerOptions: ServerOptions = { port: 5321, host: "0.0.0.0" };
+const previewServerOptions: ServerOptions = { port: 5321, host: "0.0.0.0" };
+
 // oxlint-disable-next-line typescript/strict-void-return
 const execFileAsync = promisify(execFile);
 
 async function build() {
 	console.info(styleText(["dim"], "building app ui..."));
 
-	await execFileAsync("pnpm", [
-		"turbo",
-		"build",
-		"--force",
-		"--filter",
-		"app-ui",
-	]);
+	await execFileAsync("pnpm", ["turbo", "build", "--filter", "app-ui"]);
 
 	const outdir = path.resolve(import.meta.dirname, "dist");
 
@@ -63,4 +62,4 @@ async function serve() {
 	};
 }
 
-export { build, serve };
+export { build, serve, devServerOptions, previewServerOptions };

@@ -32,8 +32,8 @@ function RootLayout() {
 			<div className="grid grid-cols-[max-content_1fr] block-full inline-full">
 				<div className="bg-linear-to-l from-background p-4 pe-8 pbs-10 text-sm min-block-full">
 					<nav className="flex flex-col gap-2">
-						<NavLink href="/">Home</NavLink>
-						<NavLink href="/settings">Settings</NavLink>
+						<NavLink to="/">Home</NavLink>
+						<NavLink to="/settings">Settings</NavLink>
 					</nav>
 				</div>
 				<div className="overflow-x-hidden overflow-y-auto bg-background block-full">

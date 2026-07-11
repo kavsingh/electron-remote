@@ -2,7 +2,7 @@ import {
 	baseConfig,
 	reactConfig,
 	tailwindcssConfig,
-} from "code-config/oxlint-configs.ts";
+} from "code-config/oxlint.ts";
 import jestDom from "eslint-plugin-jest-dom";
 import testingLibrary from "eslint-plugin-testing-library";
 import { defineConfig } from "oxlint";

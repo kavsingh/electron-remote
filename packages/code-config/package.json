@@ -4,9 +4,18 @@
 	"description": "shared code configs",
 	"license": "MIT",
 	"type": "module",
+	"devDependencies": {
+		"vite-plugin-bundle-obfuscator": "catalog:"
+	},
 	"peerDependencies": {
 		"eslint-plugin-better-tailwindcss": "catalog:",
 		"eslint-plugin-react-hooks": "catalog:",
-		"oxlint": "catalog:"
+		"oxlint": "catalog:",
+		"vite": "catalog:"
+	},
+	"peerDependenciesMeta": {
+		"vite": {
+			"optional": true
+		}
 	}
 }

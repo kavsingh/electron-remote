@@ -2,14 +2,16 @@
 	"$schema": "./node_modules/turbo/schema.json",
 	"tasks": {
 		"lint": { "dependsOn": ["^build"] },
+		"test": { "dependsOn": ["^build"] },
+		"test:ci": { "dependsOn": ["^build"] },
 		"dev": { "dependsOn": ["^build"], "persistent": true },
 		"build": { "dependsOn": ["^build"], "outputs": ["dist/**"] },
 		"start": { "persistent": true },
 		"app-e2e#test:e2e": {},
-		"app-electron#build": { "dependsOn": ["^build"], "outputs": ["out/**"] },
+		"app-electron#build": { "dependsOn": ["^build"], "outputs": ["bundle/**"] },
 		"app-electron#build:mac": {
 			"dependsOn": ["^build"],
-			"outputs": ["dist/**", "out/**"]
+			"outputs": ["dist/**", "bundle/**"]
 		}
 	},
 	"globalDependencies": [".env", ".env.*"],

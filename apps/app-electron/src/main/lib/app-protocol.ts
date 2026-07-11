@@ -4,8 +4,6 @@ import { pathToFileURL } from "node:url";
 import { net } from "electron";
 import log from "electron-log";
 
-import { REMOTE_RENDERER_FALLBACK_ROOT } from "./known-paths.ts";
-
 import type { CustomScheme } from "electron";
 
 async function serveFile(filepath: string, fileRoot: string) {
@@ -44,6 +42,7 @@ async function serveFile(filepath: string, fileRoot: string) {
 const APP_PROTOCOL_SCHEME = "app";
 const APP_RENDERER_HOST = "renderer";
 const APP_RENDERER_URL = `${APP_PROTOCOL_SCHEME}://${APP_RENDERER_HOST}/`;
+const BUILTIN_RENDERER_ROOT = path.resolve(import.meta.dirname, "../renderer");
 const appProtocol: CustomScheme = {
 	scheme: APP_PROTOCOL_SCHEME,
 	privileges: { standard: true, corsEnabled: true },
@@ -58,10 +57,7 @@ async function appProtocolHandler(request: Request): Promise<Response> {
 		case APP_RENDERER_HOST: {
 			const isRoot = pathname === "" || pathname === "/";
 
-			return serveFile(
-				isRoot ? "index.html" : pathname,
-				REMOTE_RENDERER_FALLBACK_ROOT,
-			);
+			return serveFile(isRoot ? "index.html" : pathname, BUILTIN_RENDERER_ROOT);
 		}
 
 		default: {

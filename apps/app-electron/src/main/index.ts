@@ -20,10 +20,7 @@ const systemStatsStore = createSystemStatsStore();
 let cleanupPubSub: ReturnType<typeof initPubSub> | undefined = undefined;
 
 function showMainWindow() {
-	logger.info("Showing main window", {
-		devUrl: import.meta.env.MAIN_VITE_REMOTE_DEV_URL,
-		prodUrl: import.meta.env.MAIN_VITE_REMOTE_PROD_URL,
-	});
+	logger.info("Showing main window", import.meta.env);
 
 	const mainWindow = createMainWindow({ isE2E });
 

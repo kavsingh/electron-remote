@@ -4,8 +4,5 @@
 	"references": [
 		{ "path": "./tsconfig.node.json" },
 		{ "path": "./tsconfig.src.json" }
-	],
-	// @TODO: temp workaround until https://github.com/vitejs/vite/issues/21889
-	// is resolved
-	"compilerOptions": { "paths": { "~/*": ["./src/*"] } }
+	]
 }

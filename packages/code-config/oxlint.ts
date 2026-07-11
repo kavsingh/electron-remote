@@ -4,7 +4,7 @@ import { defineConfig } from "oxlint";
 
 import type { OxlintConfig } from "oxlint";
 
-export const baseConfig: OxlintConfig = defineConfig({
+const baseConfig: OxlintConfig = defineConfig({
 	options: {
 		typeAware: true,
 		typeCheck: true,
@@ -130,7 +130,7 @@ export const baseConfig: OxlintConfig = defineConfig({
 	],
 });
 
-export function reactConfig({ files }: { files: string[] }): OxlintConfig {
+function reactConfig({ files }: { files: string[] }): OxlintConfig {
 	const reactHooksName = "react-hooks-js";
 	const reactHooksRecommended = Object.fromEntries(
 		Object.entries(reactHooks.configs["recommended-latest"].rules).map(
@@ -165,7 +165,7 @@ export function reactConfig({ files }: { files: string[] }): OxlintConfig {
 	});
 }
 
-export function tailwindcssConfig({
+function tailwindcssConfig({
 	cwd,
 	entryPoint,
 	files,
@@ -190,3 +190,5 @@ export function tailwindcssConfig({
 		],
 	});
 }
+
+export { baseConfig, reactConfig, tailwindcssConfig };

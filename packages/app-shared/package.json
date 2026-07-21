@@ -9,7 +9,7 @@
 	"type": "module",
 	"exports": {
 		"./common/*": {
-			"import": "./dist/common/*.mjs",
+			"import": "./dist/common/*.js",
 			"types": "./dist/common/*.d.ts"
 		}
 	},

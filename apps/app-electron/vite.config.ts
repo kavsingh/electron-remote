@@ -1,11 +1,11 @@
 import path from "node:path";
 
-import { devServerOptions, previewServerOptions } from "app-ui/build";
+import { devServerOptions, previewServerOptions } from "app-frontend/build";
 import { obfuscator } from "code-config/vite/plugins.ts";
 import { defineConfig } from "vite";
 import electron from "vite-plugin-electron";
 
-import { prepareRemoteUi } from "./vite.plugins.ts";
+import { prepareFrontend } from "./vite.plugins.ts";
 
 const mainConfig = defineConfig(({ mode }) => {
 	return {
@@ -60,7 +60,7 @@ export default defineConfig((configEnv) => {
 				{ entry: "src/main/index.ts", vite: mainConfig(configEnv) },
 				{ vite: preloadConfig(configEnv) },
 			]),
-			prepareRemoteUi(path.resolve(import.meta.dirname, "bundle/renderer")),
+			prepareFrontend(path.resolve(import.meta.dirname, "bundle/renderer")),
 		],
 	};
 });

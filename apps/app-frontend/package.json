@@ -1,7 +1,7 @@
 {
-	"name": "app-ui",
+	"name": "app-frontend",
 	"version": "1.0.0-dev.0",
-	"description": "hosted app ui",
+	"description": "hosted app frontend",
 	"keywords": [],
 	"license": "MIT",
 	"author": "<author>",

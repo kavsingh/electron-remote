@@ -9,19 +9,19 @@
 	"type": "module",
 	"exports": {
 		"./schema": {
-			"import": "./dist/schema.mjs",
+			"import": "./dist/schema.js",
 			"types": "./dist/schema.d.ts"
 		},
 		"./electron": {
 			"import": "./dist/electron.mjs",
-			"types": "./dist/electron.d.ts"
+			"types": "./dist/electron.d.mts"
 		},
 		"./preload": {
 			"import": "./dist/preload.mjs",
-			"types": "./dist/preload.d.ts"
+			"types": "./dist/preload.d.mts"
 		},
 		"./browser": {
-			"import": "./dist/browser.mjs",
+			"import": "./dist/browser.js",
 			"types": "./dist/browser.d.ts"
 		}
 	},

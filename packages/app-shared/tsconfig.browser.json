@@ -1,6 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
-	"include": ["common", "browser"],
+	"include": ["browser"],
 	"extends": "code-config/tsconfig.browser.json",
+	"references": [{ "path": "./tsconfig.common.json" }],
 	"compilerOptions": { "composite": true, "emitDeclarationOnly": true }
 }

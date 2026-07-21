@@ -6,11 +6,16 @@ export default defineConfig([
 	{
 		clean: true,
 		dts: { build: true },
-		entry: {
-			schema: "src/schema.ts",
-			preload: "src/preload.ts",
-			electron: "src/electron.ts",
-		},
+		entry: "src/schema.ts",
+		platform: "neutral",
+		target: "es2022",
+		format: ["esm"],
+		define: { IPC_VERSION: JSON.stringify(packageJson.version) },
+	},
+	{
+		dts: { build: true },
+		entry: { preload: "src/preload.ts", electron: "src/electron.ts" },
+		platform: "node",
 		target: "node24",
 		format: ["esm"],
 		define: { IPC_VERSION: JSON.stringify(packageJson.version) },
@@ -18,6 +23,7 @@ export default defineConfig([
 	{
 		dts: { build: true },
 		entry: "src/browser.ts",
+		platform: "browser",
 		target: "chrome130",
 		format: ["esm"],
 		define: { IPC_VERSION: JSON.stringify(packageJson.version) },

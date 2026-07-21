@@ -3,7 +3,7 @@
 	"pre-commit": {
 		"jobs": [
 			{
-				"root": "apps/app-ui",
+				"root": "apps/app-frontend",
 				"glob": "*.{ts,tsx,js,jsx}",
 				"run": "pnpm oxlint --no-error-on-unmatched-pattern {staged_files}"
 			}

@@ -9,6 +9,7 @@ export default defineConfig([
 		unbundle: true,
 		entry: "common/index.ts",
 		outDir: "dist/common",
+		platform: "neutral",
 		target: "es2022",
 		format: ["esm"],
 		define: { LIB_VERSION: JSON.stringify(packageJson.version) },

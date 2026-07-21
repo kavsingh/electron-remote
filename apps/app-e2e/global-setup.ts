@@ -1,6 +1,6 @@
 import { styleText } from "node:util";
 
-import { serve as serveUi } from "app-ui/build";
+import { serve as serveFrontend } from "app-frontend/build";
 
 import { execTurbo } from "./lib.ts";
 
@@ -11,7 +11,7 @@ async function globalSetup() {
 
 	console.info(styleText(["bold"], "electron bundle build complete"));
 
-	return serveUi();
+	return serveFrontend();
 }
 
 // oxlint-disable-next-line import/no-default-export

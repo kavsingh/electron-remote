@@ -12,15 +12,15 @@
 	},
 	"type": "module",
 	"scripts": {
-		"dev": "conc 'pnpm dev:ui' 'pnpm dev:electron'",
-		"dev:ui": "pnpm turbo run dev --filter app-ui",
+		"dev": "conc 'pnpm dev:frontend' 'pnpm dev:electron'",
+		"dev:frontend": "pnpm turbo run dev --filter app-frontend",
 		"dev:electron": "wait-on http://localhost:5321 && pnpm turbo run dev --filter app-electron",
 		"lint": "turbo run lint",
 		"test": "turbo run test",
 		"test:ci": "turbo run test:ci",
 		"test:e2e": "turbo run test:e2e --filter app-e2e",
 		"build:mac": "turbo run build:mac --filter app-electron",
-		"serve:ui-prod": "docker compose up app-ui-prod",
+		"serve:frontend-prod": "docker compose up app-frontend-prod",
 		"clean:turbo": "rimraf ./**/.turbo --glob"
 	},
 	"devDependencies": {

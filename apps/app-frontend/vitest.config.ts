@@ -27,7 +27,7 @@ export default defineConfig((configEnv) => {
 					defineProject({
 						resolve: { conditions: ["development", "browser"] },
 						test: {
-							name: "app-ui",
+							name: "app-frontend",
 							environment: "jsdom",
 							include: ["src/**/*.{test,spec}.?(m|c)[tj]s?(x)"],
 							setupFiles: ["./src/vitest.setup.ts"],

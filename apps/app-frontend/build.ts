@@ -11,13 +11,13 @@ const previewServerOptions: ServerOptions = { port: 5321, host: "0.0.0.0" };
 const execFileAsync = promisify(execFile);
 
 async function build() {
-	console.info(styleText(["dim"], "building app ui..."));
+	console.info(styleText(["dim"], "building app frontend..."));
 
-	await execFileAsync("pnpm", ["turbo", "build", "--filter", "app-ui"]);
+	await execFileAsync("pnpm", ["turbo", "build", "--filter", "app-frontend"]);
 
 	const outdir = path.resolve(import.meta.dirname, "dist");
 
-	console.info(styleText(["bold"], `built app ui to ${outdir}`));
+	console.info(styleText(["bold"], `built app frontend to ${outdir}`));
 
 	return outdir;
 }
@@ -25,20 +25,20 @@ async function build() {
 async function serve() {
 	await build();
 
-	console.info(styleText(["dim"], "starting app-ui server..."));
+	console.info(styleText(["dim"], "starting app-frontend server..."));
 
-	const proc = spawn("pnpm", ["turbo", "start", "--filter", "app-ui"], {
+	const proc = spawn("pnpm", ["turbo", "start", "--filter", "app-frontend"], {
 		stdio: "inherit",
 	});
 
 	return function shutdown() {
-		console.info(styleText(["dim"], "stopping app-ui server..."));
+		console.info(styleText(["dim"], "stopping app-frontend server..."));
 
 		if (!proc.pid) {
 			console.warn(
 				styleText(
 					["bold", "red"],
-					"failed to stop app-ui server: no pid found",
+					"failed to stop app-frontend server: no pid found",
 				),
 			);
 
@@ -46,7 +46,10 @@ async function serve() {
 		}
 
 		console.info(
-			styleText(["dim"], `stopping app-ui server with pid ${proc.pid}...`),
+			styleText(
+				["dim"],
+				`stopping app-frontend server with pid ${proc.pid}...`,
+			),
 		);
 
 		proc.on("exit", (code, signal) => {
@@ -55,7 +58,7 @@ async function serve() {
 			if (typeof code === "number") suffix = `: exit code ${code}`;
 			else if (signal) suffix = `: signal ${signal}`;
 
-			console.info(styleText(["bold"], `app-ui server stopped${suffix}`));
+			console.info(styleText(["bold"], `app-frontend server stopped${suffix}`));
 		});
 
 		proc.kill("SIGKILL");

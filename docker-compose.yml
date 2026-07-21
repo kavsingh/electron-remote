@@ -1,23 +1,23 @@
 services:
-  app-ui:
+  app-frontend:
     build:
-      dockerfile: ./apps/app-ui/Dockerfile
+      dockerfile: ./apps/app-frontend/Dockerfile
       context: .
-      target: ui-dev
-    command: pnpm turbo dev --filter app-ui
+      target: frontend-dev
+    command: pnpm turbo dev --filter app-frontend
     ports:
       - "5321:5321"
     develop:
       watch:
         - action: sync
-          path: ./apps/app-ui/src
-          target: /monorepo/apps/app-ui/src
+          path: ./apps/app-frontend/src
+          target: /monorepo/apps/app-frontend/src
         - action: sync
-          path: ./apps/app-ui/public
-          target: /monorepo/apps/app-ui/public
+          path: ./apps/app-frontend/public
+          target: /monorepo/apps/app-frontend/public
         - action: rebuild
-          path: ./apps/app-ui/package.json
-          target: /monorepo/apps/app-ui/package.json
+          path: ./apps/app-frontend/package.json
+          target: /monorepo/apps/app-frontend/package.json
 
         - action: sync
           path: ./packages/app-shared
@@ -30,11 +30,11 @@ services:
     profiles:
       - dev
 
-  app-ui-prod:
+  app-frontend-prod:
     build:
-      dockerfile: ./apps/app-ui/Dockerfile
+      dockerfile: ./apps/app-frontend/Dockerfile
       context: .
-      target: ui-prod
+      target: frontend-prod
     ports:
       - "5321:80"
     profiles:

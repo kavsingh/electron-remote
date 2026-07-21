@@ -14,7 +14,7 @@
 				"experimental": {
 					"configFile": {
 						"packages/design-system/index.css": "packages/design-system/components/**",
-						"apps/app-ui/src/index.css": "apps/app-ui/src/**",
+						"apps/app-frontend/src/index.css": "apps/app-frontend/src/**",
 						"apps/app-electron/src/renderer/index.css": "apps/app-electron/src/renderer/**"
 					}
 				}

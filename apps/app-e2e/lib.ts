@@ -9,7 +9,7 @@ const execFileAsync = util.promisify(execFile);
 
 const repoRoot = path.resolve(import.meta.dirname, "../../");
 const appElectronPath = path.resolve(repoRoot, "apps/app-electron");
-const appUiPath = path.resolve(repoRoot, "apps/app-ui");
+const appFrontendPath = path.resolve(repoRoot, "apps/app-frontend");
 
 function execTurbo(cmd: string) {
 	return execFileAsync("pnpm", ["turbo", ...cmd.split(" ")], {
@@ -28,7 +28,7 @@ function spawnTurbo(cmd: string, options?: SpawnOptionsWithoutStdio) {
 export {
 	repoRoot,
 	appElectronPath,
-	appUiPath,
+	appFrontendPath,
 	execFileAsync,
 	execTurbo,
 	spawnTurbo,

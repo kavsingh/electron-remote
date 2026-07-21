@@ -13,7 +13,7 @@
 	"devDependencies": {
 		"@app/shared": "workspace:*",
 		"@playwright/test": "catalog:",
-		"app-ui": "workspace:*",
+		"app-frontend": "workspace:*",
 		"electron": "catalog:",
 		"eslint-plugin-playwright": "catalog:"
 	},

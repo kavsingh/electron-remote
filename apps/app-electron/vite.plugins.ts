@@ -1,25 +1,25 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import { build as buildRemoteUi } from "app-ui/build";
+import { build as buildFrontend } from "app-frontend/build";
 
 import type { Plugin } from "vite";
 
-function prepareRemoteUi(dest: string): Plugin {
+function prepareFrontend(dest: string): Plugin {
 	return {
-		name: "prepare-remote-ui",
+		name: "prepare-frontend",
 		apply: "build",
 		enforce: "post",
 		async generateBundle() {
-			console.info("\nbuilding remote ui bundle...");
+			console.info("\nbuilding frontend bundle...");
 
-			const remoteDir = await buildRemoteUi();
+			const remoteDir = await buildFrontend();
 
-			console.info("\ngathering remote ui artifacts...");
+			console.info("\ngathering frontend artifacts...");
 
 			await fs.cp(remoteDir, dest, { recursive: true });
 
-			console.info(`\nremote ui artifacts gathered to ${dest}`);
+			console.info(`\nfrontend artifacts gathered to ${dest}`);
 			console.info(`\ncleaning up built-in renderer...`);
 
 			await Promise.allSettled(
@@ -32,4 +32,4 @@ function prepareRemoteUi(dest: string): Plugin {
 	};
 }
 
-export { prepareRemoteUi };
+export { prepareFrontend };

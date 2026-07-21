@@ -2,5 +2,5 @@
 	"$schema": "https://json.schemastore.org/tsconfig",
 	"include": ["./*.ts"],
 	"extends": "./tsconfig.node.json",
-	"compilerOptions": { "noEmit": true }
+	"compilerOptions": { "noEmit": true, "isolatedDeclarations": true }
 }

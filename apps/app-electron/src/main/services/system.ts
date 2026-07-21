@@ -1,5 +1,6 @@
-import { SystemInfo, SystemStats } from "@app/shared/common/system";
 import { mem, osInfo } from "systeminformation";
+
+import type { SystemInfo, SystemStats } from "@app/shared/common/system";
 
 async function getSystemInfo(): Promise<SystemInfo> {
 	const sysOsInfo = await osInfo();

@@ -1,16 +1,19 @@
 // oxlint-disable typescript/no-invalid-void-type
 
-import { BaseQueryFn, createApi, retry } from "@reduxjs/toolkit/query/react";
+import { createApi, retry } from "@reduxjs/toolkit/query/react";
 
 import { invoke } from "~/ipc";
 
+import type { BaseQueryFn } from "@reduxjs/toolkit/query/react";
 import type { InvokeChannel, InvokeArgs, InvokeReturn } from "~/ipc";
 
 type InvokeChannelArgs = {
 	[TKey in InvokeChannel]: [TKey, InvokeArgs<TKey>];
 }[InvokeChannel];
 
-const ipcBaseQuery: BaseQueryFn<InvokeChannelArgs> = async (input) => {
+const ipcBaseQuery: BaseQueryFn<InvokeChannelArgs, unknown, Error> = async (
+	input,
+) => {
 	const [invokeKey, args] = input;
 
 	try {
@@ -19,7 +22,10 @@ const ipcBaseQuery: BaseQueryFn<InvokeChannelArgs> = async (input) => {
 
 		return { data: result ?? null };
 	} catch (cause) {
-		return { error: cause };
+		const error =
+			cause instanceof Error ? cause : new Error(String(cause), { cause });
+
+		return { error };
 	}
 };
 

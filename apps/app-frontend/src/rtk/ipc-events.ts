@@ -1,8 +1,8 @@
-import { Dispatch } from "@reduxjs/toolkit";
-
 import { events } from "~/ipc";
 
 import { ipcApi } from "./services/ipc";
+
+import type { Dispatch } from "@reduxjs/toolkit";
 
 function setupIpcEventListeners(dispatch: Dispatch) {
 	const subs = [

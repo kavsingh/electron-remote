@@ -1,8 +1,9 @@
-import { SystemStats } from "@app/shared/common/system";
 import { scope } from "electron-log";
 
 import { Store } from "~/lib/store.ts";
 import { getSystemStats } from "~/services/system.ts";
+
+import type { SystemStats } from "@app/shared/common/system";
 
 interface SystemStatsState {
 	stats: SystemStats;

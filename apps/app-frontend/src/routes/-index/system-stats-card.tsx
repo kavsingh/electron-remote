@@ -1,10 +1,11 @@
 import { tryOr } from "@app/shared/common/error";
 import { formatMem } from "@app/shared/common/format";
-import { SystemStats } from "@app/shared/common/system";
 import { Card, InfoList } from "design-system/components";
 
 import { ChronoGraph } from "~/components/chrono-graph";
 import { ipcApi } from "~/rtk/services/ipc";
+
+import type { SystemStats } from "@app/shared/common/system";
 
 function MemoryGraph(props: { systemStats: SystemStats | undefined }) {
 	const memUsed = props.systemStats?.memUsed;

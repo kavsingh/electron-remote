@@ -1,8 +1,7 @@
-import { AppContext } from "@app/shared/common/app";
-import { ThemeSource } from "@app/shared/common/theme";
-
 import type { Invoker } from "./lib.ts";
+import type { AppContext } from "@app/shared/common/app";
 import type { SystemInfo, SystemStats } from "@app/shared/common/system";
+import type { ThemeSource } from "@app/shared/common/theme";
 import type { OpenDialogOptions, OpenDialogReturnValue } from "electron";
 
 // oxlint-disable typescript/no-unsafe-type-assertion
@@ -44,4 +43,10 @@ export type {
 	InvokeReturn,
 	EventChannel,
 	EventPayload,
+	SystemInfo,
+	SystemStats,
+	ThemeSource,
+	AppContext,
+	OpenDialogOptions,
+	OpenDialogReturnValue,
 };

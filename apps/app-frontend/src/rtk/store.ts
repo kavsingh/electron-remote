@@ -1,14 +1,11 @@
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners as setupQueryListeners } from "@reduxjs/toolkit/query/react";
-import {
-	TypedUseSelectorHook,
-	useDispatch,
-	useSelector,
-	useStore,
-} from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 
 import { setupIpcEventListeners } from "./ipc-events";
 import { ipcApi } from "./services/ipc";
+
+import type { TypedUseSelectorHook } from "react-redux";
 
 const reducer = combineSlices(ipcApi);
 

@@ -24,7 +24,7 @@
 	"dependencies": {
 		"electron-log": "catalog:",
 		"superjson": "catalog:",
-		"systeminformation": "5.31.14",
+		"systeminformation": "5.31.17",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
@@ -36,8 +36,8 @@
 		"app-ui": "workspace:*",
 		"electron": "catalog:",
 		"electron-builder": "26.15.3",
-		"immer": "catalog:",
 		"memfs": "catalog:",
+		"mutative": "catalog:",
 		"terser": "catalog:",
 		"vite": "catalog:",
 		"vite-plugin-electron": "1.1.0",

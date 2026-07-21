@@ -1,6 +1,8 @@
-import { Draft, produce } from "immer";
+import { create } from "mutative";
 
 import { IterableEventEmitter } from "./node-events.ts";
+
+import type { Draft } from "mutative";
 
 class Store<TState extends object> extends IterableEventEmitter<{
 	update: [];
@@ -17,7 +19,7 @@ class Store<TState extends object> extends IterableEventEmitter<{
 	}
 
 	update(updater: (draft: Draft<TState>) => undefined) {
-		const nextState = produce(this.#state, updater);
+		const nextState = create(this.#state, updater);
 
 		if (nextState === this.#state) return;
 

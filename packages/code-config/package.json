@@ -4,6 +4,10 @@
 	"description": "shared code configs",
 	"license": "MIT",
 	"type": "module",
+	"exports": {
+		"./*.json": "./*.json",
+		"./*": "./*.ts"
+	},
 	"devDependencies": {
 		"vite-plugin-bundle-obfuscator": "catalog:"
 	},

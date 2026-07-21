@@ -1,7 +1,7 @@
 import path from "node:path";
 
 import { devServerOptions, previewServerOptions } from "app-frontend/build";
-import { obfuscator } from "code-config/vite/plugins.ts";
+import { obfuscator } from "code-config/vite/plugins";
 import { defineConfig } from "vite";
 import electron from "vite-plugin-electron";
 

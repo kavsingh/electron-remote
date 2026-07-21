@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
-	"include": ["./src/main", "./src/preload", "./src/vitest.node.setup.ts"],
+	"include": ["src"],
 	"extends": "code-config/tsconfig.node.json",
 	"compilerOptions": {
 		"composite": true,

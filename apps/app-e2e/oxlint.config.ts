@@ -1,4 +1,4 @@
-import { baseConfig } from "code-config/oxlint.ts";
+import { baseConfig } from "code-config/oxlint";
 import playwright from "eslint-plugin-playwright";
 import { defineConfig } from "oxlint";
 

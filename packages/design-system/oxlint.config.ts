@@ -1,8 +1,4 @@
-import {
-	baseConfig,
-	reactConfig,
-	tailwindcssConfig,
-} from "code-config/oxlint.ts";
+import { baseConfig, reactConfig, tailwindcssConfig } from "code-config/oxlint";
 import { defineConfig } from "oxlint";
 
 import type { OxlintConfig } from "oxlint";

@@ -1,24 +1,25 @@
 import { AppContext } from "@app/shared/common/app";
 import { ThemeSource } from "@app/shared/common/theme";
 
-import { eventPayload, invoker } from "./lib.ts";
-
+import type { Invoker } from "./lib.ts";
 import type { SystemInfo, SystemStats } from "@app/shared/common/system";
 import type { OpenDialogOptions, OpenDialogReturnValue } from "electron";
 
+// oxlint-disable typescript/no-unsafe-type-assertion
 const invokeMap = {
-	getThemeSource: invoker<ThemeSource>(),
-	setThemeSource: invoker<undefined, ThemeSource>(),
-	getSystemInfo: invoker<SystemInfo>(),
-	getSystemStats: invoker<SystemStats>(),
-	openDialog: invoker<OpenDialogReturnValue, OpenDialogOptions>(),
-	getAppContext: invoker<AppContext>(),
-	setAppContext: invoker<undefined, AppContext>(),
+	getThemeSource: {} as Invoker<ThemeSource>,
+	setThemeSource: {} as Invoker<undefined, ThemeSource>,
+	getSystemInfo: {} as Invoker<SystemInfo>,
+	getSystemStats: {} as Invoker<SystemStats>,
+	openDialog: {} as Invoker<OpenDialogReturnValue, OpenDialogOptions>,
+	getAppContext: {} as Invoker<AppContext>,
+	setAppContext: {} as Invoker<undefined, AppContext>,
 };
 
 const eventMap = {
-	systemStats: eventPayload<[SystemStats]>(),
+	systemStats: {} as SystemStats,
 };
+// oxlint-enable typescript/no-unsafe-type-assertion
 
 type InvokeMap = typeof invokeMap;
 type EventMap = typeof eventMap;

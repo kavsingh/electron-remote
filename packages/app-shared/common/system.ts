@@ -1,21 +1,30 @@
 import { z } from "zod";
 
-const systemStatsSchema = z.object({
-	memTotal: z.string(),
-	memUsed: z.string(),
-	memAvailable: z.string(),
-	sampledAt: z.string(),
-});
+interface SystemInfo {
+	osName: string;
+	osVersion: string;
+	osArch: string;
+}
 
-type SystemStats = z.infer<typeof systemStatsSchema>;
+interface SystemStats {
+	memTotal: string;
+	memUsed: string;
+	memAvailable: string;
+	sampledAt: string;
+}
 
-const systemInfoSchema = z.object({
+const systemInfoSchema: z.ZodType<SystemInfo> = z.object({
 	osName: z.string(),
 	osVersion: z.string(),
 	osArch: z.string(),
 });
 
-type SystemInfo = z.infer<typeof systemInfoSchema>;
+const systemStatsSchema: z.ZodType<SystemStats> = z.object({
+	memTotal: z.string(),
+	memUsed: z.string(),
+	memAvailable: z.string(),
+	sampledAt: z.string(),
+});
 
 export { systemInfoSchema, systemStatsSchema };
 export type { SystemInfo, SystemStats };

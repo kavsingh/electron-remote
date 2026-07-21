@@ -3,5 +3,9 @@
 	"include": ["src/browser.ts"],
 	"extends": "code-config/tsconfig.browser.json",
 	"references": [{ "path": "./tsconfig.schema.json" }],
-	"compilerOptions": { "composite": true, "emitDeclarationOnly": true }
+	"compilerOptions": {
+		"composite": true,
+		"emitDeclarationOnly": true,
+		"isolatedDeclarations": true
+	}
 }

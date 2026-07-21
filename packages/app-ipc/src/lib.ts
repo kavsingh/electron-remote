@@ -1,9 +1,7 @@
 import type { EventMap, InvokeMap } from "./schema.ts";
-import type { IpcRendererEvent } from "electron";
 
 type EventSubscriber<TChannel extends keyof EventMap> = (
-	event: IpcRendererEvent,
-	...payload: EventMap[TChannel]
+	payload: EventMap[TChannel],
 ) => void;
 
 interface EventSubscription {
@@ -32,18 +30,14 @@ function prefixChannel<const TChannel extends string>(
 	return `${IPC_PREFIX}/${channel}`;
 }
 
-// oxlint-disable typescript/no-unnecessary-type-parameters typescript/no-explicit-any typescript/no-unsafe-type-assertion typescript/no-invalid-void-type
-const invoker = <TReturn = void, TInput = void, _TProx = TInput>() => {
-	return {} as (
-		...args: TInput extends void | undefined ? [] : [input: _TProx]
-	) => Promise<TReturn>;
-};
+type Invoker<TReturn = void, TInput = void, _TProx = TInput> = (
+	// oxlint-disable-next-line typescript/no-invalid-void-type
+	...args: TInput extends void | undefined ? [] : [input: _TProx]
+) => Promise<TReturn>;
 
-const eventPayload = <TPayload extends any[] = []>() => ({}) as TPayload;
-// oxlint-enable typescript/no-unnecessary-type-parameters typescript/no-explicit-any typescript/no-unsafe-type-assertion typescript/no-invalid-void-type
-
-export { IPC_NAMESPACE, prefixChannel, invoker, eventPayload };
+export { IPC_NAMESPACE, prefixChannel };
 export type {
+	Invoker,
 	IpcApi,
 	EventSubscriber,
 	EventSubscription,

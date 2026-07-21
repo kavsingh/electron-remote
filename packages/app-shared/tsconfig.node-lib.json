@@ -3,5 +3,9 @@
 	"include": ["node"],
 	"extends": "code-config/tsconfig.node.json",
 	"references": [{ "path": "./tsconfig.common.json" }],
-	"compilerOptions": { "composite": true, "emitDeclarationOnly": true }
+	"compilerOptions": {
+		"composite": true,
+		"emitDeclarationOnly": true,
+		"isolatedDeclarations": true
+	}
 }

@@ -29,7 +29,7 @@
 		"@tsconfig/strictest": "2.0.8",
 		"@types/node": "24.13.2",
 		"@types/wait-on": "5.3.4",
-		"@typescript/native-preview": "7.0.0-dev.20260707.2",
+		"@typescript/native-preview": "npm:typescript@7.0.2",
 		"code-config": "workspace:*",
 		"concurrently": "10.0.3",
 		"cross-env": "10.1.0",

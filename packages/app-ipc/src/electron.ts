@@ -21,7 +21,7 @@ interface TypedIpcMain {
 	send: <TChannel extends EventChannel>(
 		win: BrowserWindow,
 		channel: TChannel,
-		...payload: EventPayload<TChannel>
+		payload: EventPayload<TChannel>,
 	) => void;
 }
 
@@ -39,10 +39,10 @@ function typeIpcMain(ipcMain: IpcMain): TypedIpcMain {
 			};
 		},
 
-		send: (win, channel, ...payload) => {
+		send: (win, channel, payload) => {
 			if (win.isDestroyed()) return;
 
-			win.webContents.send(prefixChannel(channel), ...payload);
+			win.webContents.send(prefixChannel(channel), payload);
 		},
 	};
 }

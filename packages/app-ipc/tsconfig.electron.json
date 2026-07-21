@@ -3,5 +3,9 @@
 	"include": ["src/electron.ts", "src/preload.ts"],
 	"extends": "code-config/tsconfig.node.json",
 	"references": [{ "path": "./tsconfig.schema.json" }],
-	"compilerOptions": { "composite": true, "emitDeclarationOnly": true }
+	"compilerOptions": {
+		"composite": true,
+		"emitDeclarationOnly": true,
+		"isolatedDeclarations": true
+	}
 }

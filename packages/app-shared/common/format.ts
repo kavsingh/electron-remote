@@ -8,7 +8,7 @@ const memoryThresholds = [
 	[0n, "B"],
 ] as const;
 
-function formatMem(value: string | number | bigint) {
+function formatMem(value: string | number | bigint): string {
 	const mem = tryOr(() => BigInt(value), 0n);
 
 	for (const [threshold, unit] of memoryThresholds) {

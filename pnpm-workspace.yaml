@@ -2,6 +2,7 @@ minimumReleaseAge: 4320 # 3 days in minutes
 strictDepBuilds: true
 trustPolicy: no-downgrade
 trustPolicyIgnoreAfter: 10080
+blockExoticSubdeps: true
 verifyDepsBeforeRun: prompt
 
 packages:
@@ -21,7 +22,7 @@ catalog:
   '@tanstack/react-router': 1.170.18
   '@tanstack/react-router-devtools': 1.167.0
   '@tanstack/router-cli': 1.167.21
-  '@tanstack/router-plugin': 1.168.22
+  '@tanstack/router-plugin': 1.168.23
   '@testing-library/dom': 10.4.1
   '@testing-library/jest-dom': 6.9.1
   '@testing-library/react': 16.3.2
@@ -35,7 +36,7 @@ catalog:
   citty: 0.2.2
   electron: 43.1.1
   electron-log: 5.4.4
-  eslint-plugin-better-tailwindcss: 4.6.1
+  eslint-plugin-better-tailwindcss: 4.7.0
   eslint-plugin-jest-dom: 5.5.0
   eslint-plugin-playwright: 2.10.5
   eslint-plugin-react-hooks: 7.1.1
@@ -54,7 +55,7 @@ catalog:
   tailwind-variants: 3.2.2
   tailwindcss: 4.3.3
   terser: 5.49.0
-  tsdown: 0.22.9
+  tsdown: 0.22.12
   vite: 8.1.5
   vite-plugin-bundle-obfuscator: 1.13.0
   vitest: 4.1.10

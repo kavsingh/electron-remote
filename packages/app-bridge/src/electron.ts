@@ -48,3 +48,5 @@ function typeIpcMain(ipcMain: IpcMain): TypedIpcMain {
 }
 
 export { typeIpcMain };
+export type { AppInfo } from "./schema.ts";
+export type { MainHandlers, TypedIpcMain };

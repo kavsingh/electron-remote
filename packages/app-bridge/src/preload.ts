@@ -2,14 +2,19 @@
 
 import { keysof } from "@app/shared/common/object";
 
-import { prefixChannel } from "./lib.ts";
+import { prefixChannel, BRIDGE_NAMESPACE } from "./lib.ts";
 import { eventMap, invokeMap } from "./schema.ts";
 
-import type { EventSubscriber, EventSubscriptionMap, IpcApi } from "./lib.ts";
-import type { InvokeMap } from "./schema.ts";
+import type {
+	BridgeApi,
+	EventSubscriber,
+	EventSubscriptionMap,
+	IpcApi,
+} from "./lib.ts";
+import type { InvokeMap, StaticApi } from "./schema.ts";
 import type { IpcRenderer } from "electron";
 
-function createIpcBridge(ipcRenderer: IpcRenderer): IpcApi {
+function createIpc(ipcRenderer: IpcRenderer): IpcApi {
 	const invoke = {} as InvokeMap;
 	const events = {} as EventSubscriptionMap;
 
@@ -40,6 +45,18 @@ function createIpcBridge(ipcRenderer: IpcRenderer): IpcApi {
 	return { invoke, events };
 }
 
-export { IPC_NAMESPACE } from "./lib.ts";
-export { createIpcBridge };
+function createBridge(
+	staticApi: StaticApi,
+	ipcRenderer: IpcRenderer,
+): {
+	api: BridgeApi;
+	namespace: typeof BRIDGE_NAMESPACE;
+} {
+	return {
+		api: { ...staticApi, ipc: createIpc(ipcRenderer) },
+		namespace: BRIDGE_NAMESPACE,
+	};
+}
+
+export { createBridge };
 export type * from "./lib.ts";

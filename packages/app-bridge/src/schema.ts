@@ -4,6 +4,18 @@ import type { SystemInfo, SystemStats } from "@app/shared/common/system";
 import type { ThemeSource } from "@app/shared/common/theme";
 import type { OpenDialogOptions, OpenDialogReturnValue } from "electron";
 
+interface AppInfo {
+	appVersion: string;
+	electronVersion: string;
+	architecture: NodeJS.Architecture;
+	platform: NodeJS.Platform;
+	platformVersion: string;
+}
+
+interface StaticApi {
+	appInfo: AppInfo;
+}
+
 // oxlint-disable typescript/no-unsafe-type-assertion
 const invokeMap = {
 	getThemeSource: {} as Invoker<ThemeSource>,
@@ -49,4 +61,6 @@ export type {
 	AppContext,
 	OpenDialogOptions,
 	OpenDialogReturnValue,
+	AppInfo,
+	StaticApi,
 };

@@ -24,11 +24,11 @@
 	"dependencies": {
 		"electron-log": "catalog:",
 		"superjson": "catalog:",
-		"systeminformation": "5.31.17",
+		"systeminformation": "5.32.0",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
-		"@app/ipc": "workspace:*",
+		"@app/bridge": "workspace:*",
 		"@app/shared": "workspace:*",
 		"@electron/fuses": "2.1.3",
 		"@electron/notarize": "3.1.1",

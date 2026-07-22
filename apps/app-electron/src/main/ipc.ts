@@ -1,4 +1,4 @@
-import { typeIpcMain } from "@app/ipc/electron";
+import { typeIpcMain } from "@app/bridge/electron";
 import { BrowserWindow, ipcMain, nativeTheme } from "electron";
 
 import { openDialog } from "./services/dialog.ts";

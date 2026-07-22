@@ -1,17 +1,13 @@
 {
-	"name": "@app/ipc",
+	"name": "@app/bridge",
 	"version": "1.0.0-dev.0",
-	"description": "ipc",
+	"description": "bridge between electron and browser",
 	"license": "MIT",
 	"files": [
 		"dist/**"
 	],
 	"type": "module",
 	"exports": {
-		"./schema": {
-			"import": "./dist/schema.js",
-			"types": "./dist/schema.d.ts"
-		},
 		"./electron": {
 			"import": "./dist/electron.mjs",
 			"types": "./dist/electron.d.mts"
@@ -34,7 +30,6 @@
 		"tsdown": "catalog:"
 	},
 	"peerDependencies": {
-		"electron": "catalog:",
-		"zod": "catalog:"
+		"electron": "catalog:"
 	}
 }

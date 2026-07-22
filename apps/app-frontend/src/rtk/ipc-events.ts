@@ -1,4 +1,4 @@
-import { events } from "~/ipc";
+import { events } from "~/bridge";
 
 import { ipcApi } from "./services/ipc";
 

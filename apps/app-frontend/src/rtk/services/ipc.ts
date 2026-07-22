@@ -2,10 +2,10 @@
 
 import { createApi, retry } from "@reduxjs/toolkit/query/react";
 
-import { invoke } from "~/ipc";
+import { invoke } from "~/bridge";
 
 import type { BaseQueryFn } from "@reduxjs/toolkit/query/react";
-import type { InvokeChannel, InvokeArgs, InvokeReturn } from "~/ipc";
+import type { InvokeChannel, InvokeArgs, InvokeReturn } from "~/bridge";
 
 type InvokeChannelArgs = {
 	[TKey in InvokeChannel]: [TKey, InvokeArgs<TKey>];

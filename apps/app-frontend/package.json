@@ -19,7 +19,7 @@
 		"test:ci": "echo 'soon'"
 	},
 	"devDependencies": {
-		"@app/ipc": "workspace:*",
+		"@app/bridge": "workspace:*",
 		"@app/shared": "workspace:*",
 		"@reduxjs/toolkit": "catalog:",
 		"@rolldown/plugin-babel": "catalog:",

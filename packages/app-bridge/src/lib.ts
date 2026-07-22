@@ -1,4 +1,4 @@
-import type { EventMap, InvokeMap } from "./schema.ts";
+import type { EventMap, InvokeMap, StaticApi } from "./schema.ts";
 
 type EventSubscriber<TChannel extends keyof EventMap> = (
 	payload: EventMap[TChannel],
@@ -21,7 +21,11 @@ interface IpcApi {
 	events: EventSubscriptionMap;
 }
 
-const IPC_NAMESPACE = "__APP_IPC_API__";
+interface BridgeApi extends StaticApi {
+	ipc: IpcApi;
+}
+
+const BRIDGE_NAMESPACE = "__APP_BRIDGE_API__";
 const IPC_PREFIX = "__APP_IPC__";
 
 function prefixChannel<const TChannel extends string>(
@@ -35,10 +39,12 @@ type Invoker<TReturn = void, TInput = void, _TProx = TInput> = (
 	...args: TInput extends void | undefined ? [] : [input: _TProx]
 ) => Promise<TReturn>;
 
-export { IPC_NAMESPACE, prefixChannel };
+export { BRIDGE_NAMESPACE, IPC_PREFIX, prefixChannel };
 export type {
 	Invoker,
 	IpcApi,
+	StaticApi,
+	BridgeApi,
 	EventSubscriber,
 	EventSubscription,
 	EventSubscribable,

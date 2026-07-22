@@ -31,10 +31,11 @@ export function createMainWindow(ctx: { isE2E: boolean }) {
 		titleBarStyle: "hiddenInset",
 		width: 800,
 		height: 600,
+		show: false,
 		webPreferences: {
 			preload: path.resolve(import.meta.dirname, "preload-renderer.cjs"),
+			additionalArguments: [`--app-version=${app.getVersion()}`],
 		},
-		show: false,
 	});
 
 	void loadWithAgent(

@@ -6,14 +6,6 @@ export default defineConfig([
 	{
 		clean: true,
 		dts: { build: true, oxc: true },
-		entry: "src/schema.ts",
-		platform: "neutral",
-		target: "es2022",
-		format: ["esm"],
-		define: { IPC_VERSION: JSON.stringify(packageJson.version) },
-	},
-	{
-		dts: { build: true, oxc: true },
 		entry: { preload: "src/preload.ts", electron: "src/electron.ts" },
 		platform: "node",
 		target: "node24",

@@ -1,25 +1,21 @@
-import { spawn } from "node:child_process";
 import { styleText } from "node:util";
 
 import { config } from "repo/config";
-import waitOn from "wait-on";
+import { $ } from "zx";
 
 async function globalSetup() {
 	console.info(styleText(["bold"], "starting frontend server"));
 
-	const proc = spawn("pnpm", ["start"], {
-		cwd: config.frontendRoot,
-		stdio: "inherit",
-	});
+	const proc = $({ cwd: config.frontendRoot })`pnpm start`;
 
-	await waitOn({
-		resources: [`http://localhost:${config.frontendPreviewServerOptions.port}`],
-		timeout: 3_000,
-	});
+	for await (const line of proc.stdout) {
+		if (/local:\s+http:/i.test(String(line))) break;
+	}
 
 	return function globalTeardown() {
 		console.info(styleText(["bold"], "shutting down frontend server"));
-		proc.kill();
+
+		return proc.kill("SIGTERM");
 	};
 }
 

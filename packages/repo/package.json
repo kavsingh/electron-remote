@@ -8,12 +8,7 @@
 		"./*.json": "./*.json",
 		"./*": "./*.ts"
 	},
-	"peerDependencies": {
+	"devDependencies": {
 		"vite": "catalog:"
-	},
-	"peerDependenciesMeta": {
-		"vite": {
-			"optional": true
-		}
 	}
 }

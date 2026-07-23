@@ -8,5 +8,8 @@ export default defineConfig({
 	outputDir: "reports/results",
 	reporter: process.env["CI"]
 		? [["github"], ["html", { outputFolder: "reports/html", open: "never" }]]
-		: [["list"], ["html", { outputFolder: "reports/html", open: "never" }]],
+		: [
+				["list"],
+				["html", { outputFolder: "reports/html", open: "on-failure" }],
+			],
 });

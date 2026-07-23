@@ -61,6 +61,7 @@ catalog:
   vitest: 4.1.10
   wait-on: 9.0.10
   zod: 4.4.3
+  zx: 8.8.5
 
 allowBuilds:
   electron-winstaller: true

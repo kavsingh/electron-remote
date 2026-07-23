@@ -10,9 +10,12 @@
 		"lint": "oxlint && oxfmt --check",
 		"test:e2e": "playwright test"
 	},
-	"devDependencies": {
+	"dependencies": {
 		"@app/shared": "workspace:*",
 		"@playwright/test": "catalog:",
+		"zx": "catalog:"
+	},
+	"devDependencies": {
 		"electron": "catalog:",
 		"eslint-plugin-playwright": "catalog:"
 	},

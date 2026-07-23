@@ -147,6 +147,9 @@ catalogs:
     zod:
       specifier: 4.4.3
       version: 4.4.3
+    zx:
+      specifier: 8.8.5
+      version: 8.8.5
 
 importers:
 
@@ -211,13 +214,17 @@ importers:
         version: 9.0.10(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
 
   apps/app-e2e:
-    devDependencies:
+    dependencies:
       '@app/shared':
         specifier: workspace:*
         version: link:../../packages/app-shared
       '@playwright/test':
         specifier: 'catalog:'
         version: 1.61.1
+      zx:
+        specifier: 'catalog:'
+        version: 8.8.5
+    devDependencies:
       electron:
         specifier: 'catalog:'
         version: 43.1.1(supports-color@10.2.2)
@@ -467,7 +474,7 @@ importers:
         version: 4.3.3
 
   packages/repo:
-    dependencies:
+    devDependencies:
       vite:
         specifier: 'catalog:'
         version: 8.1.5(@types/node@24.13.2)(jiti@2.7.0)(terser@5.49.0)
@@ -4958,6 +4965,11 @@ packages:
   zod@4.4.3:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
+  zx@8.8.5:
+    resolution: {integrity: sha512-SNgDF5L0gfN7FwVOdEFguY3orU5AkfFZm9B5YSHog/UDHv+lvmd82ZAsOenOkQixigwH2+yyH198AwNdKhj+RA==}
+    engines: {node: '>= 12.17.0'}
+    hasBin: true
+
 snapshots:
 
   '@adobe/css-tools@4.5.0': {}
@@ -9271,3 +9283,5 @@ snapshots:
   zod@4.1.11: {}
 
   zod@4.4.3: {}
+
+  zx@8.8.5: {}

@@ -8,7 +8,8 @@
 		"build": { "dependsOn": ["^build"], "outputs": ["dist/**"] },
 		"start": { "persistent": true },
 		"app-e2e#test:e2e": {
-			"dependsOn": ["^build", "app-electron#build"]
+			"dependsOn": ["^build", "app-electron#build"],
+			"outputs": ["reports/**"]
 		},
 		"app-electron#build": {
 			"dependsOn": ["^build", "app-frontend#build"],

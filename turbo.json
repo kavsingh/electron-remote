@@ -7,10 +7,15 @@
 		"dev": { "dependsOn": ["^build"], "persistent": true },
 		"build": { "dependsOn": ["^build"], "outputs": ["dist/**"] },
 		"start": { "persistent": true },
-		"app-e2e#test:e2e": {},
-		"app-electron#build": { "dependsOn": ["^build"], "outputs": ["bundle/**"] },
+		"app-e2e#test:e2e": {
+			"dependsOn": ["^build", "app-electron#build"]
+		},
+		"app-electron#build": {
+			"dependsOn": ["^build", "app-frontend#build"],
+			"outputs": ["bundle/**"]
+		},
 		"app-electron#build:mac": {
-			"dependsOn": ["^build"],
+			"dependsOn": ["^build", "app-frontend#build"],
 			"outputs": ["dist/**", "bundle/**"]
 		}
 	},

@@ -1,17 +1,26 @@
+import { spawn } from "node:child_process";
 import { styleText } from "node:util";
 
-import { serve as serveFrontend } from "app-frontend/build";
-
-import { execTurbo } from "./lib.ts";
+import { config } from "repo/config";
+import waitOn from "wait-on";
 
 async function globalSetup() {
-	console.info(styleText(["dim"], "building electron bundle..."));
+	console.info(styleText(["bold"], "starting frontend server"));
 
-	await execTurbo("build --filter app-electron");
+	const proc = spawn("pnpm", ["start"], {
+		cwd: config.frontendRoot,
+		stdio: "inherit",
+	});
 
-	console.info(styleText(["bold"], "electron bundle build complete"));
+	await waitOn({
+		resources: [`http://localhost:${config.frontendPreviewServerOptions.port}`],
+		timeout: 3_000,
+	});
 
-	return serveFrontend();
+	return function globalTeardown() {
+		console.info(styleText(["bold"], "shutting down frontend server"));
+		proc.kill();
+	};
 }
 
 // oxlint-disable-next-line import/no-default-export

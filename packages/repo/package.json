@@ -1,0 +1,19 @@
+{
+	"name": "repo",
+	"version": "0.0.0",
+	"description": "repo tools",
+	"license": "MIT",
+	"type": "module",
+	"exports": {
+		"./*.json": "./*.json",
+		"./*": "./*.ts"
+	},
+	"peerDependencies": {
+		"vite": "catalog:"
+	},
+	"peerDependenciesMeta": {
+		"vite": {
+			"optional": true
+		}
+	}
+}

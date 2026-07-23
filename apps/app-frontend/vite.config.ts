@@ -4,14 +4,14 @@ import { devtools } from "@tanstack/devtools-vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { obfuscator } from "code-config/vite/plugins";
+import { config } from "repo/config";
 import { defineConfig } from "vite";
-
-import { devServerOptions, previewServerOptions } from "./build.ts";
 
 export default defineConfig(({ mode }) => {
 	return {
-		server: devServerOptions,
-		preview: previewServerOptions,
+		outDir: config.frontendBuildDir,
+		server: config.frontendDevServerOptions,
+		preview: config.frontendPreviewServerOptions,
 		resolve: { conditions: ["browser", mode], tsconfigPaths: true },
 		build: { cssMinify: mode === "production" },
 		plugins: [

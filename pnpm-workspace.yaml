@@ -59,6 +59,7 @@ catalog:
   vite: 8.1.5
   vite-plugin-bundle-obfuscator: 1.13.0
   vitest: 4.1.10
+  wait-on: 9.0.10
   zod: 4.4.3
 
 allowBuilds:

@@ -1,28 +1,27 @@
 import path from "node:path";
 
-import { devServerOptions, previewServerOptions } from "app-frontend/build";
 import { obfuscator } from "code-config/vite/plugins";
+import { config } from "repo/config";
 import { defineConfig } from "vite";
 import electron from "vite-plugin-electron";
 
 import { prepareFrontend } from "./vite.plugins.ts";
 
+const outDir = path.dirname(config.electronEntry);
+
 const mainConfig = defineConfig(({ mode }) => {
 	return {
 		resolve: { conditions: ["node", mode], tsconfigPaths: true },
-		build: {
-			minify: mode === "production" ? "terser" : false,
-			outDir: path.resolve(import.meta.dirname, "bundle/electron"),
-		},
+		build: { outDir, minify: mode === "production" ? "terser" : false },
 		plugins: [obfuscator(mode)],
 		define: {
-			REMOTE_ENTRY_URL: JSON.stringify(
+			"import.meta.env.REMOTE_ENTRY_URL": JSON.stringify(
 				mode === "development"
-					? `http://localhost:${devServerOptions.port}`
+					? `http://localhost:${config.frontendDevServerOptions.port}`
 					: "http://localhost:5321",
 			),
-			REMOTE_ENTRY_URL_E2E: JSON.stringify(
-				`http://localhost:${previewServerOptions.port}`,
+			"import.meta.env.REMOTE_ENTRY_URL_E2E": JSON.stringify(
+				`http://localhost:${config.frontendPreviewServerOptions.port}`,
 			),
 		},
 	};
@@ -32,8 +31,8 @@ const preloadConfig = defineConfig(({ mode }) => {
 	return {
 		resolve: { conditions: ["node", mode], tsconfigPaths: true },
 		build: {
+			outDir,
 			minify: mode === "production" ? "terser" : false,
-			outDir: path.resolve(import.meta.dirname, "bundle/electron"),
 			rolldownOptions: {
 				inlineDynamicImports: true,
 				input: path.resolve(

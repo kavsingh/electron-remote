@@ -40,7 +40,9 @@ export function createMainWindow(ctx: { isE2E: boolean }) {
 
 	void loadWithAgent(
 		mainWindow,
-		isE2E ? REMOTE_ENTRY_URL_E2E : REMOTE_ENTRY_URL,
+		isE2E
+			? import.meta.env.REMOTE_ENTRY_URL_E2E
+			: import.meta.env.REMOTE_ENTRY_URL,
 	);
 
 	if (import.meta.env.DEV && !isE2E) {

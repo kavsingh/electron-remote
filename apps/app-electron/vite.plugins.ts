@@ -1,9 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import { build as buildFrontend } from "app-frontend/build";
-
 import type { Plugin } from "vite";
+
+const frontendOutDir = path.resolve(
+	import.meta.dirname,
+	"../app-frontend/dist",
+);
 
 function prepareFrontend(dest: string): Plugin {
 	return {
@@ -11,13 +14,9 @@ function prepareFrontend(dest: string): Plugin {
 		apply: "build",
 		enforce: "post",
 		async generateBundle() {
-			console.info("\nbuilding frontend bundle...");
-
-			const remoteDir = await buildFrontend();
-
 			console.info("\ngathering frontend artifacts...");
 
-			await fs.cp(remoteDir, dest, { recursive: true });
+			await fs.cp(frontendOutDir, dest, { recursive: true });
 
 			console.info(`\nfrontend artifacts gathered to ${dest}`);
 			console.info(`\ncleaning up built-in renderer...`);

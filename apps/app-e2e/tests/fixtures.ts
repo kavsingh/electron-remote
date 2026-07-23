@@ -1,8 +1,5 @@
-import path from "node:path";
-
 import { _electron, test as baseTest } from "@playwright/test";
-
-import { appElectronPath } from "../lib.ts";
+import { config } from "repo/config";
 
 import type { ElectronApplication } from "@playwright/test";
 
@@ -16,15 +13,13 @@ interface Options {
 		| undefined;
 }
 
-const appPath = path.join(appElectronPath, "bundle/electron/index.js");
-
 export const test = baseTest.extend<Fixtures & Options>({
 	appLaunchOptions: [{}, { option: true }],
 
 	async app({ appLaunchOptions }, use) {
 		const { args, ...launchOptions } = appLaunchOptions ?? {};
 		const app = await _electron.launch({
-			args: [appPath, "--e2e", ...(args ?? [])],
+			args: [config.electronEntry, "--e2e", ...(args ?? [])],
 			colorScheme: "dark",
 			...launchOptions,
 		});

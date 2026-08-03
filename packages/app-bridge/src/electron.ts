@@ -1,52 +1,44 @@
-import { prefixChannel } from "./lib.ts";
+import type { RPCHandler } from "@orpc/server/message-port";
+import type { IpcMain } from "electron";
 
-import type {
-	InvokeChannel,
-	InvokeArgs,
-	InvokeReturn,
-	EventChannel,
-	EventPayload,
-} from "./schema.ts";
-import type { BrowserWindow, IpcMain } from "electron";
-
-type MainHandlers = {
-	[TChannel in InvokeChannel]: (
-		event: Electron.IpcMainInvokeEvent,
-		...args: InvokeArgs<TChannel>
-	) => InvokeReturn<TChannel> | Promise<InvokeReturn<TChannel>>;
-};
-
-interface TypedIpcMain {
-	registerHandlers: (handlers: MainHandlers) => () => void;
-	send: <TChannel extends EventChannel>(
-		win: BrowserWindow,
-		channel: TChannel,
-		payload: EventPayload<TChannel>,
-	) => void;
+interface InitializeRpcOptions {
+	allowedOrigins?: string[] | undefined;
 }
 
-function typeIpcMain(ipcMain: IpcMain): TypedIpcMain {
-	return {
-		registerHandlers: (handlers) => {
-			for (const [channel, handler] of Object.entries(handlers)) {
-				ipcMain.handle(prefixChannel(channel), handler);
+function initializeRpc(
+	ipcMain: IpcMain,
+	// oxlint-disable-next-line typescript/no-explicit-any
+	handler: RPCHandler<any>,
+	options?: InitializeRpcOptions,
+): void {
+	ipcMain.on("start-orpc-server", (event) => {
+		const [serverPort] = event.ports;
+
+		if (!serverPort) {
+			throw new Error("No server port provided for ORPC server.");
+		}
+
+		if (options?.allowedOrigins) {
+			const url = URL.parse(event.sender.hostWebContents?.getURL() ?? "");
+
+			if (!url) {
+				throw new Error("Unable to parse the URL of the sender.");
 			}
 
-			return function cleanup() {
-				for (const channel of Object.keys(handlers)) {
-					ipcMain.removeHandler(prefixChannel(channel));
-				}
-			};
-		},
+			const origin = `${url.protocol}//${url.host}`;
 
-		send: (win, channel, payload) => {
-			if (win.isDestroyed()) return;
+			if (!options.allowedOrigins.includes(origin)) {
+				throw new Error(
+					`Origin ${origin} is not allowed to start the ORPC server.`,
+				);
+			}
+		}
 
-			win.webContents.send(prefixChannel(channel), payload);
-		},
-	};
+		handler.upgrade(serverPort);
+		serverPort.start();
+	});
 }
 
-export { typeIpcMain };
-export type { AppInfo } from "./schema.ts";
-export type { MainHandlers, TypedIpcMain };
+export { contract } from "./rpc.ts";
+export { initializeRpc };
+export type { RPCHandler };

@@ -12,6 +12,9 @@ packages:
 savePrefix: ''
 
 catalog:
+  '@orpc/client': 1.14.13
+  '@orpc/contract': 1.14.13
+  '@orpc/server': "1.14.13"
   '@playwright/test': 1.62.1
   '@reduxjs/toolkit': 2.12.0
   '@rolldown/plugin-babel': 0.2.3

@@ -21,6 +21,7 @@
 	"devDependencies": {
 		"@app/bridge": "workspace:*",
 		"@app/shared": "workspace:*",
+		"@orpc/client": "catalog:",
 		"@reduxjs/toolkit": "catalog:",
 		"@rolldown/plugin-babel": "catalog:",
 		"@tailwindcss/vite": "catalog:",

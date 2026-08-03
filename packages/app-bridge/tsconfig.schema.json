@@ -1,10 +1,9 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
-	"include": ["src/lib.ts", "src/schema.ts"],
+	"include": ["src/lib.ts", "src/rpc.ts", "src/static.ts"],
 	"extends": "code-config/tsconfig.iso.json",
 	"compilerOptions": {
 		"composite": true,
-		"emitDeclarationOnly": true,
-		"isolatedDeclarations": true
+		"emitDeclarationOnly": true
 	}
 }

@@ -1,62 +1,44 @@
-// oxlint-disable typescript/no-unsafe-type-assertion
+import { BRIDGE_STATICS_NAMESPACE } from "./lib.ts";
 
-import { keysof } from "@app/shared/common/object";
-
-import { prefixChannel, BRIDGE_NAMESPACE } from "./lib.ts";
-import { eventMap, invokeMap } from "./schema.ts";
-
-import type {
-	BridgeApi,
-	EventSubscriber,
-	EventSubscriptionMap,
-	IpcApi,
-} from "./lib.ts";
-import type { InvokeMap, StaticApi } from "./schema.ts";
+import type { StaticApi } from "./static.ts";
 import type { IpcRenderer } from "electron";
 
-function createIpc(ipcRenderer: IpcRenderer): IpcApi {
-	const invoke = {} as InvokeMap;
-	const events = {} as EventSubscriptionMap;
+function startOrpc(ipcRenderer: IpcRenderer, allowedOrigins?: string[]): void {
+	window.addEventListener("message", (event) => {
+		if (event.data === "start-orpc-client") {
+			const [serverPort] = event.ports;
 
-	for (const channel of keysof(invokeMap)) {
-		invoke[channel] = ipcRenderer.invoke.bind(
-			ipcRenderer,
-			prefixChannel(channel),
-		);
-	}
+			if (!serverPort) {
+				throw new Error("No server port provided for ORPC client.");
+			}
 
-	for (const channel of keysof(eventMap)) {
-		const prefixedChannel = prefixChannel(channel);
+			const origin = event.origin;
 
-		events[channel] = {
-			// oxlint-disable-next-line typescript/no-explicit-any
-			subscribe: (subscriber: EventSubscriber<any>) => {
-				ipcRenderer.addListener(prefixedChannel, subscriber);
+			if (allowedOrigins && !allowedOrigins.includes(origin)) {
+				throw new Error(`Origin ${origin} is not allowed.`);
+			}
 
-				return {
-					unsubscribe: () => {
-						ipcRenderer.removeListener(prefixedChannel, subscriber);
-					},
-				};
-			},
-		};
-	}
+			ipcRenderer.postMessage("start-orpc-server", null, [serverPort]);
+		}
+	});
+}
 
-	return { invoke, events };
+interface CreateBridgeOptions {
+	ipcRenderer: IpcRenderer;
+	allowedOrigins?: string[] | undefined;
 }
 
 function createBridge(
 	staticApi: StaticApi,
-	ipcRenderer: IpcRenderer,
+	{ ipcRenderer, allowedOrigins }: CreateBridgeOptions,
 ): {
-	api: BridgeApi;
-	namespace: typeof BRIDGE_NAMESPACE;
+	api: StaticApi;
+	namespace: string;
 } {
-	return {
-		api: { ...staticApi, ipc: createIpc(ipcRenderer) },
-		namespace: BRIDGE_NAMESPACE,
-	};
+	startOrpc(ipcRenderer, allowedOrigins);
+
+	return { api: staticApi, namespace: BRIDGE_STATICS_NAMESPACE };
 }
 
 export { createBridge };
-export type * from "./lib.ts";
+export type { CreateBridgeOptions, StaticApi };

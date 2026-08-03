@@ -16,7 +16,7 @@ const appInfo: StaticApi["appInfo"] = {
 };
 
 process.once("loaded", () => {
-	const { namespace, api } = createBridge({ appInfo }, ipcRenderer);
+	const { namespace, api } = createBridge({ appInfo }, { ipcRenderer });
 
 	contextBridge.exposeInMainWorld(namespace, api);
 });

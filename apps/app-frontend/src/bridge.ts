@@ -1,12 +1,8 @@
 import { getBridge } from "@app/bridge/browser";
 
-const { appInfo, ipc } = getBridge();
+import type { RpcInputs, RpcOutputs } from "@app/bridge/browser";
 
-const { events, invoke } = ipc;
+const { appInfo, rpc } = getBridge();
 
-export { appInfo, events, invoke };
-export type {
-	InvokeChannel,
-	InvokeArgs,
-	InvokeReturn,
-} from "@app/bridge/browser";
+export { appInfo, rpc };
+export type { RpcInputs, RpcOutputs };

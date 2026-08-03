@@ -25,11 +25,25 @@
 		"lint": "oxlint && oxfmt --check",
 		"build": "tsdown"
 	},
+	"dependencies": {
+		"@orpc/contract": "1.14.13"
+	},
 	"devDependencies": {
 		"@app/shared": "workspace:*",
 		"tsdown": "catalog:"
 	},
 	"peerDependencies": {
-		"electron": "catalog:"
+		"@orpc/client": "catalog:",
+		"@orpc/server": "catalog:",
+		"electron": "catalog:",
+		"zod": "catalog:"
+	},
+	"peerDependenciesMeta": {
+		"@orpc/client": {
+			"optional": true
+		},
+		"@orpc/server": {
+			"optional": true
+		}
 	}
 }

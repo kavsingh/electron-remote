@@ -5,7 +5,7 @@ import packageJson from "./package.json" with { type: "json" };
 export default defineConfig([
 	{
 		clean: true,
-		dts: { build: true, oxc: true },
+		dts: { build: true },
 		entry: { preload: "src/preload.ts", electron: "src/electron.ts" },
 		platform: "node",
 		target: "node24",
@@ -13,7 +13,7 @@ export default defineConfig([
 		define: { IPC_VERSION: JSON.stringify(packageJson.version) },
 	},
 	{
-		dts: { build: true, oxc: true },
+		dts: { build: true },
 		entry: "src/browser.ts",
 		platform: "browser",
 		target: "chrome130",

@@ -1,9 +1,9 @@
 import { Card, InfoList } from "design-system/components";
 
-import { ipcApi } from "~/rtk/services/ipc";
+import { rpcApi } from "~/rtk/services/rpc";
 
 export function SystemInfoCard() {
-	const { data: info } = ipcApi.useSystemInfoQuery();
+	const { data: info } = rpcApi.useSystemInfoQuery();
 
 	return (
 		<Card.Root>

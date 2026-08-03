@@ -2,18 +2,18 @@ import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners as setupQueryListeners } from "@reduxjs/toolkit/query/react";
 import { useDispatch, useSelector, useStore } from "react-redux";
 
-import { setupIpcEventListeners } from "./ipc-events";
-import { ipcApi } from "./services/ipc";
+import { setupIpcEventListeners } from "./rpc-events";
+import { rpcApi } from "./services/rpc";
 
 import type { TypedUseSelectorHook } from "react-redux";
 
-const reducer = combineSlices(ipcApi);
+const reducer = combineSlices(rpcApi);
 
 function createAppStore() {
 	const store = configureStore({
 		reducer,
 		middleware(getDefaultMiddleware) {
-			return getDefaultMiddleware().concat(ipcApi.middleware);
+			return getDefaultMiddleware().concat(rpcApi.middleware);
 		},
 		devTools: !import.meta.env.PROD,
 	});

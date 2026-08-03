@@ -1,7 +1,7 @@
 import { THEME_SOURCES, themeSourceSchema } from "@app/shared/common/theme";
 import { Card } from "design-system/components";
 
-import { ipcApi } from "~/rtk/services/ipc";
+import { rpcApi } from "~/rtk/services/rpc";
 
 import type { ThemeSource } from "@app/shared/common/theme";
 import type { ChangeEventHandler, SubmitEventHandler } from "react";
@@ -27,8 +27,8 @@ const handleSubmit: SubmitEventHandler<HTMLFormElement> = (event) => {
 };
 
 export function ThemeSwitch() {
-	const { data: themeSource } = ipcApi.useThemeSourceQuery();
-	const [setThemeSource] = ipcApi.useSetThemeSourceMutation();
+	const { data: themeSource } = rpcApi.useThemeSourceQuery();
+	const [setThemeSource] = rpcApi.useSetThemeSourceMutation();
 
 	const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
 		void setThemeSource(themeSourceSchema.parse(event.currentTarget.value));

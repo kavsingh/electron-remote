@@ -3,7 +3,7 @@ import { formatMem } from "@app/shared/common/format";
 import { Card, InfoList } from "design-system/components";
 
 import { ChronoGraph } from "~/components/chrono-graph";
-import { ipcApi } from "~/rtk/services/ipc";
+import { rpcApi } from "~/rtk/services/rpc";
 
 import type { SystemStats } from "@app/shared/common/system";
 
@@ -28,7 +28,7 @@ function MemoryGraph(props: { systemStats: SystemStats | undefined }) {
 }
 
 export function SystemStatsCard() {
-	const { data: stats } = ipcApi.useSystemStatsQuery();
+	const { data: stats } = rpcApi.useSystemStatsQuery();
 
 	return (
 		<Card.Root>

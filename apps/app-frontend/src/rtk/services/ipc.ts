@@ -2,32 +2,9 @@
 
 import { createApi, retry } from "@reduxjs/toolkit/query/react";
 
-import { invoke } from "~/bridge";
+import { ipcBaseQuery } from "./lib";
 
-import type { BaseQueryFn } from "@reduxjs/toolkit/query/react";
-import type { InvokeChannel, InvokeArgs, InvokeReturn } from "~/bridge";
-
-type InvokeChannelArgs = {
-	[TKey in InvokeChannel]: [TKey, InvokeArgs<TKey>];
-}[InvokeChannel];
-
-const ipcBaseQuery: BaseQueryFn<InvokeChannelArgs, unknown, Error> = async (
-	input,
-) => {
-	const [invokeKey, args] = input;
-
-	try {
-		// @ts-expect-error --- IGNORE ---
-		const result: unknown = await invoke[invokeKey](...args);
-
-		return { data: result ?? null };
-	} catch (cause) {
-		const error =
-			cause instanceof Error ? cause : new Error(String(cause), { cause });
-
-		return { error };
-	}
-};
+import type { InvokeArgs, InvokeReturn } from "~/bridge";
 
 const baseQuery = retry(ipcBaseQuery, { maxRetries: 3 });
 
@@ -38,7 +15,7 @@ const ipcApi = createApi({
 	endpoints(builder) {
 		return {
 			themeSource: builder.query<InvokeReturn<"getThemeSource">, void>({
-				query: () => ["getThemeSource", []],
+				query: () => (api) => api.getThemeSource(),
 				providesTags: ["ThemeSource"],
 			}),
 
@@ -46,18 +23,20 @@ const ipcApi = createApi({
 				InvokeReturn<"setThemeSource">,
 				InvokeArgs<"setThemeSource">[0]
 			>({
-				query: (themeSource) => ["setThemeSource", [themeSource]],
+				query: (themeSource) => {
+					return (api) => api.setThemeSource(themeSource);
+				},
 				invalidatesTags: ["ThemeSource"],
 				extraOptions: { maxRetries: 0 },
 			}),
 
 			systemInfo: builder.query<InvokeReturn<"getSystemInfo">, void>({
-				query: () => ["getSystemInfo", []],
+				query: () => (api) => api.getSystemInfo(),
 				providesTags: ["SystemInfo"],
 			}),
 
 			systemStats: builder.query<InvokeReturn<"getSystemStats">, void>({
-				query: () => ["getSystemStats", []],
+				query: () => (api) => api.getSystemStats(),
 				providesTags: ["SystemStats"],
 			}),
 
@@ -65,12 +44,12 @@ const ipcApi = createApi({
 				InvokeReturn<"openDialog">,
 				InvokeArgs<"openDialog">[0]
 			>({
-				query: (options) => ["openDialog", [options]],
+				query: (options) => (api) => api.openDialog(options),
 				extraOptions: { maxRetries: 0 },
 			}),
 
 			appContext: builder.query<InvokeReturn<"getAppContext">, void>({
-				query: () => ["getAppContext", []],
+				query: () => (api) => api.getAppContext(),
 				extraOptions: { maxRetries: 0 },
 			}),
 
@@ -78,7 +57,7 @@ const ipcApi = createApi({
 				InvokeReturn<"setAppContext">,
 				InvokeArgs<"setAppContext">[0]
 			>({
-				query: (context) => ["setAppContext", [context]],
+				query: (context) => (api) => api.setAppContext(context),
 				extraOptions: { maxRetries: 0 },
 				invalidatesTags: ["AppContext"],
 			}),

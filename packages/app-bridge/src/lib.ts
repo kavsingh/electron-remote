@@ -36,7 +36,7 @@ function prefixChannel<const TChannel extends string>(
 
 type Invoker<TReturn = void, TInput = void, _TProx = TInput> = (
 	// oxlint-disable-next-line typescript/no-invalid-void-type
-	...args: TInput extends void | undefined ? [] : [input: _TProx]
+	input: TInput extends void | undefined ? void : _TProx,
 ) => Promise<TReturn>;
 
 export { BRIDGE_NAMESPACE, IPC_PREFIX, prefixChannel };

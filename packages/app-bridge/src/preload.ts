@@ -19,8 +19,8 @@ function createIpc(ipcRenderer: IpcRenderer): IpcApi {
 	const events = {} as EventSubscriptionMap;
 
 	for (const channel of keysof(invokeMap)) {
-		invoke[channel] = (...args: unknown[]) => {
-			return ipcRenderer.invoke(prefixChannel(channel), ...args);
+		invoke[channel] = (input: unknown) => {
+			return ipcRenderer.invoke(prefixChannel(channel), input);
 		};
 	}
 

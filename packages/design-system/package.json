@@ -16,8 +16,7 @@
 		"./hooks": "./hooks/index.ts"
 	},
 	"scripts": {
-		"lint": "oxlint && oxfmt --check",
-		"build": "echo 'none'"
+		"lint": "oxlint && oxfmt --check"
 	},
 	"devDependencies": {
 		"@types/react": "catalog:",

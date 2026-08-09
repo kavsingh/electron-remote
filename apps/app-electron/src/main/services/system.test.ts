@@ -1,3 +1,4 @@
+import { ok } from "neverthrow";
 import * as systeminformation from "systeminformation";
 import { describe, it, expect, vi } from "vitest";
 
@@ -17,11 +18,13 @@ describe("system services", () => {
 				arch: "arch",
 			});
 
-			await expect(getSystemInfo()).resolves.toStrictEqual({
-				osName: "OS Code",
-				osVersion: "1.0.0",
-				osArch: "arch",
-			});
+			await expect(getSystemInfo()).resolves.toStrictEqual(
+				ok({
+					osName: "OS Code",
+					osVersion: "1.0.0",
+					osArch: "arch",
+				}),
+			);
 		});
 	});
 
@@ -36,12 +39,14 @@ describe("system services", () => {
 				active: 60,
 			});
 
-			await expect(getSystemStats()).resolves.toStrictEqual({
-				memTotal: "100",
-				memAvailable: "40",
-				memUsed: "60",
-				sampledAt: expect.any(String),
-			});
+			await expect(getSystemStats()).resolves.toStrictEqual(
+				ok({
+					memTotal: "100",
+					memAvailable: "40",
+					memUsed: "60",
+					sampledAt: expect.any(String),
+				}),
+			);
 		});
 	});
 });

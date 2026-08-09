@@ -6,7 +6,7 @@ const { events, invoke } = ipc;
 
 export { appInfo, events, invoke };
 export type {
-	InvokeMap,
+	Invoke,
 	InvokeChannel,
 	InvokeArgs,
 	InvokeReturn,

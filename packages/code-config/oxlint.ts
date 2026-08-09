@@ -13,6 +13,7 @@ const baseConfig: OxlintConfig = defineConfig({
 	},
 	categories: { correctness: "error", suspicious: "error", perf: "error" },
 	plugins: ["oxc", "eslint", "typescript", "import", "promise", "unicorn"],
+	jsPlugins: [{ name: "eslint-js", specifier: "oxlint-plugin-eslint" }],
 	rules: {
 		"eslint/curly": ["error", "multi-line", "consistent"],
 		"eslint/eqeqeq": "error",
@@ -47,6 +48,11 @@ const baseConfig: OxlintConfig = defineConfig({
 		"unicorn/filename-case": ["error", { cases: { kebabCase: true } }],
 		"unicorn/prefer-node-protocol": "error",
 		"unicorn/prefer-type-error": "error",
+
+		"eslint-js/no-restricted-syntax": [
+			"error",
+			{ selector: "ThrowStatement", message: "Never throw." },
+		],
 
 		// enable rules from "pedantic", "style" and "nursery" for typescript
 		// @TODO: refactor using https://github.com/oxc-project/oxc/issues/19486

@@ -39,9 +39,6 @@ type EventMap = typeof eventMap;
 
 type InvokeChannel = keyof InvokeMap;
 type InvokeArgs<TKey extends InvokeChannel> = Parameters<InvokeMap[TKey]>;
-type InvokeReturn<TKey extends InvokeChannel> = Awaited<
-	ReturnType<InvokeMap[TKey]>
->;
 
 type EventChannel = keyof EventMap;
 type EventPayload<TKey extends EventChannel> = EventMap[TKey];
@@ -52,7 +49,6 @@ export type {
 	EventMap,
 	InvokeChannel,
 	InvokeArgs,
-	InvokeReturn,
 	EventChannel,
 	EventPayload,
 	SystemInfo,

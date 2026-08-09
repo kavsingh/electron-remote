@@ -20,6 +20,7 @@
 	"js/ts.experimental.useTsgo": true,
 
 	"oxc.enable": true,
+	"oxc.lint.run": "onSave",
 
 	"files.associations": { "*.css": "tailwindcss" },
 	"tailwindCSS.validate": true,

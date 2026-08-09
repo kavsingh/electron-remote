@@ -1,13 +1,24 @@
+import { err, Result } from "neverthrow";
+
 // https://stackoverflow.com/a/54409977
 function divBigint(
 	dividend: bigint,
 	divisor: bigint,
 	precision = 100n,
-): number {
-	return Number((dividend * precision) / divisor) / Number(precision);
+): Result<number, Error> {
+	return divisor === 0n
+		? err(new Error("Division by zero"))
+		: Result.fromThrowable(
+				() => Number((dividend * precision) / divisor) / Number(precision),
+				(cause) => new Error("Failed to divide bigints", { cause }),
+			)();
 }
 
-function normalizeBigint(val: bigint, min: bigint, max: bigint): number {
+function normalizeBigint(
+	val: bigint,
+	min: bigint,
+	max: bigint,
+): Result<number, Error> {
 	return divBigint(val - min, max - min);
 }
 

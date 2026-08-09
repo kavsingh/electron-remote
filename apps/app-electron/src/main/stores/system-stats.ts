@@ -31,15 +31,12 @@ class SystemStatsStore extends Store<SystemStatsState> {
 	async #tick() {
 		if (!this.#active) return;
 
-		try {
-			const stats = await getSystemStats();
+		(await getSystemStats()).match(
+			(stats) => this.update((state) => void (state.stats = stats)),
+			(cause) => this.#logger.error(cause),
+		);
 
-			this.update((state) => void (state.stats = stats));
-		} catch (cause) {
-			this.#logger.error(cause);
-		} finally {
-			this.#timeout = setTimeout(() => void this.#tick(), 1000);
-		}
+		this.#timeout = setTimeout(() => void this.#tick(), 1000);
 	}
 }
 

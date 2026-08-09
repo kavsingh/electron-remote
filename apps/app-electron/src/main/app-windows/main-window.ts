@@ -2,6 +2,7 @@ import path from "node:path";
 
 import { app, BrowserWindow } from "electron";
 import { scope } from "electron-log";
+import { ResultAsync } from "neverthrow";
 
 import { APP_RENDERER_URL as FALLBACK_URL } from "~/lib/app-protocol.ts";
 
@@ -16,13 +17,19 @@ async function loadWithAgent(win: BrowserWindow, url: string) {
 
 	logger.info("loading url", JSON.stringify({ url, options }));
 
-	try {
-		await win.loadURL(url, options);
-	} catch (cause) {
-		logger.error("failed to load url", { cause, url });
+	const result = await ResultAsync.fromPromise(
+		win.loadURL(url, options),
+		(cause) => new Error(`failed to load url: ${url}`, { cause }),
+	);
 
-		return win.loadURL(FALLBACK_URL, options);
-	}
+	if (result.isOk()) return result;
+
+	logger.error(result.error);
+
+	return ResultAsync.fromPromise(
+		win.loadURL(FALLBACK_URL, options),
+		(cause) => new Error("failed to load fallback url", { cause }),
+	);
 }
 
 export function createMainWindow(ctx: { isE2E: boolean }) {
@@ -38,12 +45,12 @@ export function createMainWindow(ctx: { isE2E: boolean }) {
 		},
 	});
 
-	void loadWithAgent(
+	loadWithAgent(
 		mainWindow,
 		isE2E
 			? import.meta.env.REMOTE_ENTRY_URL_E2E
 			: import.meta.env.REMOTE_ENTRY_URL,
-	);
+	).catch((cause) => logger.error(cause));
 
 	if (import.meta.env.DEV && !isE2E) {
 		mainWindow.webContents.openDevTools({ mode: "detach" });

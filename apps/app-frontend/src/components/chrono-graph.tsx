@@ -1,7 +1,6 @@
 // @TODO: refactor
 // oxlint-disable react-hooks-js/set-state-in-effect react-hooks-js/immutability react-hooks-js/refs
 
-import { tryOr } from "@app/shared/common/error";
 import { normalizeBigint } from "@app/shared/common/number";
 import { useResizeObserver } from "design-system/hooks";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -17,7 +16,7 @@ function normalizeValues(
 	max: bigint,
 ): number[] {
 	return samples.map(({ value }) => {
-		return tryOr(() => normalizeBigint(value, min, max), 0.5);
+		return normalizeBigint(value, min, max).unwrapOr(0.5);
 	});
 }
 

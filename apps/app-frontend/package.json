@@ -45,6 +45,7 @@
 		"eslint-plugin-jest-dom": "catalog:",
 		"eslint-plugin-testing-library": "catalog:",
 		"jsdom": "catalog:",
+		"neverthrow": "catalog:",
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"react-redux": "catalog:",

@@ -1,13 +1,17 @@
 import { prefixChannel } from "./lib.ts";
 
 import type {
+	InvokeMap,
 	InvokeChannel,
 	InvokeArgs,
-	InvokeReturn,
 	EventChannel,
 	EventPayload,
 } from "./schema.ts";
 import type { BrowserWindow, IpcMain } from "electron";
+
+type InvokeReturn<TChannel extends InvokeChannel> = Awaited<
+	ReturnType<InvokeMap[TChannel]>
+>;
 
 type MainHandlers = {
 	[TChannel in InvokeChannel]: (

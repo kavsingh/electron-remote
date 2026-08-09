@@ -1,6 +1,6 @@
-import { tryOr } from "@app/shared/common/error";
 import { formatMem } from "@app/shared/common/format";
 import { Card, InfoList } from "design-system/components";
+import { Result } from "neverthrow";
 
 import { ChronoGraph } from "~/components/chrono-graph";
 import { ipcApi } from "~/rtk/services/ipc";
@@ -12,10 +12,12 @@ function MemoryGraph(props: { systemStats: SystemStats | undefined }) {
 	const memTotal = props.systemStats?.memTotal;
 
 	const sample = memUsed
-		? { value: tryOr(() => BigInt(memUsed), 0n) }
+		? { value: Result.fromThrowable(BigInt)(memUsed).unwrapOr(0n) }
 		: undefined;
 
-	const maxValue = memTotal ? tryOr(() => BigInt(memTotal), 0n) : 0n;
+	const maxValue = memTotal
+		? Result.fromThrowable(BigInt)(memTotal).unwrapOr(0n)
+		: 0n;
 
 	return (
 		<ChronoGraph

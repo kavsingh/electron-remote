@@ -37,6 +37,7 @@
 		"electron-builder": "26.15.3",
 		"memfs": "catalog:",
 		"mutative": "catalog:",
+		"neverthrow": "catalog:",
 		"terser": "catalog:",
 		"vite": "catalog:",
 		"vite-plugin-electron": "1.1.0",

@@ -3,6 +3,7 @@ import { pathToFileURL } from "node:url";
 
 import { net } from "electron";
 import log from "electron-log";
+import { ResultAsync } from "neverthrow";
 
 import type { CustomScheme } from "electron";
 
@@ -27,16 +28,20 @@ async function serveFile(filepath: string, fileRoot: string) {
 
 	log.debug("fetching file", { resolvedPath, fileUrl });
 
-	try {
-		return await net.fetch(fileUrl);
-	} catch (cause) {
-		log.error("failed to load", cause);
+	return ResultAsync.fromPromise(
+		net.fetch(fileUrl),
+		(cause) => new Error(`failed to load: ${String(cause)}`),
+	).match(
+		(response) => response,
+		(err) => {
+			log.error(err);
 
-		return new Response(`failed to load: ${String(cause)}`, {
-			status: 500,
-			headers: { "content-type": "text/html" },
-		});
-	}
+			return new Response(err.message, {
+				status: 500,
+				headers: { "content-type": "text/html" },
+			});
+		},
+	);
 }
 
 const APP_PROTOCOL_SCHEME = "app";

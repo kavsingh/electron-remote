@@ -19,6 +19,8 @@ declare module "@tanstack/react-router" {
 
 const appRoot = document.getElementById("app-root");
 
+// makes sense to throw here, since app cannot function without root element
+// oxlint-disable-next-line eslint-js/no-restricted-syntax
 if (!appRoot) throw new Error("#app-root not found");
 
 const { store } = createAppStore();

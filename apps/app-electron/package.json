@@ -40,7 +40,7 @@
 		"neverthrow": "catalog:",
 		"terser": "catalog:",
 		"vite": "catalog:",
-		"vite-plugin-electron": "1.1.0",
+		"vite-plugin-electron": "1.1.1",
 		"vitest": "catalog:"
 	},
 	"engines": {

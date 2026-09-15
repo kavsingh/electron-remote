@@ -5,7 +5,7 @@ import packageJson from "./package.json" with { type: "json" };
 export default defineConfig([
 	{
 		clean: true,
-		dts: { build: true, oxc: true },
+		dts: { build: true, generator: "oxc" },
 		unbundle: true,
 		entry: "common/index.ts",
 		outDir: "dist/common",

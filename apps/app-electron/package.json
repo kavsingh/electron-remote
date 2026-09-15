@@ -24,7 +24,7 @@
 	"dependencies": {
 		"electron-log": "catalog:",
 		"superjson": "catalog:",
-		"systeminformation": "5.33.6",
+		"systeminformation": "5.33.10",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
@@ -40,7 +40,7 @@
 		"neverthrow": "catalog:",
 		"terser": "catalog:",
 		"vite": "catalog:",
-		"vite-plugin-electron": "1.1.1",
+		"vite-plugin-electron": "1.1.2",
 		"vitest": "catalog:"
 	},
 	"engines": {

@@ -9,7 +9,7 @@
 		"./*": "./*.ts"
 	},
 	"devDependencies": {
-		"oxlint-plugin-eslint": "1.80.0",
+		"oxlint-plugin-eslint": "1.82.0",
 		"vite-plugin-bundle-obfuscator": "catalog:"
 	},
 	"peerDependencies": {

@@ -8,6 +8,9 @@
 		"./*.json": "./*.json",
 		"./*": "./*.ts"
 	},
+	"scripts": {
+		"lint": "oxlint && oxfmt --check"
+	},
 	"devDependencies": {
 		"oxlint-plugin-eslint": "1.83.0",
 		"vite-plugin-bundle-obfuscator": "catalog:"

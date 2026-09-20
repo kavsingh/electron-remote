@@ -15,6 +15,7 @@ function ensureProtected(protectedStrings: string[]): Plugin {
 					output.type === "chunk" ? output.code : output.source.toString();
 
 				if (protectedStrings.some((str) => !!str && code.includes(str))) {
+					// oxlint-disable-next-line eslint-js/no-restricted-syntax
 					throw new Error(
 						"obfuscation failed: protected string found in bundle",
 					);

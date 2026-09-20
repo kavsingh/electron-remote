@@ -19,11 +19,11 @@ catalog:
   '@tanstack/devtools-vite': 0.8.5
   '@tanstack/eslint-plugin-router': 1.162.0
   '@tanstack/react-devtools': 0.10.12
-  '@tanstack/react-router': 1.170.35
-  '@tanstack/react-router-devtools': 1.167.1
-  '@tanstack/router-cli': 1.167.35
-  '@tanstack/router-plugin': 1.168.37
-  '@testing-library/dom': 10.4.1
+  '@tanstack/react-router': 1.170.38
+  '@tanstack/react-router-devtools': 1.167.2
+  '@tanstack/router-cli': 1.167.38
+  '@tanstack/router-plugin': 1.168.40
+  '@testing-library/dom': 10.4.2
   '@testing-library/jest-dom': 7.0.1
   '@testing-library/react': 16.3.3
   '@testing-library/user-event': 14.6.7
@@ -31,22 +31,22 @@ catalog:
   '@types/react': 19.3.0
   '@types/react-dom': 19.3.0
   '@vitejs/plugin-react': 6.1.1
-  '@vitest/coverage-v8': 5.0.0
+  '@vitest/coverage-v8': 5.0.1
   babel-plugin-react-compiler: 1.0.0
   citty: 0.2.2
-  electron: 44.3.0
+  electron: 44.4.1
   electron-log: 5.4.4
   eslint-plugin-better-tailwindcss: 4.7.0
   eslint-plugin-jest-dom: 5.10.1
-  eslint-plugin-playwright: 2.11.0
+  eslint-plugin-playwright: 2.12.0
   eslint-plugin-react-hooks: 7.1.1
   eslint-plugin-testing-library: 7.16.2
-  jsdom: 30.0.1
-  memfs: 4.76.0
+  jsdom: 30.1.0
+  memfs: 4.78.0
   mutative: 1.3.0
   neverthrow: 8.2.0
-  oxfmt: 0.67.0
-  oxlint: 1.82.0
+  oxfmt: 0.68.0
+  oxlint: 1.83.0
   oxlint-tsgolint: 7.0.2001
   react: 19.3.0
   react-dom: 19.3.0
@@ -59,15 +59,15 @@ catalog:
   tsdown: 0.23.0
   vite: 8.3.0
   vite-plugin-bundle-obfuscator: 1.13.1
-  vitest: 5.0.0
+  vitest: 5.0.1
   wait-on: 9.1.0
-  zod: 4.6.2
+  zod: 4.6.5
   zx: 8.8.5
 
 trustPolicyExclude:
-  - '@vercel/cli-config@0.2.6' # @TODO: remove this when possible
+  - '@vercel/cli-config@0.2.7' # @TODO: remove this when possible
   - '@vercel/cli-exec@1.0.1' # @TODO: remove this when possible
-  - '@vercel/oidc@3.8.7' # @TODO: remove this when possible
+  - '@vercel/oidc@3.8.8' # @TODO: remove this when possible
 
 allowBuilds:
   electron-winstaller: true

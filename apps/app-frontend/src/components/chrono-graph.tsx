@@ -124,7 +124,6 @@ function ChronoGraph(props: {
 				"border-muted/60 bg-muted/30 text-accent-foreground block-full inline-full",
 				props.className,
 			)}
-			// oxlint-disable-next-line react-hooks-js/immutability
 			ref={(el) => {
 				if (!el) return;
 

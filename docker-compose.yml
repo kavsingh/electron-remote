@@ -27,6 +27,15 @@ services:
         - action: rebuild
           path: ./packages/app-shared/package.json
           target: /monorepo/packages/app-shared/package.json
+
+        - action: sync
+          path: ./packages/app-bridge
+          target: /monorepo/packages/app-bridge
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./packages/app-bridge/package.json
+          target: /monorepo/packages/app-bridge/package.json
     profiles:
       - dev
 

@@ -10,7 +10,7 @@ export default defineConfig([
 		platform: "node",
 		target: "node24",
 		format: ["esm"],
-		define: { IPC_VERSION: JSON.stringify(packageJson.version) },
+		define: { BRIDGE_VERSION: JSON.stringify(packageJson.version) },
 	},
 	{
 		dts: { build: true, generator: "oxc" },
@@ -18,6 +18,6 @@ export default defineConfig([
 		platform: "browser",
 		target: "chrome130",
 		format: ["esm"],
-		define: { IPC_VERSION: JSON.stringify(packageJson.version) },
+		define: { BRIDGE_VERSION: JSON.stringify(packageJson.version) },
 	},
 ]);

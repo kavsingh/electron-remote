@@ -12,12 +12,11 @@
 		"lint": "oxlint && oxfmt --check"
 	},
 	"devDependencies": {
-		"oxlint-plugin-eslint": "1.83.0",
+		"oxlint-plugin-eslint": "1.87.0",
 		"vite-plugin-bundle-obfuscator": "catalog:"
 	},
 	"peerDependencies": {
 		"eslint-plugin-better-tailwindcss": "catalog:",
-		"eslint-plugin-react-hooks": "catalog:",
 		"oxlint": "catalog:",
 		"vite": "catalog:"
 	},

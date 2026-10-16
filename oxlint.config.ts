@@ -4,6 +4,7 @@ import { defineConfig } from "oxlint";
 export default defineConfig({
 	ignorePatterns: [
 		".turbo/*",
+		".agents/**",
 		".temp/*",
 		"target/*",
 		"apps/*",

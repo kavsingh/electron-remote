@@ -1,5 +1,4 @@
 import tailwindcss from "eslint-plugin-better-tailwindcss";
-import reactHooks from "eslint-plugin-react-hooks";
 import { defineConfig } from "oxlint";
 
 import type { OxlintConfig } from "oxlint";
@@ -137,34 +136,14 @@ const baseConfig: OxlintConfig = defineConfig({
 });
 
 function reactConfig({ files }: { files: string[] }): OxlintConfig {
-	const reactHooksName = "react-hooks-js";
-	const reactHooksRecommended = Object.fromEntries(
-		Object.entries(reactHooks.configs["recommended-latest"].rules).map(
-			([key, value]) => [
-				key.replace(/^react-hooks\//, `${reactHooksName}/`),
-				value,
-			],
-		),
-	);
-
 	return defineConfig({
 		overrides: [
 			{
 				files,
-				plugins: ["react", "jsx-a11y"],
-				jsPlugins: [
-					{ name: reactHooksName, specifier: "eslint-plugin-react-hooks" },
-				],
+				plugins: ["jsx-a11y", "react"],
 				rules: {
-					"react/react-in-jsx-scope": "off",
-
-					// leave to eslint-plugin-react-hooks
-					"react/exhaustive-deps": "off",
-					"react/rules-of-hooks": "off",
-
-					...reactHooksRecommended,
-
 					"jsx-a11y/control-has-associated-label": "off",
+					"react/react-in-jsx-scope": "off",
 				},
 			},
 		],

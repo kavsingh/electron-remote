@@ -5,11 +5,7 @@ import { getSystemStats } from "~/services/system.ts";
 
 import type { SystemStats } from "@app/shared/common/system";
 
-interface SystemStatsState {
-	stats: SystemStats;
-}
-
-class SystemStatsStore extends Store<SystemStatsState> {
+class SystemStatsStore extends Store<SystemStats> {
 	readonly #logger = scope("SystemStatsStore");
 	#active = true;
 	#timeout: NodeJS.Timeout | undefined = undefined;
@@ -32,22 +28,21 @@ class SystemStatsStore extends Store<SystemStatsState> {
 		if (!this.#active) return;
 
 		(await getSystemStats()).match(
-			(stats) => this.update((state) => void (state.stats = stats)),
+			(stats) => this.update((state) => void Object.assign(state, stats)),
 			(cause) => this.#logger.error(cause),
 		);
 
+		if (this.#timeout) clearTimeout(this.#timeout);
 		this.#timeout = setTimeout(() => void this.#tick(), 1000);
 	}
 }
 
 function createSystemStatsStore() {
 	return new SystemStatsStore({
-		stats: {
-			memTotal: "0",
-			memUsed: "0",
-			memAvailable: "0",
-			sampledAt: "0",
-		},
+		memTotal: "0",
+		memUsed: "0",
+		memAvailable: "0",
+		sampledAt: "0",
 	});
 }
 

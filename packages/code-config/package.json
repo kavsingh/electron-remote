@@ -12,7 +12,7 @@
 		"lint": "oxlint && oxfmt --check"
 	},
 	"devDependencies": {
-		"oxlint-plugin-eslint": "1.87.0",
+		"oxlint-plugin-eslint": "1.88.0",
 		"vite-plugin-bundle-obfuscator": "catalog:"
 	},
 	"peerDependencies": {

@@ -26,7 +26,7 @@ function registerIpcHandlers(ctx: {
 }) {
 	const removeHandlers = registerHandlers({
 		getSystemInfo: () => fromResultAsync(getSystemInfo()),
-		getSystemStats: () => ctx.systemStatsStore.getState().stats,
+		getSystemStats: () => ctx.systemStatsStore.getState(),
 		getThemeSource: () => nativeTheme.themeSource,
 		setThemeSource: (_, input) => void (nativeTheme.themeSource = input),
 		openDialog: (_, input) => fromResultAsync(openDialog(input)),
@@ -44,7 +44,7 @@ function initPubSub(
 	ctx: { systemStatsStore: SystemStatsStore },
 ) {
 	function handleStatsUpdate() {
-		send(win, "systemStats", ctx.systemStatsStore.getState().stats);
+		send(win, "systemStats", ctx.systemStatsStore.getState());
 	}
 
 	ctx.systemStatsStore.addListener("update", handleStatsUpdate);

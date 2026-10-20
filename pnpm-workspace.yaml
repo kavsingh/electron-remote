@@ -18,10 +18,10 @@ catalog:
   '@tanstack/devtools-vite': 0.8.5
   '@tanstack/eslint-plugin-router': 1.162.0
   '@tanstack/react-devtools': 0.10.13
-  '@tanstack/react-router': 1.170.44
+  '@tanstack/react-router': 1.170.45
   '@tanstack/react-router-devtools': 1.167.2
-  '@tanstack/router-cli': 1.167.44
-  '@tanstack/router-plugin': 1.168.46
+  '@tanstack/router-cli': 1.167.45
+  '@tanstack/router-plugin': 1.168.47
   '@testing-library/dom': 10.4.2
   '@testing-library/jest-dom': 7.0.1
   '@testing-library/react': 16.3.3
@@ -30,9 +30,9 @@ catalog:
   '@types/react': 19.3.0
   '@types/react-dom': 19.3.0
   '@vitejs/plugin-react': 6.1.2
-  '@vitest/coverage-v8': 5.0.4
+  '@vitest/coverage-v8': 5.0.5
   citty: 0.2.2
-  electron: 44.7.2
+  electron: 44.9.0
   electron-log: 5.4.4
   eslint-plugin-better-tailwindcss: 4.9.1
   eslint-plugin-jest-dom: 5.10.1
@@ -57,7 +57,7 @@ catalog:
   tsdown: 0.23.1
   vite: 8.3.4
   vite-plugin-bundle-obfuscator: 1.13.2
-  vitest: 5.0.4
+  vitest: 5.0.5
   wait-on: 9.5.1
   zod: 4.6.7
   zx: 8.8.5

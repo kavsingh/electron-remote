@@ -24,7 +24,7 @@
 	"dependencies": {
 		"electron-log": "catalog:",
 		"superjson": "catalog:",
-		"systeminformation": "5.33.15",
+		"systeminformation": "5.33.16",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
@@ -34,7 +34,7 @@
 		"@electron/notarize": "3.1.2",
 		"@vitest/coverage-v8": "catalog:",
 		"electron": "catalog:",
-		"electron-builder": "26.15.3",
+		"electron-builder": "26.18.0",
 		"memfs": "catalog:",
 		"mutative": "catalog:",
 		"neverthrow": "catalog:",

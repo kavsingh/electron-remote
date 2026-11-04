@@ -1,9 +1,9 @@
 // https://ui.shadcn.com/docs/components/button
 
-import { tv } from "tailwind-variants";
+import { tv } from "#css";
 
+import type { VariantProps } from "#css";
 import type { ComponentPropsWithRef } from "react";
-import type { VariantProps } from "tailwind-variants";
 
 const buttonVariants = tv({
 	base: "inline-flex items-center justify-center rounded-md text-sm font-medium whitespace-nowrap transition-colors focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",

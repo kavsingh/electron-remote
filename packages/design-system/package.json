@@ -4,13 +4,19 @@
 	"description": "shared js",
 	"license": "MIT",
 	"files": [
-		"common/**/*",
-		"node/**/*",
-		"browser/**/*"
+		"css/**/*",
+		"hooks/**/*",
+		"components/**/*",
+		"layouts/**/*",
+		"theme.css"
 	],
 	"type": "module",
+	"imports": {
+		"#css": "./css/index.ts"
+	},
 	"exports": {
 		"./theme.css": "./theme.css",
+		"./css": "./css/index.ts",
 		"./components": "./components/index.ts",
 		"./layouts": "./layouts/index.ts",
 		"./hooks": "./hooks/index.ts"
@@ -18,14 +24,17 @@
 	"scripts": {
 		"lint": "oxlint && oxfmt --check"
 	},
+	"dependencies": {
+		"tailwind-variants": "catalog:"
+	},
 	"devDependencies": {
 		"@types/react": "catalog:",
-		"@types/react-dom": "catalog:",
+		"@types/react-dom": "catalog:"
+	},
+	"peerDependencies": {
 		"eslint-plugin-better-tailwindcss": "catalog:",
 		"react": "catalog:",
 		"react-dom": "catalog:",
-		"tailwind-merge": "catalog:",
-		"tailwind-variants": "catalog:",
 		"tailwindcss": "catalog:"
 	}
 }

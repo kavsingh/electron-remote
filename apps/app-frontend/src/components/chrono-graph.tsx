@@ -2,9 +2,9 @@
 // oxlint-disable react-hooks-js/set-state-in-effect react-hooks-js/immutability react-hooks-js/refs
 
 import { normalizeBigint } from "@app/shared/common/number";
+import { cn } from "design-system/css";
 import { useResizeObserver } from "design-system/hooks";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
 
 interface Sample {
 	value: bigint;
@@ -120,7 +120,7 @@ function ChronoGraph(props: {
 
 	return (
 		<canvas
-			className={twMerge(
+			className={cn(
 				"border-muted/60 bg-muted/30 text-accent-foreground block-full inline-full",
 				props.className,
 			)}

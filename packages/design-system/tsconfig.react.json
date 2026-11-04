@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
-	"include": ["components", "hooks", "layouts"],
+	"include": ["components", "hooks", "layouts", "css"],
 	"extends": "code-config/tsconfig.browser.json",
 	"compilerOptions": { "composite": true, "jsx": "react-jsx" }
 }

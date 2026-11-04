@@ -20,11 +20,10 @@
 	"js/ts.experimental.useTsgo": true,
 
 	"oxc.enable": true,
-	"oxc.lint.run": "onSave",
 
 	"files.associations": { "*.css": "tailwindcss" },
 	"tailwindCSS.validate": true,
-	"tailwindCSS.classFunctions": ["twJoin", "twMerge", "tv"],
+	"tailwindCSS.classFunctions": ["cn", "clsx", "tv"],
 	"tailwindCSS.experimental.configFile": {
 		"packages/design-system/index.css": "packages/design-system/components/**",
 		"apps/app-frontend/src/index.css": "apps/app-frontend/src/**",

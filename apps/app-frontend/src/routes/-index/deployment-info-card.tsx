@@ -6,9 +6,9 @@ import type { ReactNode } from "react";
 
 function JSONDump({ title, data }: { title: ReactNode; data: unknown }) {
 	return (
-		<div>
+		<div className="overflow-auto">
 			<h4 className="mbe-1 text-sm font-semibold">{title}</h4>
-			<pre className="overflow-scroll text-xs text-muted-foreground">
+			<pre className="text-xs text-muted-foreground">
 				{JSON.stringify(data, null, 2)}
 			</pre>
 		</div>

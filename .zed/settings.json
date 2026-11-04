@@ -10,7 +10,7 @@
 		"tailwindcss-language-server": {
 			"settings": {
 				"validate": true,
-				"classFunctions": ["twJoin", "twMerge", "tv"],
+				"classFunctions": ["cn", "clsx", "tv"],
 				"experimental": {
 					"configFile": {
 						"packages/design-system/index.css": "packages/design-system/components/**",

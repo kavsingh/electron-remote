@@ -6,6 +6,7 @@ import type { AfterPackContext } from "electron-builder";
 // https://github.com/electron/electron/blob/main/docs/tutorial/fuses.md
 function applyFuses(context: AfterPackContext): Promise<number> {
 	return context.packager.addElectronFuses(context, {
+		// oxlint-disable-next-line typescript/no-unsafe-enum-assignment
 		version: FuseVersion.V1,
 
 		// @TODO: re-enable when

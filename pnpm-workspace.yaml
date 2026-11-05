@@ -29,14 +29,14 @@ catalog:
   '@types/babel__core': 7.20.5
   '@types/react': 19.3.0
   '@types/react-dom': 19.3.0
-  '@vitejs/plugin-react': 6.1.2
-  '@vitest/coverage-v8': 5.0.5
+  '@vitejs/plugin-react': 6.2.1
+  '@vitest/coverage-v8': 5.1.0
   citty: 0.2.2
   electron: 45.2.1
   electron-log: 5.4.4
   eslint-plugin-better-tailwindcss: 4.10.0
   eslint-plugin-jest-dom: 5.10.1
-  eslint-plugin-playwright: 2.12.1
+  eslint-plugin-playwright: 2.12.2
   eslint-plugin-testing-library: 7.16.2
   jsdom: 30.1.3
   memfs: 4.80.0
@@ -56,16 +56,10 @@ catalog:
   tsdown: 0.23.4
   vite: 8.3.5
   vite-plugin-bundle-obfuscator: 1.13.2
-  vitest: 5.0.5
+  vitest: 5.1.0
   wait-on: 9.5.1
   zod: 4.6.7
   zx: 8.8.5
-
-trustPolicyExclude:
-  - '@vercel/cli-config@0.2.7' # @TODO: remove this when possible
-  - '@vercel/cli-exec@1.0.1' # @TODO: remove this when possible
-  - '@vercel/oidc@3.8.8' # @TODO: remove this when possible
-  - 'lefthook@2.2.2' # @TODO: remove this when possible
 
 allowBuilds:
   electron-winstaller: true

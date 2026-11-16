@@ -45,25 +45,29 @@ export function ThemeSwitch() {
 					</Card.Header>
 					<Card.Content>
 						<ul className="flex gap-3">
-							{THEME_SOURCES.map((option) => (
-								<li className="flex items-center gap-1" key={option}>
-									<input
-										type="radio"
-										id={option}
-										name={option}
-										value={option}
-										checked={themeSource === option}
-										onChange={handleChange}
-										className="peer cursor-pointer block-4 inline-4"
-									/>
-									<label
-										className="cursor-pointer text-muted-foreground transition-colors peer-checked:text-foreground"
-										htmlFor={option}
-									>
-										<LabelText themeSource={option} />
-									</label>
-								</li>
-							))}
+							{THEME_SOURCES.map((option) => {
+								const inputId = `theme-select-${option}`;
+
+								return (
+									<li className="flex items-center gap-1" key={option}>
+										<input
+											type="radio"
+											id={inputId}
+											name="theme-select"
+											value={option}
+											checked={themeSource === option}
+											onChange={handleChange}
+											className="peer cursor-pointer block-4 inline-4"
+										/>
+										<label
+											className="cursor-pointer text-muted-foreground transition-colors peer-checked:text-foreground"
+											htmlFor={inputId}
+										>
+											<LabelText themeSource={option} />
+										</label>
+									</li>
+								);
+							})}
 						</ul>
 					</Card.Content>
 				</fieldset>

@@ -32,7 +32,10 @@ async function loadWithAgent(win: BrowserWindow, url: string) {
 	);
 }
 
-export function createMainWindow(ctx: { isE2E: boolean }) {
+export function createMainWindow(ctx: {
+	isE2E: boolean;
+	supportedIpcInvoke: string[];
+}) {
 	const { isE2E } = ctx;
 	const mainWindow = new BrowserWindow({
 		titleBarStyle: "hiddenInset",
@@ -41,7 +44,10 @@ export function createMainWindow(ctx: { isE2E: boolean }) {
 		show: false,
 		webPreferences: {
 			preload: path.resolve(import.meta.dirname, "preload-renderer.cjs"),
-			additionalArguments: [`--app-version=${app.getVersion()}`],
+			additionalArguments: [
+				`--app-version=${app.getVersion()}`,
+				`--supported-ipc-invoke=${ctx.supportedIpcInvoke.join(",")}`,
+			],
 		},
 	});
 

@@ -34,7 +34,10 @@ const ipcBaseQuery: BaseQueryFn<
 };
 
 type IpcReturn<TChannel extends InvokeChannel> =
-	ReturnType<Invoke[TChannel]> extends ResultAsync<infer TValue, infer _TError>
+	ReturnType<NonNullable<Invoke[TChannel]>> extends ResultAsync<
+		infer TValue,
+		infer _TError
+	>
 		? TValue
 		: never;
 

@@ -10,6 +10,7 @@ interface AppInfo {
 	architecture: NodeJS.Architecture;
 	platform: NodeJS.Platform;
 	platformVersion: string;
+	supportedIpcInvoke: string[];
 }
 
 interface StaticApi {
@@ -25,17 +26,15 @@ const invokeMap = {
 	openDialog: {} as Invoker<OpenDialogReturnValue, OpenDialogOptions>,
 	getAppContext: {} as Invoker<AppContext>,
 	setAppContext: {} as Invoker<undefined, AppContext>,
-};
+} as const;
 
 const eventMap = {
 	systemStats: {} as SystemStats,
-};
+} as const;
 // oxlint-enable typescript/no-unsafe-type-assertion
 
 type InvokeMap = typeof invokeMap;
 type EventMap = typeof eventMap;
-
-// type helpers
 
 type InvokeChannel = keyof InvokeMap;
 type InvokeArgs<TKey extends InvokeChannel> = Parameters<InvokeMap[TKey]>;

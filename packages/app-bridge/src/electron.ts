@@ -20,8 +20,15 @@ type MainHandlers = {
 	) => InvokeReturn<TChannel> | Promise<InvokeReturn<TChannel>>;
 };
 
+type UnregisterHandlers = () => void;
+
+interface RegisterHandlersResult {
+	supportedIpcInvoke: InvokeChannel[];
+	unregister: UnregisterHandlers;
+}
+
 interface TypedIpcMain {
-	registerHandlers: (handlers: MainHandlers) => () => void;
+	registerHandlers: (handlers: MainHandlers) => RegisterHandlersResult;
 	send: <TChannel extends EventChannel>(
 		win: BrowserWindow,
 		channel: TChannel,
@@ -32,14 +39,21 @@ interface TypedIpcMain {
 function typeIpcMain(ipcMain: IpcMain): TypedIpcMain {
 	return {
 		registerHandlers: (handlers) => {
+			const supportedIpcInvoke: InvokeChannel[] = [];
+
 			for (const [channel, handler] of Object.entries(handlers)) {
 				ipcMain.handle(prefixChannel(channel), handler);
+				// oxlint-disable-next-line typescript/no-unsafe-type-assertion
+				supportedIpcInvoke.push(channel as InvokeChannel);
 			}
 
-			return function cleanup() {
-				for (const channel of Object.keys(handlers)) {
-					ipcMain.removeHandler(prefixChannel(channel));
-				}
+			return {
+				supportedIpcInvoke,
+				unregister: () => {
+					for (const channel of Object.keys(handlers)) {
+						ipcMain.removeHandler(prefixChannel(channel));
+					}
+				},
 			};
 		},
 
@@ -52,5 +66,10 @@ function typeIpcMain(ipcMain: IpcMain): TypedIpcMain {
 }
 
 export { typeIpcMain };
-export type { AppInfo } from "./schema.ts";
-export type { MainHandlers, TypedIpcMain };
+export type { AppInfo, InvokeChannel } from "./schema.ts";
+export type {
+	MainHandlers,
+	TypedIpcMain,
+	RegisterHandlersResult,
+	UnregisterHandlers,
+};

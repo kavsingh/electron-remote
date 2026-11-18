@@ -2,31 +2,35 @@ import { Card, InfoList } from "design-system/components";
 
 import { ipcApi } from "~/rtk/services/ipc";
 
-export function SystemInfoCard() {
-	const { data: info } = ipcApi.useSystemInfoQuery();
+function CardContent() {
+	const { data } = ipcApi.useSystemInfoQuery();
 
+	if (!data) return <>loading...</>;
+
+	return (
+		<InfoList.Root>
+			<InfoList.Entry>
+				<InfoList.Label>os</InfoList.Label>
+				<InfoList.Value>
+					{data.osName} {data.osVersion}
+				</InfoList.Value>
+			</InfoList.Entry>
+			<InfoList.Entry>
+				<InfoList.Label>arch</InfoList.Label>
+				<InfoList.Value>{data.osArch}</InfoList.Value>
+			</InfoList.Entry>
+		</InfoList.Root>
+	);
+}
+
+export function SystemInfoCard() {
 	return (
 		<Card.Root>
 			<Card.Header>
 				<Card.Title>System info</Card.Title>
 			</Card.Header>
 			<Card.Content>
-				{info ? (
-					<InfoList.Root>
-						<InfoList.Entry>
-							<InfoList.Label>os</InfoList.Label>
-							<InfoList.Value>
-								{info.osName} {info.osVersion}
-							</InfoList.Value>
-						</InfoList.Entry>
-						<InfoList.Entry>
-							<InfoList.Label>arch</InfoList.Label>
-							<InfoList.Value>{info.osArch}</InfoList.Value>
-						</InfoList.Entry>
-					</InfoList.Root>
-				) : (
-					<>loading...</>
-				)}
+				<CardContent />
 			</Card.Content>
 		</Card.Root>
 	);

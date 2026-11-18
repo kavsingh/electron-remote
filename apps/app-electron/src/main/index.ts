@@ -18,11 +18,12 @@ initLogging();
 const appStore = createAppStore();
 const systemStatsStore = createSystemStatsStore();
 let cleanupPubSub: ReturnType<typeof initPubSub> | undefined = undefined;
+let supportedIpcInvoke: string[] = [];
 
 function showMainWindow() {
 	logger.info("Showing main window", import.meta.env);
 
-	const mainWindow = createMainWindow({ isE2E });
+	const mainWindow = createMainWindow({ isE2E, supportedIpcInvoke });
 
 	mainWindow.on("ready-to-show", () => {
 		cleanupPubSub = initPubSub(mainWindow, { systemStatsStore });
@@ -55,7 +56,10 @@ app.on("quit", () => {
 void app.whenReady().then(() => {
 	logger.info("App ready");
 	protocol.handle(appProtocol.scheme, appProtocolHandler);
-	registerIpcHandlers({ appStore, systemStatsStore });
+
+	const registerResult = registerIpcHandlers({ appStore, systemStatsStore });
+
+	supportedIpcInvoke = registerResult.supportedIpcInvoke;
 	systemStatsStore.startSampling();
 	showMainWindow();
 });

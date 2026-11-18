@@ -1,13 +1,23 @@
 // oxlint-disable typescript/no-invalid-void-type
 
 import { createApi, retry } from "@reduxjs/toolkit/query/react";
+import { errAsync } from "neverthrow";
 
 import { ipcBaseQuery } from "./lib";
 
 import type { IpcReturn } from "./lib";
-import type { InvokeArgs } from "~/bridge";
+import type { Invoke, InvokeArgs } from "~/bridge";
 
 const baseQuery = retry(ipcBaseQuery, { maxRetries: 3 });
+
+function ifSupported<TChannel extends keyof Invoke>(
+	api: Invoke,
+	channel: TChannel,
+) {
+	if (api[channel]) return api[channel];
+
+	return () => errAsync(new Error(`'${channel}' is not supported`));
+}
 
 const ipcApi = createApi({
 	baseQuery,
@@ -16,7 +26,7 @@ const ipcApi = createApi({
 	endpoints(builder) {
 		return {
 			themeSource: builder.query<IpcReturn<"getThemeSource">, void>({
-				query: () => (api) => api.getThemeSource(),
+				query: () => (api) => ifSupported(api, "getThemeSource")(),
 				providesTags: ["ThemeSource"],
 			}),
 
@@ -24,20 +34,20 @@ const ipcApi = createApi({
 				IpcReturn<"setThemeSource">,
 				InvokeArgs<"setThemeSource">[0]
 			>({
-				query: (themeSource) => {
-					return (api) => api.setThemeSource(themeSource);
+				query: (themeSource) => (api) => {
+					return ifSupported(api, "setThemeSource")(themeSource);
 				},
 				invalidatesTags: ["ThemeSource"],
 				extraOptions: { maxRetries: 0 },
 			}),
 
 			systemInfo: builder.query<IpcReturn<"getSystemInfo">, void>({
-				query: () => (api) => api.getSystemInfo(),
+				query: () => (api) => ifSupported(api, "getSystemInfo")(),
 				providesTags: ["SystemInfo"],
 			}),
 
 			systemStats: builder.query<IpcReturn<"getSystemStats">, void>({
-				query: () => (api) => api.getSystemStats(),
+				query: () => (api) => ifSupported(api, "getSystemStats")(),
 				providesTags: ["SystemStats"],
 			}),
 
@@ -45,12 +55,12 @@ const ipcApi = createApi({
 				IpcReturn<"openDialog">,
 				InvokeArgs<"openDialog">[0]
 			>({
-				query: (options) => (api) => api.openDialog(options),
+				query: (options) => (api) => ifSupported(api, "openDialog")(options),
 				extraOptions: { maxRetries: 0 },
 			}),
 
 			appContext: builder.query<IpcReturn<"getAppContext">, void>({
-				query: () => (api) => api.getAppContext(),
+				query: () => (api) => ifSupported(api, "getAppContext")(),
 				extraOptions: { maxRetries: 0 },
 			}),
 
@@ -58,7 +68,7 @@ const ipcApi = createApi({
 				IpcReturn<"setAppContext">,
 				InvokeArgs<"setAppContext">[0]
 			>({
-				query: (context) => (api) => api.setAppContext(context),
+				query: (context) => (api) => ifSupported(api, "setAppContext")(context),
 				extraOptions: { maxRetries: 0 },
 				invalidatesTags: ["AppContext"],
 			}),

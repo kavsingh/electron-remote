@@ -15,8 +15,10 @@ import type { InvokeMap, StaticApi } from "./schema.ts";
 import type { IpcRenderer } from "electron";
 
 function createIpc(ipcRenderer: IpcRenderer): IpcApi {
-	const invoke = {} as InvokeMap;
-	const events = {} as EventSubscriptionMap;
+	const invoke = {} as { -readonly [K in keyof InvokeMap]: InvokeMap[K] };
+	const events = {} as {
+		-readonly [K in keyof EventSubscriptionMap]: EventSubscriptionMap[K];
+	};
 
 	for (const channel of keysof(invokeMap)) {
 		invoke[channel] = (input: unknown) => {

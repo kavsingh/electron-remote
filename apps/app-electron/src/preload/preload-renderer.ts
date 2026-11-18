@@ -13,6 +13,10 @@ const appInfo: StaticApi["appInfo"] = {
 	architecture: process.arch,
 	platform: process.platform,
 	platformVersion: process.getSystemVersion(),
+	supportedIpcInvoke:
+		getArgumentValue("supported-ipc-invoke")
+			?.split(",")
+			.map((key) => key.trim()) ?? [],
 };
 
 process.once("loaded", () => {

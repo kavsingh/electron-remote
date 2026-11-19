@@ -8,7 +8,7 @@ import type { AppStore } from "./stores/app.ts";
 import type { SystemStatsStore } from "./stores/system-stats.ts";
 import type { ResultAsync } from "neverthrow";
 
-const { registerHandlers, send } = typeIpcMain(ipcMain);
+const { supportedIpc, registerHandlers, send } = typeIpcMain(ipcMain);
 
 // normalize neverthrow ResultAsync to Promise for ipc contract
 // neverthrow classes need to be serialized to be sent over ipc, maybe later
@@ -24,7 +24,7 @@ function registerIpcHandlers(ctx: {
 	appStore: AppStore;
 	systemStatsStore: SystemStatsStore;
 }) {
-	const removeHandlers = registerHandlers({
+	return registerHandlers({
 		getSystemInfo: () => fromResultAsync(getSystemInfo()),
 		getSystemStats: () => ctx.systemStatsStore.getState(),
 		getThemeSource: () => nativeTheme.themeSource,
@@ -35,8 +35,6 @@ function registerIpcHandlers(ctx: {
 			ctx.appStore.update((state) => void (state.appContext = input));
 		},
 	});
-
-	return removeHandlers;
 }
 
 function initPubSub(
@@ -54,4 +52,4 @@ function initPubSub(
 	};
 }
 
-export { registerIpcHandlers, initPubSub };
+export { supportedIpc, registerIpcHandlers, initPubSub };

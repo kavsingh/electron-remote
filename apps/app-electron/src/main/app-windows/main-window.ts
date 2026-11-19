@@ -6,6 +6,7 @@ import { ResultAsync } from "neverthrow";
 
 import { APP_RENDERER_URL as FALLBACK_URL } from "~/lib/app-protocol.ts";
 
+import type { SupportedIpc } from "@app/bridge/electron";
 import type { LoadURLOptions } from "electron";
 
 const logger = scope("main-window");
@@ -34,7 +35,7 @@ async function loadWithAgent(win: BrowserWindow, url: string) {
 
 export function createMainWindow(ctx: {
 	isE2E: boolean;
-	supportedIpcInvoke: string[];
+	supportedIpc: SupportedIpc;
 }) {
 	const { isE2E } = ctx;
 	const mainWindow = new BrowserWindow({
@@ -46,7 +47,8 @@ export function createMainWindow(ctx: {
 			preload: path.resolve(import.meta.dirname, "preload-renderer.cjs"),
 			additionalArguments: [
 				`--app-version=${app.getVersion()}`,
-				`--supported-ipc-invoke=${ctx.supportedIpcInvoke.join(",")}`,
+				`--supported-ipc-invoke=${ctx.supportedIpc.invoke.join(",")}`,
+				`--supported-ipc-events=${ctx.supportedIpc.events.join(",")}`,
 			],
 		},
 	});

@@ -16,6 +16,8 @@ type InvokeWithNeverthrow<TChannel extends InvokeChannel> = (
 
 type ClientBridgeApi = Omit<BridgeApi, "ipc"> & {
 	ipc: {
+		supportsInvoke: (channel: InvokeChannel) => boolean;
+		supportsEvent: (channel: EventChannel) => boolean;
 		invoke: {
 			[TKey in InvokeChannel]?: InvokeWithNeverthrow<TKey> | undefined;
 		};
@@ -30,11 +32,22 @@ function prepareIpc(api: BridgeApi): ClientBridgeApi {
 	const wrappedInvoke: ClientBridgeApi["ipc"]["invoke"] = {};
 	const wrappedEvents: ClientBridgeApi["ipc"]["events"] = {};
 
+	function supportsInvoke(channel: InvokeChannel) {
+		return supported.invoke.includes(channel);
+	}
+
+	function supportsEvent(channel: EventChannel) {
+		return supported.events.includes(channel);
+	}
+
 	for (const [key, fn] of Object.entries(api.ipc.invoke)) {
-		if (!supported.invoke.includes(key)) continue;
+		// oxlint-disable-next-line typescript/no-unsafe-type-assertion
+		const channel = key as InvokeChannel;
+
+		if (!supportsInvoke(channel)) continue;
 
 		// @ts-expect-error - we know that the keys and types match up
-		wrappedInvoke[key] = (...args: unknown[]) => {
+		wrappedInvoke[channel] = (...args: unknown[]) => {
 			// @ts-expect-error - we know that the keys and types match up
 			return ResultAsync.fromPromise(fn(...args), (err) => {
 				if (err instanceof Error) return err;
@@ -43,14 +56,19 @@ function prepareIpc(api: BridgeApi): ClientBridgeApi {
 		};
 	}
 
-	for (const [key, fn] of Object.entries(api.ipc.events)) {
+	for (const [channel, fn] of Object.entries(api.ipc.events)) {
 		// @ts-expect-error - we know that the keys and types match up
-		if (supported.events.includes(key)) wrappedEvents[key] = fn;
+		if (supportsEvent(channel)) wrappedEvents[channel] = fn;
 	}
 
 	return {
 		...api,
-		ipc: { invoke: wrappedInvoke, events: wrappedEvents },
+		ipc: {
+			supportsInvoke,
+			supportsEvent,
+			invoke: wrappedInvoke,
+			events: wrappedEvents,
+		},
 	};
 }
 

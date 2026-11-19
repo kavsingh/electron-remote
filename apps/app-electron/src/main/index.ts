@@ -2,7 +2,7 @@ import { app, BrowserWindow, protocol } from "electron";
 import logger from "electron-log";
 
 import { createMainWindow } from "./app-windows/main-window.ts";
-import { initPubSub, registerIpcHandlers } from "./ipc.ts";
+import { initPubSub, registerIpcHandlers, supportedIpc } from "./ipc.ts";
 import { appProtocolHandler, appProtocol } from "./lib/app-protocol.ts";
 import { initLogging } from "./lib/init-logging.ts";
 import { restrictNavigation } from "./lib/restrict-navigation.ts";
@@ -18,12 +18,11 @@ initLogging();
 const appStore = createAppStore();
 const systemStatsStore = createSystemStatsStore();
 let cleanupPubSub: ReturnType<typeof initPubSub> | undefined = undefined;
-let supportedIpcInvoke: string[] = [];
 
 function showMainWindow() {
 	logger.info("Showing main window", import.meta.env);
 
-	const mainWindow = createMainWindow({ isE2E, supportedIpcInvoke });
+	const mainWindow = createMainWindow({ isE2E, supportedIpc });
 
 	mainWindow.on("ready-to-show", () => {
 		cleanupPubSub = initPubSub(mainWindow, { systemStatsStore });
@@ -56,10 +55,7 @@ app.on("quit", () => {
 void app.whenReady().then(() => {
 	logger.info("App ready");
 	protocol.handle(appProtocol.scheme, appProtocolHandler);
-
-	const registerResult = registerIpcHandlers({ appStore, systemStatsStore });
-
-	supportedIpcInvoke = registerResult.supportedIpcInvoke;
+	registerIpcHandlers({ appStore, systemStatsStore });
 	systemStatsStore.startSampling();
 	showMainWindow();
 });

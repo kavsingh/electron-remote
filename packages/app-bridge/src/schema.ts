@@ -4,13 +4,18 @@ import type { SystemInfo, SystemStats } from "@app/shared/common/system";
 import type { ThemeSource } from "@app/shared/common/theme";
 import type { OpenDialogOptions, OpenDialogReturnValue } from "electron";
 
+interface SupportedIpc {
+	invoke: string[];
+	events: string[];
+}
+
 interface AppInfo {
 	appVersion: string;
 	electronVersion: string;
 	architecture: NodeJS.Architecture;
 	platform: NodeJS.Platform;
 	platformVersion: string;
-	supportedIpcInvoke: string[];
+	supportedIpc: SupportedIpc;
 }
 
 interface StaticApi {
@@ -56,6 +61,7 @@ export type {
 	AppContext,
 	OpenDialogOptions,
 	OpenDialogReturnValue,
+	SupportedIpc,
 	AppInfo,
 	StaticApi,
 };

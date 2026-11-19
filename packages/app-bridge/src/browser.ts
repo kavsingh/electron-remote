@@ -2,28 +2,36 @@ import { ResultAsync } from "neverthrow";
 
 import { BRIDGE_NAMESPACE } from "./lib.ts";
 
-import type { BridgeApi } from "./lib.ts";
-import type { InvokeArgs, InvokeChannel, InvokeMap } from "./schema.ts";
+import type { BridgeApi, EventSubscriptionMap } from "./lib.ts";
+import type {
+	InvokeArgs,
+	InvokeChannel,
+	InvokeMap,
+	EventChannel,
+} from "./schema.ts";
 
 type InvokeWithNeverthrow<TChannel extends InvokeChannel> = (
 	...args: InvokeArgs<TChannel>
 ) => ResultAsync<Awaited<ReturnType<InvokeMap[TChannel]>>, Error>;
 
-type BridgeApiWithNeverthrow = Omit<BridgeApi, "ipc"> & {
+type ClientBridgeApi = Omit<BridgeApi, "ipc"> & {
 	ipc: {
-		events: BridgeApi["ipc"]["events"];
 		invoke: {
 			[TKey in InvokeChannel]?: InvokeWithNeverthrow<TKey> | undefined;
+		};
+		events: {
+			[TKey in EventChannel]?: EventSubscriptionMap[TKey] | undefined;
 		};
 	};
 };
 
-function prepareIpc(api: BridgeApi): BridgeApiWithNeverthrow {
-	const supported = api.appInfo.supportedIpcInvoke;
-	const wrappedInvoke = {} as BridgeApiWithNeverthrow["ipc"]["invoke"];
+function prepareIpc(api: BridgeApi): ClientBridgeApi {
+	const supported = api.appInfo.supportedIpc;
+	const wrappedInvoke: ClientBridgeApi["ipc"]["invoke"] = {};
+	const wrappedEvents: ClientBridgeApi["ipc"]["events"] = {};
 
 	for (const [key, fn] of Object.entries(api.ipc.invoke)) {
-		if (!supported.includes(key)) continue;
+		if (!supported.invoke.includes(key)) continue;
 
 		// @ts-expect-error - we know that the keys and types match up
 		wrappedInvoke[key] = (...args: unknown[]) => {
@@ -35,13 +43,18 @@ function prepareIpc(api: BridgeApi): BridgeApiWithNeverthrow {
 		};
 	}
 
+	for (const [key, fn] of Object.entries(api.ipc.events)) {
+		// @ts-expect-error - we know that the keys and types match up
+		if (supported.events.includes(key)) wrappedEvents[key] = fn;
+	}
+
 	return {
 		...api,
-		ipc: { ...api.ipc, invoke: wrappedInvoke },
+		ipc: { invoke: wrappedInvoke, events: wrappedEvents },
 	};
 }
 
-function getBridge(): BridgeApiWithNeverthrow {
+function getBridge(): ClientBridgeApi {
 	// @ts-expect-error - avoid polluting the global namespace with the Bridge API
 	// oxlint-disable-next-line typescript/no-unsafe-type-assertion
 	const bridgeApi = globalThis[BRIDGE_NAMESPACE] as BridgeApi | undefined;
@@ -54,14 +67,14 @@ function getBridge(): BridgeApiWithNeverthrow {
 	return prepareIpc(bridgeApi);
 }
 
-type Invoke = BridgeApiWithNeverthrow["ipc"]["invoke"];
+type Invoke = ClientBridgeApi["ipc"]["invoke"];
 type InvokeReturn<TChannel extends InvokeChannel> = Awaited<
 	ReturnType<NonNullable<Invoke[TChannel]>>
 >;
 
 export { getBridge };
 export type {
-	BridgeApiWithNeverthrow,
+	ClientBridgeApi,
 	Invoke,
 	InvokeArgs,
 	InvokeChannel,

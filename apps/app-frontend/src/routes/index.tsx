@@ -11,9 +11,9 @@ function Index() {
 			<Page.Header>Home</Page.Header>
 			<Page.Content>
 				<div className="space-y-6">
-					<DeploymentInfoCard />
 					<SystemInfoCard />
 					<SystemStatsCard />
+					<DeploymentInfoCard />
 				</div>
 			</Page.Content>
 		</>

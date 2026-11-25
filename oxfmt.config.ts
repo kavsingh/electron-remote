@@ -13,7 +13,7 @@ export default defineConfig({
 		"**/*.gen.*",
 		"**/__generated__/**",
 		"!**/__generated__/mocks/**",
-		"**/pnpm-*.yaml",
+		"**/pnpm-lock.yaml",
 	],
 	printWidth: 80,
 	useTabs: true,
@@ -30,5 +30,6 @@ export default defineConfig({
 	},
 	overrides: [
 		{ files: ["*.{json,jsonc}"], options: { trailingComma: "none" } },
+		{ files: ["./pnpm-workspace.yaml"], options: { singleQuote: true } },
 	],
 });

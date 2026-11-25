@@ -1,7 +1,16 @@
 # pnpm
+/adopt-rtk-query
+/build-slices-and-selectors
+/debug-redux-toolkit-apps
+/design-state-ownership
 /devtools-vite-plugin
+/handle-side-effects
 /migrate-from-react-router
+/migrate-to-modern-redux
+/modern-redux
 /react-router
+/redux-dataflow
 /router-plugin
 /router-query
+/tsdown
 # pnpm end

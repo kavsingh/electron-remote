@@ -13,29 +13,29 @@ savePrefix: ''
 
 catalog:
   '@playwright/test': 1.65.1
-  '@reduxjs/toolkit': 2.14.0
+  '@reduxjs/toolkit': 2.15.0
   '@tailwindcss/vite': 4.3.5
-  '@tanstack/devtools-vite': 0.8.6
+  '@tanstack/devtools-vite': 0.8.7
   '@tanstack/eslint-plugin-router': 1.162.0
-  '@tanstack/react-devtools': 0.10.14
+  '@tanstack/react-devtools': 0.10.15
   '@tanstack/react-router': 1.170.46
-  '@tanstack/react-router-devtools': 1.167.3
+  '@tanstack/react-router-devtools': 1.167.4
   '@tanstack/router-cli': 1.168.0
   '@tanstack/router-plugin': 1.169.0
   '@testing-library/dom': 10.4.2
-  '@testing-library/jest-dom': 7.0.1
+  '@testing-library/jest-dom': 8.0.0
   '@testing-library/react': 16.3.3
-  '@testing-library/user-event': 14.6.10
+  '@testing-library/user-event': 14.6.13
   '@types/babel__core': 7.20.5
   '@types/react': 19.3.0
   '@types/react-dom': 19.3.0
   '@vitejs/plugin-react': 6.3.0
-  '@vitest/coverage-v8': 5.1.0
+  '@vitest/coverage-v8': 5.1.1
   citty: 0.2.2
-  electron: 45.3.2
+  electron: 45.4.1
   electron-log: 5.4.4
   eslint-plugin-better-tailwindcss: 4.11.0
-  eslint-plugin-jest-dom: 5.10.2
+  eslint-plugin-jest-dom: 5.11.0
   eslint-plugin-playwright: 2.12.2
   eslint-plugin-testing-library: 7.16.2
   jsdom: 31.0.1
@@ -43,20 +43,20 @@ catalog:
   mutative: 2.0.2
   neverthrow: 8.2.0
   oxc-transform-react: 0.158.0
-  oxfmt: 0.78.0
-  oxlint: 1.93.0
-  oxlint-tsgolint: 7.0.2007
+  oxfmt: 0.79.0
+  oxlint: 1.94.0
+  oxlint-tsgolint: 7.0.2008
   react: 19.3.1
   react-dom: 19.3.1
   react-redux: 9.3.1
-  superjson: 2.2.6
+  superjson: 2.2.7
   tailwind-variants: 4.0.2
   tailwindcss: 4.3.5
-  terser: 5.51.2
+  terser: 5.51.4
   tsdown: 0.23.7
   vite: 8.3.8
   vite-plugin-bundle-obfuscator: 1.14.0
-  vitest: 5.1.0
+  vitest: 5.1.1
   wait-on: 9.5.1
   zod: 4.6.7
   zx: 8.8.5
@@ -67,11 +67,25 @@ allowBuilds:
   lefthook: true
 
 permissions:
+  '@reduxjs/toolkit':
+    skills:
+      [
+        adopt-rtk-query,
+        build-slices-and-selectors,
+        debug-redux-toolkit-apps,
+        design-state-ownership,
+        handle-side-effects,
+        migrate-to-modern-redux,
+        modern-redux,
+        redux-dataflow,
+      ]
   '@tanstack/devtools-vite':
     skills: true
   '@tanstack/react-router':
     skills: true
   '@tanstack/router-plugin':
+    skills: true
+  tsdown:
     skills: true
 
 skills:
